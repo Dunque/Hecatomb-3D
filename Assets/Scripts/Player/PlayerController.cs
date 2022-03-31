@@ -65,9 +65,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float knockback;
     [SerializeField] public float damage;
 
-    [Header("PK")]
-    [SerializeField] public GameObject PKFireCharge;
-
     [Header("Aiming")]
     [SerializeField] private Camera m_Camera;
     [SerializeField] private MouseLook mouseLook = new MouseLook();
@@ -239,7 +236,7 @@ public class PlayerController : MonoBehaviour
         //Parry ground & air
         if (Input.GetButtonDown("Fire2"))
         {
-            anim.Play("Parry");
+            anim.Play("Shoot");
         }
     }
 
@@ -257,7 +254,7 @@ public class PlayerController : MonoBehaviour
         //Parry ground & air
         if (Input.GetButtonDown("Fire2"))
             {
-                anim.Play("Parry");
+                anim.Play("Shoot");
             }
 
         //Dashing attacks
@@ -306,10 +303,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    anim.Play("PKFire");
-                    GameObject pkfirecharge = Instantiate(PKFireCharge, leftHand) as GameObject;
-                    pkfirecharge.transform.position = leftHand.position;
-                    audio_PKCharge.Play();
+                    anim.Play("Parry");
                 }
                 if (Input.GetKeyDown(KeyCode.E))
                 {
@@ -366,10 +360,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Q))
             {
-                anim.Play("PKFire");
-                GameObject pkfirecharge = Instantiate(PKFireCharge, leftHand) as GameObject;
-                pkfirecharge.transform.position = leftHand.position;
-                audio_PKCharge.Play();
+                anim.Play("Parry");
             }
             if (Input.GetKeyDown(KeyCode.E))
             {
