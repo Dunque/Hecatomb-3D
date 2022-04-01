@@ -70,7 +70,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private MouseLook mouseLook = new MouseLook();
 
     [Header("Sound")]
-    [SerializeField] public AudioSource audio_PKCharge;
+    [SerializeField] public AudioSource audio_Shotgun1;
+    [SerializeField] public AudioSource audio_Shotgun2;
     [SerializeField] public AudioSource audio_SV;
     [SerializeField] public AudioSource audio_SV2;
     [SerializeField] public AudioSource audio_SV3;
@@ -142,21 +143,18 @@ public class PlayerController : MonoBehaviour
         right.Normalize();
         desiredVelocity = (forward * playerInput.y + right * playerInput.x) * maxSpeed;
 
-        //Activating jumps
-        //QueueJump();
-
+        //Dodging timer
         if (!canDodge || isDashing)
         {
             DodgeCooldown();
         }
 
+        //Coyote time
         if (OnGround)
         {
             //Coyote time
             coyoteTimer = coyoteTime;
             canJump = true;
-
-            //Dodge();
         }
         else
         {
@@ -184,7 +182,9 @@ public class PlayerController : MonoBehaviour
 
         ClearState();
     }
+
     //------------------------------------------------------------------------------------------------
+
     private void DodgeCooldown()
     {
         if (dodgeTimer > 0)
@@ -218,7 +218,6 @@ public class PlayerController : MonoBehaviour
         {
             canJump = false;
             coyoteTimer = 0;
-            //State.ToState(this, airborneState);
         }
     }
 
@@ -233,206 +232,10 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("holdAir", false);
         }
 
-        //Parry ground & air
+        //Shoot
         if (Input.GetButtonDown("Fire2"))
         {
             anim.Play("Shoot");
-        }
-    }
-
-    private void SwingBlade()
-    {
-        //Stop charging attacks upon button release
-        if (!Input.GetButton("Fire1"))
-        {
-            anim.SetBool("holdV", false);
-            anim.SetBool("2holdV", false);
-            anim.SetBool("holdH", false);
-            anim.SetBool("holdAir", false);
-        }
-
-        //Parry ground & air
-        if (Input.GetButtonDown("Fire2"))
-            {
-                anim.Play("Shoot");
-            }
-
-        //Dashing attacks
-        if (isDashing)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                if (playerInput.y >= 0f)
-                {
-                    anim.Play("Stinger");
-                    knockback = 5f;
-                    damage = 10f;
-                }
-                else
-                {
-                    anim.Play("HTime");
-                    knockback = 5f;
-                    damage = 10f;
-                }
-
-            }
-        }
-
-        //Aerial attack
-        if (!OnGround)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                anim.Play("AirSwing");
-                anim.SetBool("holdAir", true);
-                knockback = 5f;
-                damage = 10f;
-            }
-        }
-        //Grounded 3 hit combo
-        else if (!isDashing && OnGround)
-        {
-            if (canAttack)
-            {
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    anim.Play("SwingV");
-                    anim.SetBool("holdV", true);
-                    knockback = 5f;
-                    damage = 10f;
-                }
-                else if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    anim.Play("Parry");
-                }
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    anim.Play("Stinger");
-                    knockback = 5f;
-                    damage = 10f;
-                }
-                if (Input.GetKeyDown(KeyCode.F))
-                {
-                    anim.Play("HTime");
-                    knockback = 5f;
-                    damage = 10f;
-                }
-            }
-
-            if (canCombo)
-            {
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    canCombo = false;
-                    anim.applyRootMotion = false;
-                    anim.CrossFade("2SwingV", 0.2f);
-                    anim.SetBool("2holdV", true);
-                    knockback = 6.5f;
-                    damage = 12f;
-                }
-            }
-
-            if (canCombo2)
-            {
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    canCombo2 = false;
-                    anim.applyRootMotion = false;
-                    anim.CrossFade("SwingH", 0.2f);
-                    anim.SetBool("holdH", true);
-                    knockback = 9f;
-                    damage = 20f;
-                }
-            }
-        }
-    }
-
-    public void SwingGroundCombos()
-    {
-        if (canAttack)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                anim.Play("SwingV");
-                anim.SetBool("holdV", true);
-                knockback = 5f;
-                damage = 10f;
-            }
-            else if (Input.GetKeyDown(KeyCode.Q))
-            {
-                anim.Play("Parry");
-            }
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                anim.Play("Stinger");
-                knockback = 5f;
-                damage = 10f;
-            }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                anim.Play("HTime");
-                knockback = 5f;
-                damage = 10f;
-            }
-        }
-
-        if (canCombo)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                canCombo = false;
-                anim.applyRootMotion = false;
-                anim.CrossFade("2SwingV", 0.2f);
-                anim.SetBool("2holdV", true);
-                knockback = 6.5f;
-                damage = 12f;
-            }
-        }
-
-        if (canCombo2)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                canCombo2 = false;
-                anim.applyRootMotion = false;
-                anim.CrossFade("SwingH", 0.2f);
-                anim.SetBool("holdH", true);
-                knockback = 9f;
-                damage = 20f;
-            }
-        }
-    }
-
-    public void SwingAirborne()
-    {
-        if (canAirAttack)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                anim.Play("AirSwing");
-                anim.SetBool("holdAir", true);
-                knockback = 5f;
-                damage = 10f;
-            }
-        }
-    }
-
-    public void SwingDashing()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            if (playerInput.y >= 0f)
-            {
-                anim.Play("Stinger");
-                knockback = 5f;
-                damage = 10f;
-            }
-            else
-            {
-                anim.Play("HTime");
-                knockback = 5f;
-                damage = 10f;
-            }
         }
     }
 

@@ -18,7 +18,7 @@ public class AirborneState : PlayerState
 
     public override void HandleInput(PlayerController character)
     {
-        character.SwingAirborne();
+        SwingAirborne();
 
         if (Input.GetButtonUp("Jump") && !character.OnGround)     // Player stops pressing the jump button
             character.jumpCancel = true;
@@ -34,4 +34,17 @@ public class AirborneState : PlayerState
     {
     }
 
+    private void SwingAirborne()
+    {
+        if (character.canAirAttack)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                character.anim.Play("AirSwing");
+                character.anim.SetBool("holdAir", true);
+                character.knockback = 5f;
+                character.damage = 10f;
+            }
+        }
+    }
 }

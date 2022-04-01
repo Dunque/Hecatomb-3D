@@ -149,6 +149,7 @@ public class AnimatorEvents : MonoBehaviour
     {
         controller.audio_SH.Play();
     }
+
     public void Event_SFX_Stinger()
     {
         int n;
@@ -163,6 +164,23 @@ public class AnimatorEvents : MonoBehaviour
                 controller.audio_Stinger2.Play();
                 break;
         }
+    }
+
+    public void Event_SFX_Shotgun()
+    {
+        int n;
+
+        n = Random.Range(0, 2);
+        switch (n)
+        {
+            case (0):
+                controller.audio_Shotgun1.Play();
+                break;
+            case (1):
+                controller.audio_Shotgun2.Play();
+                break;
+        }
+
     }
 
     // ----------------------------------- AirDash

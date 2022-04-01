@@ -18,7 +18,7 @@ public class DashingState : PlayerState
 
     public override void HandleInput(PlayerController character)
     {
-        character.SwingDashing();
+        SwingDashing();
 
         if (Input.GetButtonDown("Jump") && character.canJump) // Player starts pressing the button
         {
@@ -58,7 +58,7 @@ public class DashingState : PlayerState
         }
     }
 
-    void SFX_Dash()
+    private void SFX_Dash()
     {
         int n;
 
@@ -74,4 +74,22 @@ public class DashingState : PlayerState
         }
     }
 
+    private void SwingDashing()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            if (character.playerInput.y >= 0f)
+            {
+                character.anim.Play("Stinger");
+                character.knockback = 5f;
+                character.damage = 10f;
+            }
+            else
+            {
+                character.anim.Play("HTime");
+                character.knockback = 5f;
+                character.damage = 10f;
+            }
+        }
+    }
 }
