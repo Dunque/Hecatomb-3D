@@ -34,6 +34,17 @@ public class DummyTarget : MonoBehaviour
         }
     }
 
+    private void ReceiveDamage(float damage)
+    {
+        hp -= damage;
+
+        if (hp <= 0f)
+        {
+            isDead = true;
+            body.constraints = RigidbodyConstraints.None;
+            renderer.material.SetColor("_BaseColor", Color.grey);
+        }
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -52,20 +63,21 @@ public class DummyTarget : MonoBehaviour
             renderer.material.SetColor("_BaseColor", Color.red);
             isHit = true;
 
-            Vector3 dir = transform.position - collider.gameObject.GetComponentInParent<PlayerController>().transform.position;
-            //Vector3 dir = transform.position - collider.transform.position;
-            hp -= collider.gameObject.GetComponentInParent<PlayerController>().damage;
+            //Getting the data from the damaging hitbox
+            HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();
 
-            dir = dir.normalized;
-            body.velocity += dir * collider.gameObject.GetComponentInParent<PlayerController>().knockback;
-            //* collider.GetComponentInParent<PlayerController>().body.velocity.magnitude
+            ReceiveDamage(hbs.damage);
+
+            if (hbs.knockbackDir != Vector3.zero)
+                body.velocity += hbs.knockbackDir * hbs.knockback;
+            else
+            {
+                Vector3 dir = transform.position - collider.gameObject.GetComponentInParent<PlayerController>().transform.position;
+                body.velocity += dir.normalized * hbs.knockback;
+            }
         }
 
     }
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    Debug.Log("An object left.");
-    //}
 
     // Update is called once per frame
     void Update()
@@ -82,14 +94,6 @@ public class DummyTarget : MonoBehaviour
             {
                 ColorCooldown();
             }
-        }
-            
-
-        if (hp <= 0f) {
-            isDead = true;
-            body.constraints = RigidbodyConstraints.None;
-            renderer.material.SetColor("_BaseColor", Color.black);
-            //Destroy(gameObject);
         }
         
     }

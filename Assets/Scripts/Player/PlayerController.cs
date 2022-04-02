@@ -7,9 +7,8 @@ public class PlayerController : MonoBehaviour
     [Header("State Machine")]
     [SerializeField] public PlayerState state;
     [SerializeField] public PlayerState State { get => state; set => state = value; }
-    public GroundedState groundedState;
-    public DashingState dashingState;
-    public AirborneState airborneState;
+    [SerializeField] public GroundedState groundedState;
+    [SerializeField] public AirborneState airborneState;
 
     [Header("References")]
     public Rigidbody body;
@@ -29,13 +28,8 @@ public class PlayerController : MonoBehaviour
     public Vector3 contactNormal, steepNormal;
 
     [Header("Jump")]
-    [SerializeField, Range(0f, 10f)] public float jumpHeightShort = 3f;   // Velocity for the lowest jump
     [SerializeField, Range(0f, 10f)] public float jumpHeight = 5f;          // Velocity for the highest jump
-    [SerializeField] public float coyoteTime = 0.15f;
-    [SerializeField] public float coyoteTimer = 0f;
-    [SerializeField] public bool canJump;
     public bool jump = false;
-    public bool jumpCancel = false;
 
     [Header("Ground Stuff")]
     [SerializeField, Range(0, 90)] public float maxGroundAngle = 40f, maxStairsAngle = 50f;
@@ -62,8 +56,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public bool canAirAttack;
     [SerializeField] public bool canCombo;
     [SerializeField] public bool canCombo2;
-    [SerializeField] public float knockback;
-    [SerializeField] public float damage;
+    [SerializeField] public HitboxStats weaponHitbox;
 
     [Header("Aiming")]
     [SerializeField] private Camera m_Camera;
@@ -90,7 +83,6 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         groundedState = new GroundedState(this);
-        dashingState = new DashingState(this);
         airborneState = new AirborneState(this);
 
         State = groundedState;
@@ -116,7 +108,7 @@ public class PlayerController : MonoBehaviour
         mouseLook.Init(trans, camTrans);
     }
 
-    public void HandleInput(Input input)
+    public void HandleInput()
     {
         State.HandleInput(this);
     }
@@ -149,21 +141,7 @@ public class PlayerController : MonoBehaviour
             DodgeCooldown();
         }
 
-        //Coyote time
-        if (OnGround)
-        {
-            //Coyote time
-            coyoteTimer = coyoteTime;
-            canJump = true;
-        }
-        else
-        {
-            //Start decreasing coyote time
-            CoyoteCooldown();
-        }
-
-        //Swing blade.
-        //SwingBlade();
+        //Button release.
         SwingRelease();
 
         //Change color
@@ -173,14 +151,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        UpdateState();
+        UpdateGroundCheck();
         AdjustVelocity();
 
         State.FixedUpdate(this);
 
         body.velocity = velocity;
 
-        ClearState();
+        ClearGroundCheck();
     }
 
     //------------------------------------------------------------------------------------------------
@@ -208,19 +186,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void CoyoteCooldown()
-    {
-        if (coyoteTimer > 0)
-        {
-            coyoteTimer -= Time.deltaTime;
-        }
-        else
-        {
-            canJump = false;
-            coyoteTimer = 0;
-        }
-    }
-
     void SwingRelease()
     {
         //Stop charging attacks upon button release
@@ -230,12 +195,6 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("2holdV", false);
             anim.SetBool("holdH", false);
             anim.SetBool("holdAir", false);
-        }
-
-        //Shoot
-        if (Input.GetButtonDown("Fire2"))
-        {
-            anim.Play("Shoot");
         }
     }
 
@@ -272,13 +231,13 @@ public class PlayerController : MonoBehaviour
 
     //----------------------------------------------------------------------------------------------------------
 
-    void ClearState()
+    void ClearGroundCheck()
     {
         groundContactCount = steepContactCount = 0;
         contactNormal = steepNormal = Vector3.zero;
     }
 
-    void UpdateState()
+    void UpdateGroundCheck()
     {
         stepsSinceLastGrounded += 1;
         stepsSinceLastJump += 1;
@@ -294,7 +253,6 @@ public class PlayerController : MonoBehaviour
         {
             if (State == groundedState)
                 State.ToState(this, airborneState);
-            //contactNormal = Vector3.up;
         }
     }
 

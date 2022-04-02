@@ -22,15 +22,13 @@ public class GroundedState : PlayerState
 
         SwingGroundCombos();
 
-        if (Input.GetButtonDown("Fire3") && ((character.playerInput.x != 0f) || (character.playerInput.y != 0f)) && character.OnGround && character.canDodge)
+        if (Input.GetButtonDown("Fire3") && ((character.playerInput.x != 0f) || (character.playerInput.y != 0f)) && character.canDodge)
         {
             character.dashed = false;
-            ToState(character, character.dashingState);
         }
-        if (Input.GetButtonDown("Jump") && character.canJump) // Player starts pressing the button
+        if (Input.GetButtonDown("Jump"))
         {
             character.jump = true;
-            character.canJump = false;
         }
     }
 
@@ -41,7 +39,11 @@ public class GroundedState : PlayerState
 
     public override void FixedUpdate(PlayerController character)
     {
-        Jump();
+        if (character.jump)
+            Jump();
+
+        if (!character.dashed)
+            Dash();
     }
 
     private void SwingGroundCombos()
@@ -52,8 +54,9 @@ public class GroundedState : PlayerState
             {
                 character.anim.Play("SwingV");
                 character.anim.SetBool("holdV", true);
-                character.knockback = 5f;
-                character.damage = 10f;
+                character.weaponHitbox.knockback = 5f;
+                character.weaponHitbox.knockbackDir = Vector3.zero;
+                character.weaponHitbox.damage = 10f;
             }
             else if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -62,14 +65,16 @@ public class GroundedState : PlayerState
             if (Input.GetKeyDown(KeyCode.E))
             {
                 character.anim.Play("Stinger");
-                character.knockback = 5f;
-                character.damage = 10f;
+                character.weaponHitbox.knockback = 8f;
+                character.weaponHitbox.knockbackDir = Vector3.zero;
+                character.weaponHitbox.damage = 10f;
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
                 character.anim.Play("HTime");
-                character.knockback = 5f;
-                character.damage = 10f;
+                character.weaponHitbox.knockback = 12f;
+                character.weaponHitbox.knockbackDir = Vector3.up;
+                character.weaponHitbox.damage = 10f;
             }
         }
 
@@ -81,8 +86,9 @@ public class GroundedState : PlayerState
                 character.anim.applyRootMotion = false;
                 character.anim.CrossFade("2SwingV", 0.2f);
                 character.anim.SetBool("2holdV", true);
-                character.knockback = 6.5f;
-                character.damage = 12f;
+                character.weaponHitbox.knockback = 6.5f;
+                character.weaponHitbox.knockbackDir = Vector3.zero;
+                character.weaponHitbox.damage = 12f;
             }
         }
 
@@ -94,36 +100,65 @@ public class GroundedState : PlayerState
                 character.anim.applyRootMotion = false;
                 character.anim.CrossFade("SwingH", 0.2f);
                 character.anim.SetBool("holdH", true);
-                character.knockback = 9f;
-                character.damage = 20f;
+                character.weaponHitbox.knockback = 9f;
+                character.weaponHitbox.knockbackDir = Vector3.zero;
+                character.weaponHitbox.damage = 20f;
             }
         }
+
+        if (Input.GetButtonDown("Fire2"))
+            character.anim.Play("Shoot");
+    }
+    private void SFX_Dash()
+    {
+        int n;
+
+        n = Random.Range(0, 2);
+        switch (n)
+        {
+            case (0):
+                character.audio_Dash1.Play();
+                break;
+            case (1):
+                character.audio_Dash2.Play();
+                break;
+        }
+    }
+
+    private void Dash()
+    {
+        var wishdir = new Vector3(character.playerInput.x, 0, character.playerInput.y);
+        wishdir = character.trans.TransformDirection(wishdir);
+        wishdir.Normalize();
+
+        if (character.playerInput.x < 0f)
+            character.shake.ShakeCamera(character.shake.DoShakeDashL);
+        else if (character.playerInput.x > 0f)
+            character.shake.ShakeCamera(character.shake.DoShakeDashR);
+
+        character.velocity += wishdir * character.dodgeAmount;
+        character.canDodge = false;
+        character.isDashing = true;
+        character.dodgeTimer = character.dodgeCooldown;
+        character.isDashingTimer = character.dodgeCooldown - 0.4f;
+        character.dashed = true;
+        SFX_Dash();
     }
 
     private void Jump()
     {
-        if (character.jump)
-        {
-            Vector3 jumpDirection = Vector3.up;
+        character.jump = false;
 
-            character.jump = false;
+        Vector3 jumpDirection = Vector3.up;
 
-            character.stepsSinceLastJump = 0;
-            float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * character.jumpHeight);
-            jumpDirection = (jumpDirection + Vector3.up).normalized;
-            float alignedSpeed = Vector3.Dot(character.velocity, jumpDirection);
-            if (alignedSpeed > 0f)
-            {
-                jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
-            }
-            character.velocity += jumpDirection * jumpSpeed;
-        }
-        // Cancel the jump when the button is no longer pressed
-        if (character.jumpCancel)
+         character.stepsSinceLastJump = 0;
+        float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * character.jumpHeight);
+        jumpDirection = (jumpDirection + Vector3.up).normalized;
+        float alignedSpeed = Vector3.Dot(character.velocity, jumpDirection);
+        if (alignedSpeed > 0f)
         {
-            if (character.velocity.y > character.jumpHeightShort)
-                character.velocity.y = character.jumpHeightShort;
-            character.jumpCancel = false;
+            jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
         }
+        character.velocity += jumpDirection * jumpSpeed;
     }
 }

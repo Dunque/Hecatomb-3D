@@ -33,51 +33,6 @@ Transform:
   m_Father: {fileID: 9219611997336020774}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3371402555041308559
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9074251584715783012}
-  - component: {fileID: 2551916798187113640}
-  m_Layer: 0
-  m_Name: HTB_Stinger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9074251584715783012
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3371402555041308559}
-  m_LocalRotation: {x: 0.67160165, y: -0.43208456, z: 0.4743426, w: 0.37047708}
-  m_LocalPosition: {x: -1.2330831, y: 1.2851542, z: 5.3049026}
-  m_LocalScale: {x: 10.924948, y: 11.028358, z: 10.138219}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5866021337509704730}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2551916798187113640
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3371402555041308559}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.05, z: 0.10480643}
-  m_Center: {x: -1.2468886e-16, y: 1.2468885e-16, z: 0.02740321}
 --- !u!1 &4968314516843410505
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +141,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9168269752662353770}
-  - {fileID: 9074251584715783012}
   m_Father: {fileID: 9219611997336020774}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
