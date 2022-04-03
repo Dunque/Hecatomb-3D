@@ -72,7 +72,7 @@ public class GroundedState : PlayerState
             if (Input.GetKeyDown(KeyCode.F))
             {
                 character.anim.Play("HTime");
-                character.weaponHitbox.knockback = 12f;
+                character.weaponHitbox.knockback = 15f;
                 character.weaponHitbox.knockbackDir = Vector3.up;
                 character.weaponHitbox.damage = 10f;
             }
