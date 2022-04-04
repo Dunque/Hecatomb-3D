@@ -36,6 +36,7 @@ public class AnimatorEvents : MonoBehaviour
     {
         controller.canAttack = true;
     }
+
     public void Event_DisableAirAttack()
     {
         controller.canAirAttack = false;
@@ -46,24 +47,15 @@ public class AnimatorEvents : MonoBehaviour
         controller.canAirAttack = true;
     }
 
-    // ------------------------------ Disable / Enable combos
-    public void Event_DisableCombo()
+    // ------------------------------ Next combo attack
+    public void Event_NextCombo()
     {
-        controller.canCombo = false;
-    }
+        controller.canAttack = true;
 
-    public void Event_EnableCombo()
-    {
-        controller.canCombo = true;
-    }
-    public void Event_DisableCombo2()
-    {
-        controller.canCombo2 = false;
-    }
-
-    public void Event_EnableCombo2()
-    {
-        controller.canCombo2 = true;
+        if (controller.currentCombo == 2)
+            controller.currentCombo = 0;
+        else
+            controller.currentCombo++;
     }
 
     // ------------------------------ Speed related

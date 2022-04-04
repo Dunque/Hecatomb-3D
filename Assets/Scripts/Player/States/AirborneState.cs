@@ -37,8 +37,8 @@ public class AirborneState : PlayerState
             if (Input.GetButtonDown("Fire1"))
             {
                 character.anim.Play("AirSwing");
-                character.anim.SetBool("holdAir", true);
-                character.weaponHitbox.knockback = 5f;
+                character.anim.SetBool("holding", true);
+                character.weaponHitbox.knockback = 15f;
                 character.weaponHitbox.knockbackDir = Vector3.down;
                 character.weaponHitbox.damage = 10f;
             }

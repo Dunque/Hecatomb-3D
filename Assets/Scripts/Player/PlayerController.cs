@@ -51,12 +51,20 @@ public class PlayerController : MonoBehaviour
     public bool dashed = false;
     [SerializeField] public float airDashAmount = 5f;
 
+    public struct GroundAttackData
+    {
+        public string[] animName;
+        public float[] knockback;
+        public Vector3[] knockbackDir;
+        public float[] damage;
+    };
+
     [Header("Combat")]
-    [SerializeField] public bool canAttack;
-    [SerializeField] public bool canAirAttack;
-    [SerializeField] public bool canCombo;
-    [SerializeField] public bool canCombo2;
+    [SerializeField] public GroundAttackData groundAttackData;
     [SerializeField] public HitboxStats weaponHitbox;
+    [SerializeField] public int currentCombo;
+    [SerializeField] public bool canAirAttack;
+    [SerializeField] public bool canAttack;
 
     [Header("Aiming")]
     [SerializeField] private Camera m_Camera;
@@ -82,6 +90,13 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        //initialize attack data
+        groundAttackData.animName = new string[]{ "SwingV", "2SwingV", "SwingH"};
+        groundAttackData.knockback = new float[]{ 5f, 6.5f, 10f};
+        groundAttackData.knockbackDir = new Vector3[]{ Vector3.zero, Vector3.zero, Vector3.zero};
+        groundAttackData.damage = new float[]{ 10f, 12f, 20f};
+
+        //initialize states
         groundedState = new GroundedState(this);
         airborneState = new AirborneState(this);
 
@@ -191,10 +206,7 @@ public class PlayerController : MonoBehaviour
         //Stop charging attacks upon button release
         if (!Input.GetButton("Fire1"))
         {
-            anim.SetBool("holdV", false);
-            anim.SetBool("2holdV", false);
-            anim.SetBool("holdH", false);
-            anim.SetBool("holdAir", false);
+            anim.SetBool("holding", false);
         }
     }
 

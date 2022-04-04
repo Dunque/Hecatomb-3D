@@ -52,11 +52,11 @@ public class GroundedState : PlayerState
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                character.anim.Play("SwingV");
-                character.anim.SetBool("holdV", true);
-                character.weaponHitbox.knockback = 5f;
-                character.weaponHitbox.knockbackDir = Vector3.zero;
-                character.weaponHitbox.damage = 10f;
+                character.anim.Play(character.groundAttackData.animName[character.currentCombo]);
+                character.anim.SetBool("holding", true);
+                character.weaponHitbox.knockback = character.groundAttackData.knockback[character.currentCombo];
+                character.weaponHitbox.knockbackDir = character.groundAttackData.knockbackDir[character.currentCombo];
+                character.weaponHitbox.damage = character.groundAttackData.damage[character.currentCombo];
             }
             else if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -76,38 +76,9 @@ public class GroundedState : PlayerState
                 character.weaponHitbox.knockbackDir = Vector3.up;
                 character.weaponHitbox.damage = 10f;
             }
+            if (Input.GetButtonDown("Fire2"))
+                character.anim.Play("Shoot");
         }
-
-        if (character.canCombo)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                character.canCombo = false;
-                character.anim.applyRootMotion = false;
-                character.anim.CrossFade("2SwingV", 0.2f);
-                character.anim.SetBool("2holdV", true);
-                character.weaponHitbox.knockback = 6.5f;
-                character.weaponHitbox.knockbackDir = Vector3.zero;
-                character.weaponHitbox.damage = 12f;
-            }
-        }
-
-        if (character.canCombo2)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                character.canCombo2 = false;
-                character.anim.applyRootMotion = false;
-                character.anim.CrossFade("SwingH", 0.2f);
-                character.anim.SetBool("holdH", true);
-                character.weaponHitbox.knockback = 9f;
-                character.weaponHitbox.knockbackDir = Vector3.zero;
-                character.weaponHitbox.damage = 20f;
-            }
-        }
-
-        if (Input.GetButtonDown("Fire2"))
-            character.anim.Play("Shoot");
     }
     private void SFX_Dash()
     {
@@ -160,5 +131,6 @@ public class GroundedState : PlayerState
             jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
         }
         character.velocity += jumpDirection * jumpSpeed;
+        SFX_Dash();
     }
 }
