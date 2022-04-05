@@ -34,7 +34,6 @@ public class GroundedState : PlayerState
 
     public override void Update(PlayerController character)
     {
-        HandleInput(character);
     }
 
     public override void FixedUpdate(PlayerController character)
@@ -66,18 +65,18 @@ public class GroundedState : PlayerState
             {
                 character.anim.Play("Stinger");
                 character.weaponHitbox.knockback = 8f;
-                character.weaponHitbox.knockbackDir = Vector3.zero;
+                character.weaponHitbox.knockbackDir = character.playerForward;
                 character.weaponHitbox.damage = 10f;
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
                 character.anim.Play("HTime");
-                character.weaponHitbox.knockback = 15f;
-                character.weaponHitbox.knockbackDir = Vector3.up;
+                character.weaponHitbox.knockback = 12f;
+                character.weaponHitbox.knockbackDir = (0.9f * Vector3.up + 0.1f * character.playerForward).normalized;
                 character.weaponHitbox.damage = 10f;
             }
             if (Input.GetButtonDown("Fire2"))
-                character.anim.Play("Shoot");
+                character.anim.Play(character.gunList[character.currentGun].GetComponent<Gun>().animName);
         }
     }
     private void SFX_Dash()
@@ -118,11 +117,15 @@ public class GroundedState : PlayerState
 
     private void Jump()
     {
+        //We only play the jumping animation if we are in the idle state.
+        if (character.anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            character.anim.Play("Jumping");
+        
         character.jump = false;
 
         Vector3 jumpDirection = Vector3.up;
 
-         character.stepsSinceLastJump = 0;
+        character.stepsSinceLastJump = 0;
         float jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * character.jumpHeight);
         jumpDirection = (jumpDirection + Vector3.up).normalized;
         float alignedSpeed = Vector3.Dot(character.velocity, jumpDirection);

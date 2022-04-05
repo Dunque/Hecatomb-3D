@@ -14,18 +14,23 @@ public class AnimatorEvents : MonoBehaviour
     public Collider hitboxStinger;
     public ParticleSystem swordTrail;
 
-    // ------------------------------ Rootmotion
-    public void Event_RestoreRootAnim()
+    void Awake()
     {
-        anim.applyRootMotion = true;
-        wpnswy.enabled = true;
+        wpnswy = GetComponentInChildren<WeaponSway>();
+        hitbox = GetComponentInChildren<BoxCollider>();
+        anim = GetComponentInChildren<Animator>();
+        controller = GetComponentInParent<PlayerController>();
+        defaultSpeed = controller.maxSpeed;
+        halfSpeed = defaultSpeed * 0.75f;
+        shake = GetComponentInParent<HeadBob>();
+        swordTrail.Stop();
     }
-    public void Event_DisableRootAnim()
+    //------------------------------- Shooting
+    public void Event_Shoot()
     {
-        anim.applyRootMotion = false;
-        wpnswy.enabled = false;
+        controller.gunList[controller.currentGun].GetComponent<Gun>().Shoot();
     }
-
+    
     // ------------------------------ Disable / Enable attacks
     public void Event_DisableAttack()
     {
@@ -47,7 +52,7 @@ public class AnimatorEvents : MonoBehaviour
         controller.canAirAttack = true;
     }
 
-    // ------------------------------ Next combo attack
+    // ------------------------------ Combo attack
     public void Event_NextCombo()
     {
         controller.canAttack = true;
@@ -56,6 +61,13 @@ public class AnimatorEvents : MonoBehaviour
             controller.currentCombo = 0;
         else
             controller.currentCombo++;
+    }
+
+    public void Event_ResetCombo()
+    {
+        controller.canAttack = true;
+
+        controller.currentCombo = 0;
     }
 
     // ------------------------------ Speed related
@@ -175,6 +187,23 @@ public class AnimatorEvents : MonoBehaviour
 
     }
 
+    public void Event_SFX_Revolver()
+    {
+        int n;
+
+        n = Random.Range(0, 2);
+        switch (n)
+        {
+            case (0):
+                controller.audio_Revolver1.Play();
+                break;
+            case (1):
+                controller.audio_Revolver1.Play();
+                break;
+        }
+
+    }
+
     // ----------------------------------- AirDash
     public void AirDash()
     {
@@ -183,19 +212,6 @@ public class AnimatorEvents : MonoBehaviour
 
         //controller.body.velocity += wishdir * controller.airDashAmount;
         controller.body.AddForce(wishdir * controller.airDashAmount);
-    }
-
-    // ------------------------------ Awake
-    void Awake()
-    {
-        wpnswy = GetComponentInChildren<WeaponSway>();
-        hitbox = GetComponentInChildren<BoxCollider>();
-        anim = GetComponentInChildren<Animator>();
-        controller = GetComponentInParent<PlayerController>();
-        defaultSpeed = controller.maxSpeed;
-        halfSpeed = defaultSpeed * 0.5f;
-        shake = GetComponentInParent<HeadBob>();
-        swordTrail.Stop();
     }
 
 }

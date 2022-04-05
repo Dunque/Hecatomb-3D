@@ -8,16 +8,12 @@ public class DummyTarget : MonoBehaviour
     public new Renderer renderer;
     public Rigidbody body;
     public Collider hitbox;
+    public EntityStats entityStats;
 
-    public bool isHit;
-
-    public bool isDead;
+    float hp;
 
     public float colorTime = 0.1f;
     public float colorTimer = 0f;
-
-    [Header("Stats")]
-    [SerializeField] public float hp = 50f;
 
 
     private void ColorCooldown()
@@ -28,23 +24,11 @@ public class DummyTarget : MonoBehaviour
         }
         else
         {
-            isHit = false;
             renderer.material.SetColor("_BaseColor", Color.white);
             colorTimer = 0;
         }
     }
 
-    private void ReceiveDamage(float damage)
-    {
-        hp -= damage;
-
-        if (hp <= 0f)
-        {
-            isDead = true;
-            body.constraints = RigidbodyConstraints.None;
-            renderer.material.SetColor("_BaseColor", Color.grey);
-        }
-    }
 
     // Start is called before the first frame update
     void Awake()
@@ -52,28 +36,26 @@ public class DummyTarget : MonoBehaviour
         renderer = GetComponent<Renderer>();
         hitbox = GetComponent<CapsuleCollider>();
         body = GetComponent<Rigidbody>();
-        isDead = false;
+        entityStats = GetComponent<EntityStats>();
 
+        hp = entityStats.maxHp;
     }
 
+    //Physical colliders, like melee weapons or explosions
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == "hitbox")
         {
-            renderer.material.SetColor("_BaseColor", Color.red);
-            isHit = true;
-
             //Getting the data from the damaging hitbox
             HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();
 
-            ReceiveDamage(hbs.damage);
+            entityStats.ReceiveDamage(hbs.damage);
 
             if (hbs.knockbackDir != Vector3.zero)
-                body.velocity += hbs.knockbackDir * hbs.knockback;
+                entityStats.ReceiveKnockback(hbs.knockback, hbs.knockbackDir);
             else
             {
-                Vector3 dir = transform.position - collider.gameObject.GetComponentInParent<PlayerController>().transform.position;
-                body.velocity += dir.normalized * hbs.knockback;
+                entityStats.ReceiveKnockback(hbs.knockback, transform.position - collider.transform.position);
             }
         }
 
@@ -85,9 +67,10 @@ public class DummyTarget : MonoBehaviour
         Ray ray = new Ray(transform.position, body.velocity);
         Debug.DrawRay(ray.origin, ray.direction * 10, Color.red);
 
-        if (!isDead) {
-            if (!isHit)
+        if (!entityStats.isDead) {
+            if (entityStats.currentHp < hp)
             {
+                renderer.material.SetColor("_BaseColor", Color.red);
                 colorTimer = colorTime;
             }
             else
@@ -95,7 +78,12 @@ public class DummyTarget : MonoBehaviour
                 ColorCooldown();
             }
         }
-        
+        else
+        {
+            body.constraints = RigidbodyConstraints.None;
+            renderer.material.SetColor("_BaseColor", Color.black);
+        }
+        hp = entityStats.currentHp;
     }
 
 }

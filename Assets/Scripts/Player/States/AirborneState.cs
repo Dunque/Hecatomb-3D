@@ -23,7 +23,6 @@ public class AirborneState : PlayerState
 
     public override void Update(PlayerController character)
     {
-        HandleInput(character);
     }
 
     public override void FixedUpdate(PlayerController character)
@@ -45,6 +44,6 @@ public class AirborneState : PlayerState
 
         }
         if (Input.GetButtonDown("Fire2"))
-            character.anim.Play("Shoot");
+            character.anim.Play(character.gunList[character.currentGun].GetComponent<Gun>().animName);
     }
 }

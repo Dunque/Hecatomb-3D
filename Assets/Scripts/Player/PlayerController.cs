@@ -65,14 +65,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public int currentCombo;
     [SerializeField] public bool canAirAttack;
     [SerializeField] public bool canAttack;
+    [SerializeField] public GameObject wpnShotgun;
+    [SerializeField] public GameObject wpnRevolver;
+    [SerializeField] public GameObject[] gunList;
+    [SerializeField] public int currentGun = 0;
 
     [Header("Aiming")]
     [SerializeField] private Camera m_Camera;
     [SerializeField] private MouseLook mouseLook = new MouseLook();
+    public Vector3 playerForward;
+    public Vector3 playerRight;
 
     [Header("Sound")]
     [SerializeField] public AudioSource audio_Shotgun1;
     [SerializeField] public AudioSource audio_Shotgun2;
+    [SerializeField] public AudioSource audio_Revolver1;
     [SerializeField] public AudioSource audio_SV;
     [SerializeField] public AudioSource audio_SV2;
     [SerializeField] public AudioSource audio_SV3;
@@ -93,7 +100,7 @@ public class PlayerController : MonoBehaviour
         //initialize attack data
         groundAttackData.animName = new string[]{ "SwingV", "2SwingV", "SwingH"};
         groundAttackData.knockback = new float[]{ 5f, 6.5f, 10f};
-        groundAttackData.knockbackDir = new Vector3[]{ Vector3.zero, Vector3.zero, Vector3.zero};
+        groundAttackData.knockbackDir = new Vector3[] { Vector3.zero, Vector3.zero, Vector3.zero };
         groundAttackData.damage = new float[]{ 10f, 12f, 20f};
 
         //initialize states
@@ -106,12 +113,10 @@ public class PlayerController : MonoBehaviour
         body = GetComponent<Rigidbody>();
         renderer = GetComponentInChildren<Renderer>();
         shake = GetComponentInChildren<HeadBob>();
+        anim = GetComponentInChildren<Animator>();
         OnValidate();
 
-        trans = this.transform;
-        anim = GetComponentInChildren<Animator>();
-
-        anim.applyRootMotion = true;
+        trans = transform;
 
         if (!m_Camera)
         {
@@ -121,15 +126,55 @@ public class PlayerController : MonoBehaviour
         camTrans = m_Camera.transform;
         playerInputSpace = camTrans;
         mouseLook.Init(trans, camTrans);
+
+        //Adding weapons to the list
+        //TODO temporal thing, remove this
+        gunList = new GameObject[] { wpnShotgun, wpnRevolver };
     }
+
+    public void ChangeGun()
+    {
+        if (currentGun == 0)
+        {
+            gunList[0].SetActive(false);
+            gunList[1].SetActive(true);
+            currentGun = 1;
+        }
+        else
+        {
+            gunList[0].SetActive(true);
+            gunList[1].SetActive(false);
+            currentGun = 0;
+        }
+    }
+
+    //public void ChangeGun()
+    //{
+    //    if (currentGun == gunList.Length-1)
+    //    {
+    //        gunList[currentGun].SetActive(false);
+    //        currentGun = 0;
+    //        gunList[currentGun].SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        gunList[currentGun].SetActive(false);
+    //        currentGun++;
+    //        gunList[currentGun].SetActive(true);
+    //    }
+    //}
 
     public void HandleInput()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+            ChangeGun();
+
         State.HandleInput(this);
     }
 
     void Update()
     {
+        HandleInput();
         State.Update(this);
         mouseLook.UpdateCursorLock();
 
@@ -142,13 +187,15 @@ public class PlayerController : MonoBehaviour
         playerInput = Vector2.ClampMagnitude(playerInput, 1f);
 
         //Moving
-        Vector3 forward = playerInputSpace.forward;
-        forward.y = 0f;
-        forward.Normalize();
-        Vector3 right = playerInputSpace.right;
-        right.y = 0f;
-        right.Normalize();
-        desiredVelocity = (forward * playerInput.y + right * playerInput.x) * maxSpeed;
+        playerForward = playerInputSpace.forward;
+        playerForward.y = 0f;
+        playerForward.Normalize();
+        playerRight = playerInputSpace.right;
+        playerRight.y = 0f;
+        playerRight.Normalize();
+        desiredVelocity = (playerForward * playerInput.y + playerRight * playerInput.x) * maxSpeed;
+
+        groundAttackData.knockbackDir = new Vector3[] { playerForward, playerForward, playerForward };
 
         //Dodging timer
         if (!canDodge || isDashing)
