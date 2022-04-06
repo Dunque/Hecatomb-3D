@@ -35,8 +35,11 @@ using UnityEngine;
         {
             //float yRot = Input.GetAxis("Mouse X") * m_XSensitivity;
             //float xRot = Input.GetAxis("Mouse Y") * m_YSensitivity;
-            yRot += Input.GetAxis("Mouse X") * m_XSensitivity;
-            xRot += Input.GetAxis("Mouse Y") * m_YSensitivity;
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                yRot += Input.GetAxis("Mouse X") * m_XSensitivity;
+                xRot += Input.GetAxis("Mouse Y") * m_YSensitivity;
+            }
 
             xRot = Mathf.Clamp(xRot, m_MinimumX, m_MaximumX);
 
@@ -60,6 +63,7 @@ using UnityEngine;
             }
             else
             {
+                //Camera tilt when strafing left or right
                 if (Input.GetKey("d")) //cambiar esto por eje horizontal de movimiento
                 {
                     Quaternion finalRot = Quaternion.Euler(-xRot, 0f, Mathf.LerpAngle(camera.localEulerAngles.z, -tiltAngle, Time.deltaTime * tiltSmoothing));

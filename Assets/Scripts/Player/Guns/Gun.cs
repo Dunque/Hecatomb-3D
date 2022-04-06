@@ -44,14 +44,20 @@ public abstract class Gun : MonoBehaviour
 
     public abstract Vector3 GetShootingDir();
 
+    //This function instantiates a bullet trail coming from the muzzle of the 
+    //weapon, and it calls the fading coroutine for that trail.
     public void CreateTrail(Vector3 end)
     {
-        LineRenderer lr = Instantiate(bulletTrail).GetComponent<LineRenderer>();
+        GameObject bt = Instantiate(bulletTrail);
+        LineRenderer lr = bt.GetComponent<LineRenderer>();
         lr.SetPositions(new Vector3[2] { muzzle.position, end });
-        StartCoroutine(FadeTrail(lr));
+        StartCoroutine(FadeTrail(bt, lr));
     }
 
-    IEnumerator FadeTrail(LineRenderer lr)
+    //This function reduces the opacity of the line renderer, until it's invisible.
+    //Then, it destroys it. For that purpose, we need to pass the object reference,
+    //not only the line renderer.
+    IEnumerator FadeTrail(GameObject bt, LineRenderer lr)
     {
         float alphaEnd = 1;
         float alphaStart = 0.3f;
@@ -63,7 +69,6 @@ public abstract class Gun : MonoBehaviour
             lr.endColor = new Color(lr.endColor.r, lr.endColor.g, lr.endColor.b, alphaEnd);
             yield return null;
         }
-        Destroy(lr);
+        Destroy(bt);
     }
-
 }

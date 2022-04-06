@@ -5173,7 +5173,7 @@ MonoBehaviour:
   bulletTrail: {fileID: 2381724070365541637}
   muzzle: {fileID: 4779696644223900611}
   muzzleFlash: {fileID: 4736901091806509493}
-  fadeDuration: 5
+  fadeDuration: 0.6
   animName: Revolver
 --- !u!1001 &1069538762151237495
 PrefabInstance:

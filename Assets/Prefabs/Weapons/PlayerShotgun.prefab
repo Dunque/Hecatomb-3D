@@ -5167,7 +5167,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   range: 50
   damage: 10
-  knockback: 0
+  knockback: 10
   maxAmmo: 20
   currentAmmo: 0
   bulletTrail: {fileID: 669338053379330231}

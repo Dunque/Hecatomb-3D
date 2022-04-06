@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 contactNormal, steepNormal;
 
     [Header("Jump")]
-    [SerializeField, Range(0f, 10f)] public float jumpHeight = 5f;          // Velocity for the highest jump
+    [SerializeField, Range(0f, 10f)] public float jumpHeight = 5f;
     public bool jump = false;
 
     [Header("Ground Stuff")]
@@ -71,8 +71,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public int currentGun = 0;
 
     [Header("Aiming")]
-    [SerializeField] private Camera m_Camera;
-    [SerializeField] private MouseLook mouseLook = new MouseLook();
+    [SerializeField] public Camera m_Camera;
+    [SerializeField] public MouseLook mouseLook = new MouseLook();
     public Vector3 playerForward;
     public Vector3 playerRight;
 
@@ -132,44 +132,17 @@ public class PlayerController : MonoBehaviour
         gunList = new GameObject[] { wpnShotgun, wpnRevolver };
     }
 
-    public void ChangeGun()
+    public void ChangeGun(int newGun)
     {
-        if (currentGun == 0)
-        {
-            gunList[0].SetActive(false);
-            gunList[1].SetActive(true);
-            currentGun = 1;
-        }
-        else
-        {
-            gunList[0].SetActive(true);
-            gunList[1].SetActive(false);
-            currentGun = 0;
-        }
+        gunList[currentGun].SetActive(false);
+        currentGun = newGun;
+        gunList[currentGun].SetActive(true);
     }
-
-    //public void ChangeGun()
-    //{
-    //    if (currentGun == gunList.Length-1)
-    //    {
-    //        gunList[currentGun].SetActive(false);
-    //        currentGun = 0;
-    //        gunList[currentGun].SetActive(true);
-    //    }
-    //    else
-    //    {
-    //        gunList[currentGun].SetActive(false);
-    //        currentGun++;
-    //        gunList[currentGun].SetActive(true);
-    //    }
-    //}
 
     public void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-            ChangeGun();
-
-        State.HandleInput(this);
+        if (Cursor.lockState == CursorLockMode.Locked)
+            State.HandleInput(this);
     }
 
     void Update()
