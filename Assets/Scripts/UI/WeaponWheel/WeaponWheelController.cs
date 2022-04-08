@@ -8,7 +8,7 @@ public class WeaponWheelController : MonoBehaviour
     public PlayerController player;
     public Animator anim;
     private bool weaponWheelSelected = false;
-    public static int weaponId = -1;
+    public static int weaponId = 0;
 
     // Update is called once per frame
     void Update()
@@ -33,16 +33,6 @@ public class WeaponWheelController : MonoBehaviour
             player.mouseLook.SetCursorLock(true);
         }
 
-        switch (weaponId)
-        {
-            case 0:
-                player.ChangeGun(0);
-                break;
-            case 1:
-                player.ChangeGun(1);
-                break;
-            default:
-                break;
-        }
+        player.ChangeGun(weaponId);
     }
 }

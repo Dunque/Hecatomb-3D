@@ -28,19 +28,19 @@ public class Shotgun : Gun
             RaycastHit hit;
             Vector3 shootingDir = GetShootingDir();
 
-            if (Physics.Raycast(cam.position, shootingDir, out hit, range))
+            if (Physics.SphereCast(cam.position, 0.1f, shootingDir, out hit, range))
             {
-                EntityStats entStats = null;
+                EntityStats entStats;
                 if ((entStats = hit.collider.GetComponent<EntityStats>()) != null)
                 {
                     entStats.ReceiveDamage(damage);
                     entStats.ReceiveKnockback(knockback, shootingDir);
                 }
-                CreateTrail(hit.point);
+                shotTrails.CreateTrail(hit.point);
             }
             else
             {
-                CreateTrail(cam.position + shootingDir * range);
+                shotTrails.CreateTrail(cam.position + shootingDir * range);
             }
         }
     }

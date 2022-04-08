@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9174fa4f7544e4b88f427b7b8ad8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  ID: 1
   itemName: Shotgun
   itemText: {fileID: 1849940389673778090}
 --- !u!114 &7240155754390054464
@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9174fa4f7544e4b88f427b7b8ad8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: -1
+  ID: 0
   itemName: Empty
   itemText: {fileID: 1849940389673778090}
 --- !u!114 &6873959332379683407
@@ -679,7 +679,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -880,7 +880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9174fa4f7544e4b88f427b7b8ad8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 1
+  ID: 2
   itemName: Revolver
   itemText: {fileID: 1849940389673778090}
 --- !u!114 &1849940390784104112
@@ -1237,7 +1237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae9174fa4f7544e4b88f427b7b8ad8cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: -1
+  ID: 0
   itemName: Empty
   itemText: {fileID: 1849940389673778090}
 --- !u!114 &6119693460938655428

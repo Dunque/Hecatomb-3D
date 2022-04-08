@@ -117,7 +117,7 @@ public class HeadBob : MonoBehaviour
         }
         else
         {
-            if (controller.body.velocity.magnitude > 0.1f && controller.OnGround)
+            if (controller.playerInput.magnitude > 0.1f && controller.OnGround)
             {
                 //Player is moving
                 timer += Time.deltaTime * wbs;

@@ -24,32 +24,35 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Range(0f, 100f)] public float maxSpeed = 7f;
     [SerializeField, Range(0f, 100f)] public float maxAcceleration = 30f, maxAirAcceleration = 5f;
     [SerializeField] public Vector2 playerInput;
-    public Vector3 velocity, desiredVelocity;
-    public Vector3 contactNormal, steepNormal;
+    public Vector3 velocity, desiredVelocity, connectionVelocity;
+    Vector3 contactNormal, steepNormal;
+    Rigidbody connectedBody;
+    Rigidbody previousConnectedBody;
 
     [Header("Jump")]
     [SerializeField, Range(0f, 10f)] public float jumpHeight = 5f;
     public bool jump = false;
 
-    [Header("Ground Stuff")]
+    [Header("Ground Checks")]
     [SerializeField, Range(0, 90)] public float maxGroundAngle = 40f, maxStairsAngle = 50f;
     [SerializeField, Range(0f, 100f)] public float maxSnapSpeed = 100f;
     [SerializeField, Min(0f)] public float probeDistance = 1.5f;
     [SerializeField] public LayerMask probeMask = -1, stairsMask = -1;
-    public int groundContactCount, steepContactCount;
+    int groundContactCount, steepContactCount;
     [SerializeField] public bool OnGround => groundContactCount > 0;
-    public float minGroundDotProduct, minStairsDotProduct;
+    float minGroundDotProduct, minStairsDotProduct;
     public int stepsSinceLastGrounded, stepsSinceLastJump;
+    Vector3 connectionWorldPosition, connectionLocalPosition;
 
     [Header("Dodge")]
     [SerializeField] public float dodgeAmount = 10f;
     [SerializeField] public float dodgeCooldown = 0.5f;
-    [SerializeField] public bool isDashing;
-    [SerializeField] public bool canDodge;
-    [SerializeField] public float dodgeTimer = 0f;
-    [SerializeField] public float isDashingTimer = 0f;
-    public bool dashed = false;
     [SerializeField] public float airDashAmount = 5f;
+    public bool isDashing;
+    public bool canDodge;
+    public float dodgeTimer = 0f;
+    public float isDashingTimer = 0f;
+    public bool dashed = false;
 
     public struct GroundAttackData
     {
@@ -65,6 +68,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public int currentCombo;
     [SerializeField] public bool canAirAttack;
     [SerializeField] public bool canAttack;
+    [SerializeField] public GameObject wpnNone;
     [SerializeField] public GameObject wpnShotgun;
     [SerializeField] public GameObject wpnRevolver;
     [SerializeField] public GameObject[] gunList;
@@ -129,7 +133,7 @@ public class PlayerController : MonoBehaviour
 
         //Adding weapons to the list
         //TODO temporal thing, remove this
-        gunList = new GameObject[] { wpnShotgun, wpnRevolver };
+        gunList = new GameObject[] { wpnNone, wpnShotgun, wpnRevolver };
     }
 
     public void ChangeGun(int newGun)
@@ -252,11 +256,16 @@ public class PlayerController : MonoBehaviour
             {
                 groundContactCount += 1;
                 contactNormal += normal;
+                connectedBody = collision.rigidbody;
             }
             else if (normal.y > -0.01f)
             {
                 steepContactCount += 1;
                 steepNormal += normal;
+                if (groundContactCount == 0)
+                {
+                    connectedBody = collision.rigidbody;
+                }
             }
         }
     }
@@ -266,7 +275,9 @@ public class PlayerController : MonoBehaviour
     void ClearGroundCheck()
     {
         groundContactCount = steepContactCount = 0;
-        contactNormal = steepNormal = Vector3.zero;
+        contactNormal = steepNormal = connectionVelocity = Vector3.zero;
+        previousConnectedBody = connectedBody;
+        connectedBody = null;
     }
 
     void UpdateGroundCheck()
@@ -286,6 +297,27 @@ public class PlayerController : MonoBehaviour
             if (State == groundedState)
                 State.ToState(this, airborneState);
         }
+
+        //Connected to a moving platform
+        if (connectedBody)
+        {
+            //Check to prevent player from sticking to light bodies
+            if (connectedBody.isKinematic || connectedBody.mass >= body.mass)
+            {
+                UpdateConnectionState();
+            }
+        }
+    }
+
+    void UpdateConnectionState()
+    {
+        if (connectedBody == previousConnectedBody)
+        {
+            Vector3 connectionMovement = connectedBody.transform.TransformPoint(connectionLocalPosition) - connectionWorldPosition;
+            connectionVelocity = connectionMovement / Time.deltaTime;
+        }
+        connectionWorldPosition = body.position;
+        connectionLocalPosition = connectedBody.transform.InverseTransformPoint(connectionWorldPosition);
     }
 
     bool SnapToGround()
@@ -317,6 +349,7 @@ public class PlayerController : MonoBehaviour
         {
             velocity = (velocity - hit.normal * dot).normalized * speed;
         }
+        connectedBody = hit.rigidbody;
         return true;
     }
 
@@ -341,8 +374,10 @@ public class PlayerController : MonoBehaviour
         Vector3 xAxis = ProjectOnContactPlane(Vector3.right).normalized;
         Vector3 zAxis = ProjectOnContactPlane(Vector3.forward).normalized;
 
-        float currentX = Vector3.Dot(velocity, xAxis);
-        float currentZ = Vector3.Dot(velocity, zAxis);
+        //This relative velocity allows for seamless movement when on moving platforms
+        Vector3 relativeVelocity = velocity - connectionVelocity;
+        float currentX = Vector3.Dot(relativeVelocity, xAxis);
+        float currentZ = Vector3.Dot(relativeVelocity, zAxis);
 
         float acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
         float maxSpeedChange = acceleration * Time.deltaTime;
