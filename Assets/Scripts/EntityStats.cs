@@ -7,23 +7,36 @@ public class EntityStats : MonoBehaviour
     [Header("Stats")]
     [SerializeField] public float maxHp = 50f;
     [SerializeField] public float currentHp;
+    [SerializeField] public bool canReceiveKnockback;
     public Rigidbody body;
     public bool isDead;
+    Animator animator;
 
     void Awake()
     {
         currentHp = maxHp;
         body = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void ReceiveDamage(float damage)
     {
         currentHp -= damage;
+        if (animator != null) {
+            animator.Play($"Hit{Random.Range(0,2)}");
 
-        if (currentHp <= 0f)
-        {
-            isDead = true;
+            if (currentHp <= 0f) {
+                isDead = true;
+                currentHp = 0f;
+                if (animator != null) {
+                    animator.SetLayerWeight(1, 0);
+                    animator.SetInteger("DeadNumAnim", Random.Range(0, 2));
+                    animator.SetBool("Dead", true);
+                }
+
+            }
         }
+         
     }
 
     public void ReceiveKnockback(float magnitude, Vector3 dir)
@@ -41,13 +54,16 @@ public class EntityStats : MonoBehaviour
 
             ReceiveDamage(hbs.damage);
 
-            if (hbs.knockbackDir != Vector3.zero)
-                ReceiveKnockback(hbs.knockback, hbs.knockbackDir);
-            else
-            {
-                ReceiveKnockback(hbs.knockback, transform.position - collider.transform.position);
+            if (canReceiveKnockback) {
+                if (hbs.knockbackDir != Vector3.zero)
+                    ReceiveKnockback(hbs.knockback, hbs.knockbackDir);
+                else {
+                    ReceiveKnockback(hbs.knockback, transform.position - collider.transform.position);
+                }
             }
+            
         }
 
     }
+
 }
