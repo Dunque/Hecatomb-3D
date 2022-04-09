@@ -41,26 +41,6 @@ public class DummyTarget : MonoBehaviour
         hp = entityStats.maxHp;
     }
 
-    //Physical colliders, like melee weapons or explosions
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.tag == "hitbox")
-        {
-            //Getting the data from the damaging hitbox
-            HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();
-
-            entityStats.ReceiveDamage(hbs.damage);
-
-            if (hbs.knockbackDir != Vector3.zero)
-                entityStats.ReceiveKnockback(hbs.knockback, hbs.knockbackDir);
-            else
-            {
-                entityStats.ReceiveKnockback(hbs.knockback, transform.position - collider.transform.position);
-            }
-        }
-
-    }
-
     // Update is called once per frame
     void Update()
     {

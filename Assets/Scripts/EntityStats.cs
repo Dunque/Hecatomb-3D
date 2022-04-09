@@ -30,4 +30,24 @@ public class EntityStats : MonoBehaviour
     {
         body.velocity += magnitude * dir;
     }
+
+    //Physical colliders, like melee weapons or explosions
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag == "hitbox")
+        {
+            //Getting the data from the damaging hitbox
+            HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();
+
+            ReceiveDamage(hbs.damage);
+
+            if (hbs.knockbackDir != Vector3.zero)
+                ReceiveKnockback(hbs.knockback, hbs.knockbackDir);
+            else
+            {
+                ReceiveKnockback(hbs.knockback, transform.position - collider.transform.position);
+            }
+        }
+
+    }
 }
