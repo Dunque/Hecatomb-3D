@@ -9,6 +9,7 @@ public class EntityStats : MonoBehaviour
     [SerializeField] public float currentHp;
     [SerializeField] public bool canReceiveKnockback;
     public Rigidbody body;
+    public List<Rigidbody> ragdollBody;
     public bool isDead;
     Animator animator;
 
@@ -16,6 +17,7 @@ public class EntityStats : MonoBehaviour
     {
         currentHp = maxHp;
         body = GetComponent<Rigidbody>();
+        ragdollBody = new List<Rigidbody>(GetComponentsInChildren<Rigidbody>());
         animator = GetComponentInChildren<Animator>();
     }
 
@@ -41,7 +43,14 @@ public class EntityStats : MonoBehaviour
 
     public void ReceiveKnockback(float magnitude, Vector3 dir)
     {
-        body.velocity += magnitude * dir;
+        if (isDead)
+            if (ragdollBody != null)
+                foreach (Rigidbody rb in ragdollBody)
+                    rb.velocity += magnitude * dir;
+            else
+                body.velocity += magnitude * dir;
+        else
+            body.velocity += magnitude * dir;
     }
 
     //Physical colliders, like melee weapons or explosions

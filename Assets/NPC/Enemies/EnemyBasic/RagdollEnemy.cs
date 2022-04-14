@@ -12,7 +12,6 @@ public class RagdollEnemy : BasicEnemy
     {
         base.Awake();
         anim = GetComponentInChildren<Animator>();
-        anim.SetBool("hasRagdoll", true);
         foreach (Collider col in ragdollColliders)
         {
             col.enabled = false;
@@ -26,7 +25,7 @@ public class RagdollEnemy : BasicEnemy
     // Update is called once per frame
     public override void Update()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("FinishedDying"))
+        if (entityStats.isDead)
         {
             foreach (Collider col in ragdollColliders)
             {
