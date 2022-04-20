@@ -9,54 +9,34 @@ public class EntityStats : MonoBehaviour
     [SerializeField] public float currentHp;
     [SerializeField] public bool canReceiveKnockback;
     public Rigidbody body;
-    public List<Rigidbody> ragdollBody;
     public bool isDead;
-    Animator animator;
 
-    void Awake()
+    public virtual void Awake()
     {
         currentHp = maxHp;
         body = GetComponent<Rigidbody>();
-        ragdollBody = new List<Rigidbody>(GetComponentsInChildren<Rigidbody>());
-        animator = GetComponentInChildren<Animator>();
     }
 
-    public void ReceiveDamage(float damage)
+    public virtual void ReceiveDamage(float damage)
     {
         currentHp -= damage;
-        if (animator != null) {
-            animator.Play($"Hit{Random.Range(0,2)}");
-
-            if (currentHp <= 0f) {
-                isDead = true;
-                currentHp = 0f;
-                if (animator != null) {
-                    animator.SetLayerWeight(1, 0);
-                    animator.SetInteger("DeadNumAnim", Random.Range(0, 2));
-                    animator.SetBool("Dead", true);
-                }
-
-            }
-        }
-         
+        if (currentHp <= 0f)
+        {
+            isDead = true;
+            currentHp = 0f;
+        }    
     }
 
-    public void ReceiveKnockback(float magnitude, Vector3 dir)
+    public virtual void ReceiveKnockback(float magnitude, Vector3 dir)
     {
-        if (isDead)
-            if (ragdollBody != null)
-                foreach (Rigidbody rb in ragdollBody)
-                    rb.velocity += magnitude * dir;
-            else
-                body.velocity += magnitude * dir;
-        else
-            body.velocity += magnitude * dir;
+        body.velocity += magnitude * dir;
     }
 
     //Physical colliders, like melee weapons or explosions
-    private void OnTriggerEnter(Collider collider)
+    public virtual void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "hitbox")
+        //These two tags represent that this entity may be damaged by both player or enemy hitboxes
+        if (collider.tag == "hitbox" || collider.tag == "EnemyHitbox")
         {
             //Getting the data from the damaging hitbox
             HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();

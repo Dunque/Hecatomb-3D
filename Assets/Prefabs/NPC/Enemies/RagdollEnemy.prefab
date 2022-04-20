@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1575759146912037092}
-  - component: {fileID: 1575759146912037093}
   - component: {fileID: 1575759146912037099}
   - component: {fileID: 1575759146912037098}
-  - component: {fileID: 1575759146912037096}
+  - component: {fileID: 9135062429014891232}
   - component: {fileID: 1575759146912037097}
+  - component: {fileID: 639252632}
+  - component: {fileID: 639252633}
   m_Layer: 0
   m_Name: RagdollEnemy
   m_TagString: Untagged
@@ -37,23 +38,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1575759146912037093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575759146912037095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a537aaafbe5aef46b961f69eab1a4dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 50
-  currentHp: 0
-  canReceiveKnockback: 1
-  body: {fileID: 0}
-  isDead: 0
 --- !u!136 &1575759146912037099
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -84,21 +68,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &1575759146912037096
+--- !u!114 &9135062429014891232
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575759146912037095}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1bfd3c1a3f456440a7414b122e17512, type: 3}
+  m_Script: {fileID: 11500000, guid: dc21318a9c9416f499326eb96c55e4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHp: 50
+  currentHp: 0
+  canReceiveKnockback: 0
   body: {fileID: 0}
-  hitbox: {fileID: 0}
-  entityStats: {fileID: 0}
+  isDead: 0
+  ragdollBody: []
 --- !u!114 &1575759146912037097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +126,37 @@ MonoBehaviour:
   - {fileID: 1575759146333574670}
   - {fileID: 1575759146741568377}
   anim: {fileID: 0}
+--- !u!114 &639252632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575759146912037095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 491cedc6764fa8a45ad917b41dbc39c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTarget: {fileID: 0}
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!114 &639252633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575759146912037095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5c0b8a3376c524e8644a5fdc412d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 2
+  maximumDetectionAngle: 50
+  minimumDetectionAngle: -50
 --- !u!1001 &1575759147153413341
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,7 +233,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 4839a82f8a7a189449a83b70376a4c97, type: 2}
+      objectReference: {fileID: 9100000, guid: b30cc30f5378fd344a30161e9895ccf0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a527e251505d7a4c960e85768b062f0, type: 3}
 --- !u!1 &731453386697285857 stripped

@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6447150754705060786}
-  - component: {fileID: 1921485591560059523}
   - component: {fileID: 1412706653032373077}
   - component: {fileID: 1790137269408373287}
+  - component: {fileID: 5459422141807153515}
   - component: {fileID: 7967242750071644773}
+  - component: {fileID: 7607813457690994544}
   m_Layer: 0
   m_Name: BasicEnemy
   m_TagString: Untagged
@@ -36,23 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1921485591560059523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7579589731121741806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a537aaafbe5aef46b961f69eab1a4dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 50
-  currentHp: 0
-  canReceiveKnockback: 1
-  body: {fileID: 0}
-  isDead: 0
 --- !u!136 &1412706653032373077
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -83,6 +67,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &5459422141807153515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7579589731121741806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc21318a9c9416f499326eb96c55e4d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 50
+  currentHp: 0
+  canReceiveKnockback: 0
+  body: {fileID: 0}
+  isDead: 0
+  ragdollBody: []
 --- !u!114 &7967242750071644773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +100,24 @@ MonoBehaviour:
   body: {fileID: 0}
   hitbox: {fileID: 0}
   entityStats: {fileID: 0}
+--- !u!114 &7607813457690994544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7579589731121741806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc21318a9c9416f499326eb96c55e4d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 50
+  currentHp: 0
+  canReceiveKnockback: 0
+  body: {fileID: 0}
+  isDead: 0
+  ragdollBody: []
 --- !u!1001 &6888122780054394339
 PrefabInstance:
   m_ObjectHideFlags: 0

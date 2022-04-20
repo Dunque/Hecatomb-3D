@@ -7,6 +7,7 @@ TagManager:
   - hitbox
   - Control
   - Roca
+  - EnemyHitbox
   layers:
   - Default
   - TransparentFX
