@@ -34,6 +34,11 @@ public abstract class Gun : MonoBehaviour
         shotTrails.MuzzleExplosion();
     }
 
+    public virtual void StopShoot()
+    {
+
+    }
+
     public bool CanShoot()
     {
         return (currentAmmo > 0);

@@ -21,14 +21,9 @@ public class AnimatorEvents : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         controller = GetComponentInParent<PlayerController>();
         defaultSpeed = controller.maxSpeed;
-        halfSpeed = defaultSpeed * 0.75f;
+        halfSpeed = defaultSpeed * 0.9f;
         shake = GetComponentInParent<HeadBob>();
         swordTrail.Stop();
-    }
-    //------------------------------- Shooting
-    public void Event_Shoot()
-    {
-        controller.gunList[controller.currentGun].GetComponent<Gun>().Shoot();
     }
     
     // ------------------------------ Disable / Enable attacks
@@ -202,6 +197,11 @@ public class AnimatorEvents : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void Event_SFX_GrapplingHook()
+    {
+        controller.audio_GrapplingHook.Play();
     }
 
     // ----------------------------------- AirDash

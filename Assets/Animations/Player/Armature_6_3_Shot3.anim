@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Armature_6_2_Shot2
+  m_Name: Armature_6_3_Shot3
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -21330,21 +21330,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0
-    functionName: Event_SFX_Revolver
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: Event_DisableAirAttack
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0
-    functionName: Event_DisableAttack
+    functionName: Event_SFX_GrapplingHook
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

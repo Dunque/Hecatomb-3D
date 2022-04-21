@@ -6,9 +6,9 @@ public class ShotTrails : MonoBehaviour
 {
 
     [Header("Bullet tray")]
-    [SerializeField] GameObject bulletTrail;
-    [SerializeField] Transform muzzle;
-    [SerializeField] ParticleSystem muzzleFlash;
+    [SerializeField] public GameObject bulletTrail;
+    [SerializeField] public Transform muzzle;
+    [SerializeField] public ParticleSystem muzzleFlash;
     [SerializeField] float fadeDuration = 5f;
 
     public void MuzzleExplosion()
@@ -18,7 +18,7 @@ public class ShotTrails : MonoBehaviour
     
     //This function instantiates a bullet trail coming from the muzzle of the 
     //weapon, and it calls the fading coroutine for that trail.
-    public void CreateTrail(Vector3 end)
+    public virtual void CreateTrail(Vector3 end)
     {
         LineRenderer lr = Instantiate(bulletTrail).GetComponent<LineRenderer>();
         lr.SetPositions(new Vector3[2] { muzzle.position, end });

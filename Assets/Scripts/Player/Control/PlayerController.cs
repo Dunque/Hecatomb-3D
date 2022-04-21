@@ -5,10 +5,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform playerInputSpace = default;
 
     [Header("State Machine")]
-    [SerializeField] public PlayerState state;
-    [SerializeField] public PlayerState State { get => state; set => state = value; }
-    [SerializeField] public GroundedState groundedState;
-    [SerializeField] public AirborneState airborneState;
+    public PlayerState state;
+    public PlayerState State { get => state; set => state = value; }
+    public GroundedState groundedState;
+    public AirborneState airborneState;
 
     [Header("References")]
     public Rigidbody body;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField, Range(0f, 100f)] public float maxSpeed = 7f;
     [SerializeField, Range(0f, 100f)] public float maxAcceleration = 30f, maxAirAcceleration = 5f;
-    [SerializeField] public Vector2 playerInput;
+    public Vector2 playerInput;
     public Vector3 velocity, desiredVelocity, connectionVelocity;
     Vector3 contactNormal, steepNormal;
     Rigidbody connectedBody;
@@ -37,17 +37,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Range(0, 90)] public float maxGroundAngle = 40f, maxStairsAngle = 50f;
     [SerializeField, Range(0f, 100f)] public float maxSnapSpeed = 100f;
     [SerializeField, Min(0f)] public float probeDistance = 1.5f;
-    [SerializeField] public LayerMask probeMask = -1, stairsMask = -1;
+    public LayerMask probeMask = -1, stairsMask = -1;
     int groundContactCount, steepContactCount;
-    [SerializeField] public bool OnGround => groundContactCount > 0;
+    public bool OnGround => groundContactCount > 0;
     float minGroundDotProduct, minStairsDotProduct;
     public int stepsSinceLastGrounded, stepsSinceLastJump;
     Vector3 connectionWorldPosition, connectionLocalPosition;
 
     [Header("Dodge")]
-    [SerializeField] public float dodgeAmount = 10f;
-    [SerializeField] public float dodgeCooldown = 0.5f;
-    [SerializeField] public float airDashAmount = 5f;
+    public float dodgeAmount = 10f;
+    public float dodgeCooldown = 0.5f;
+    public float airDashAmount = 5f;
     public bool isDashing;
     public bool canDodge;
     public float dodgeTimer = 0f;
@@ -63,35 +63,37 @@ public class PlayerController : MonoBehaviour
     };
 
     [Header("Combat")]
-    [SerializeField] public GroundAttackData groundAttackData;
-    [SerializeField] public HitboxStats weaponHitbox;
-    [SerializeField] public int currentCombo;
-    [SerializeField] public bool canAirAttack;
-    [SerializeField] public bool canAttack;
-    [SerializeField] public GameObject wpnNone;
-    [SerializeField] public GameObject wpnShotgun;
-    [SerializeField] public GameObject wpnRevolver;
-    [SerializeField] public GameObject[] gunList;
-    [SerializeField] public int currentGun = 0;
+    public GroundAttackData groundAttackData;
+    public HitboxStats weaponHitbox;
+    public int currentCombo;
+    public bool canAirAttack;
+    public bool canAttack;
+    public GameObject wpnNone;
+    public GameObject wpnShotgun;
+    public GameObject wpnRevolver;
+    public GameObject wpnGrapplingHook;
+    public GameObject[] gunList;
+    public int currentGun = 0;
 
     [Header("Aiming")]
-    [SerializeField] public Camera m_Camera;
-    [SerializeField] public MouseLook mouseLook = new MouseLook();
+    public Camera m_Camera;
+    public MouseLook mouseLook = new MouseLook();
     public Vector3 playerForward;
     public Vector3 playerRight;
 
     [Header("Sound")]
-    [SerializeField] public AudioSource audio_Shotgun1;
-    [SerializeField] public AudioSource audio_Shotgun2;
-    [SerializeField] public AudioSource audio_Revolver1;
-    [SerializeField] public AudioSource audio_SV;
-    [SerializeField] public AudioSource audio_SV2;
-    [SerializeField] public AudioSource audio_SV3;
-    [SerializeField] public AudioSource audio_SH;
-    [SerializeField] public AudioSource audio_Dash1;
-    [SerializeField] public AudioSource audio_Dash2;
-    [SerializeField] public AudioSource audio_Stinger1;
-    [SerializeField] public AudioSource audio_Stinger2;
+    public AudioSource audio_Shotgun1;
+    public AudioSource audio_Shotgun2;
+    public AudioSource audio_Revolver1;
+    public AudioSource audio_SV;
+    public AudioSource audio_SV2;
+    public AudioSource audio_SV3;
+    public AudioSource audio_SH;
+    public AudioSource audio_Dash1;
+    public AudioSource audio_Dash2;
+    public AudioSource audio_Stinger1;
+    public AudioSource audio_Stinger2;
+    public AudioSource audio_GrapplingHook;
 
     void OnValidate()
     {
@@ -133,7 +135,7 @@ public class PlayerController : MonoBehaviour
 
         //Adding weapons to the list
         //TODO temporal thing, remove this
-        gunList = new GameObject[] { wpnNone, wpnShotgun, wpnRevolver };
+        gunList = new GameObject[] { wpnNone, wpnShotgun, wpnRevolver, wpnGrapplingHook};
     }
 
     public void ChangeGun(int newGun)

@@ -5,7 +5,6 @@ public class HeadBob : MonoBehaviour
 {
     [Header("References")]
     public PlayerController controller;
-    public Transform player;
 
     [Header("Bob")]
     public float walkingBobbingSpeed = 14f;
@@ -54,7 +53,7 @@ public class HeadBob : MonoBehaviour
     public void DoShakeV()
     {
         Vector3 actualPos = transform.localPosition;
-        Vector3 finalPos = actualPos + transform.up * yAmount + transform.right * xAmount;
+        Vector3 finalPos = actualPos + Vector3.up * yAmount + Vector3.right * xAmount;
         Quaternion actualRot = transform.localRotation;
         Quaternion finalRot = Quaternion.Euler(transform.localEulerAngles.x, 0f, -angle);
         transform.localPosition = Vector3.Lerp(actualPos, finalPos, Time.deltaTime * timeP);
@@ -64,7 +63,7 @@ public class HeadBob : MonoBehaviour
     public void DoShakeV2()
     {
         Vector3 actualPos = transform.localPosition;
-        Vector3 finalPos = actualPos + transform.up * -yAmount + transform.right * -xAmount;
+        Vector3 finalPos = actualPos + Vector3.up * -yAmount + Vector3.right * -xAmount;
         Quaternion actualRot = transform.localRotation;
         Quaternion finalRot = Quaternion.Euler(transform.localEulerAngles.x, 0f, angle);
         transform.localPosition = Vector3.Lerp(actualPos, finalPos, Time.deltaTime * timeP);
