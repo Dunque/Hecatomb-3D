@@ -68,6 +68,11 @@ public class PlayerController : MonoBehaviour
     public int currentCombo;
     public bool canAirAttack;
     public bool canAttack;
+    [Space]
+    public int maxBullets = 24;
+    public int maxShells = 16;
+    public int bullets;
+    public int shells;
     public GameObject wpnNone;
     public GameObject wpnShotgun;
     public GameObject wpnRevolver;
@@ -108,6 +113,10 @@ public class PlayerController : MonoBehaviour
         groundAttackData.knockback = new float[]{ 5f, 6.5f, 10f};
         groundAttackData.knockbackDir = new Vector3[] { Vector3.zero, Vector3.zero, Vector3.zero };
         groundAttackData.damage = new float[]{ 10f, 12f, 20f};
+
+        //Initialize ammo
+        bullets = maxBullets / 2;
+        shells = maxShells / 2;
 
         //initialize states
         groundedState = new GroundedState(this);

@@ -48,9 +48,13 @@ public class AirborneState : PlayerState
             //currentGun == 0 means that the player has no equipped weapon.
             if (character.currentGun != 0)
             {
-                character.gunList[character.currentGun].GetComponent<Gun>().Shoot();
-                character.anim.Play(character.gunList[character.currentGun].GetComponent<Gun>().animName);
+                Gun gun = character.gunList[character.currentGun].GetComponent<Gun>();
+                if (gun.CanShoot())
+                {
+                    character.anim.Play(gun.animName);
+                }
             }
+
         }
         if (Input.GetButtonUp("Fire2"))
         {

@@ -75,13 +75,17 @@ public class GroundedState : PlayerState
                 character.weaponHitbox.knockbackDir = (0.9f * Vector3.up + 0.1f * character.playerForward).normalized;
                 character.weaponHitbox.damage = 10f;
             }
+
             if (Input.GetButtonDown("Fire2"))
             {
                 //currentGun == 0 means that the player has no equipped weapon.
                 if (character.currentGun != 0)
                 {
-                    character.gunList[character.currentGun].GetComponent<Gun>().Shoot();
-                    character.anim.Play(character.gunList[character.currentGun].GetComponent<Gun>().animName);
+                    Gun gun = character.gunList[character.currentGun].GetComponent<Gun>();
+                    if (gun.CanShoot())
+                    {
+                        character.anim.Play(gun.animName);
+                    }
                 }
 
             }

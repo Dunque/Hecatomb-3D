@@ -10,12 +10,12 @@ public class Shotgun : Gun
 
     public override void Awake()
     {
-        base.Awake();
         range = 50f;
         damage = 10f;
         knockback = 10f;
         maxAmmo = 20;
         animName = "Shotgun";
+        base.Awake();
     }
 
     public override void Shoot()

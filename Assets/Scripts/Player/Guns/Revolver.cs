@@ -7,12 +7,12 @@ public class Revolver : Gun
 
     public override void Awake()
     {
-        base.Awake();
         range = 50f;
         damage = 30f;
         knockback = 15f;
         maxAmmo = 24;
         animName = "Revolver";
+        base.Awake();
     }
 
     public override void Shoot()

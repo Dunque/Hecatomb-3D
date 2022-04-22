@@ -19,12 +19,12 @@ namespace Assets.Scripts.Player.Guns
         public override void Awake()
         {
             controller = GetComponentInParent<PlayerController>();
-            base.Awake();
             range = 50f;
             damage = 5f;
             knockback = 0.7f;
             maxAmmo = 1;
             animName = "GrapplingHook";
+            base.Awake();
         }
 
         public override void Shoot()

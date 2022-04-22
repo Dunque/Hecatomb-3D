@@ -25,7 +25,12 @@ public class AnimatorEvents : MonoBehaviour
         shake = GetComponentInParent<HeadBob>();
         swordTrail.Stop();
     }
-    
+    // ------------------------------ Shooting
+    public void Event_Shoot()
+    {
+        controller.gunList[controller.currentGun].GetComponent<Gun>().Shoot();
+    }
+
     // ------------------------------ Disable / Enable attacks
     public void Event_DisableAttack()
     {

@@ -7,6 +7,7 @@ public class PlayerStats : EntityStats
     public HealthBar hbar;
     public PlayerController controller;
     public HeadBob shake;
+    public ScreenFlash sf;
     public AudioSource audio_hurt1;
     public AudioSource audio_hurt2;
     public AudioSource audio_hurt3;
@@ -17,6 +18,7 @@ public class PlayerStats : EntityStats
         base.Awake();
         controller = GetComponent<PlayerController>();
         hbar = GetComponentInChildren<HealthBar>();
+        sf = GetComponentInChildren<ScreenFlash>();
         hbar.SetMaxHealth(maxHp);
     }
 
@@ -62,6 +64,7 @@ public class PlayerStats : EntityStats
 
         DamageCameraShake();
         DamageSound();
+        sf.FlashScreen();
 
         if (currentHp <= 0f)
         {
