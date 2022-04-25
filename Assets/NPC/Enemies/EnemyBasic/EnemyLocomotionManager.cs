@@ -14,7 +14,7 @@ public class EnemyLocomotionManager : MonoBehaviour {
 
     public void HandleDetection(){
         Collider[] colliders = Physics.OverlapSphere(transform.position, enemyManager.detectionRadius, detectionLayer);
-        Debug.Log(colliders);
+        //Debug.Log(colliders);
 
         for (int i = 0; i < colliders.Length; i++) {
             EntityStats entityStats = colliders[i].transform.GetComponent<EntityStats>();

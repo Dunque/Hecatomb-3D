@@ -40,6 +40,14 @@ public abstract class Gun : MonoBehaviour
 
     }
 
+    public void AddAmmo(int amount)
+    {
+        if (currentAmmo + amount > maxAmmo)
+            currentAmmo = maxAmmo;
+        else
+            currentAmmo = currentAmmo + amount;
+    }
+
     public bool CanShoot()
     {
         return (currentAmmo > 0);

@@ -27,6 +27,14 @@ public class EntityStats : MonoBehaviour
         }    
     }
 
+    public virtual void ReceiveHealing(float heal)
+    {
+        if (currentHp + heal >= maxHp)
+            currentHp = maxHp;
+        else
+            currentHp = currentHp + heal;
+    }
+
     public virtual void ReceiveKnockback(float magnitude, Vector3 dir)
     {
         body.velocity += magnitude * dir;
