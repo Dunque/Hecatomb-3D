@@ -45,22 +45,11 @@ public class AirborneState : PlayerState
         }
         if (Input.GetButtonDown("Fire2"))
         {
-            //currentGun == 0 means that the player has no equipped weapon.
-            if (character.currentGun != 0)
-            {
-                Gun gun = character.gunList[character.currentGun].GetComponent<Gun>();
-                if (gun.CanShoot())
-                {
-                    character.anim.Play(gun.animName);
-                }
-            }
-
+            character.wpnManager.ShootGun();
         }
         if (Input.GetButtonUp("Fire2"))
         {
-            //currentGun == 0 means that the player has no equipped weapon.
-            if (character.currentGun != 0)
-                character.gunList[character.currentGun].GetComponent<Gun>().StopShoot();
+            character.wpnManager.StopShootGun();
         }
     }
 }

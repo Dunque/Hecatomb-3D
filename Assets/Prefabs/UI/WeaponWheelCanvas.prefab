@@ -56,6 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  wpnManager: {fileID: 0}
   anim: {fileID: 631676530044705821}
 --- !u!95 &631676530044705821
 Animator:

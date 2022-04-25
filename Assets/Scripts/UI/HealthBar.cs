@@ -7,6 +7,11 @@ public class HealthBar : MonoBehaviour
 {
     public Slider slider;
 
+    public void Awake()
+    {
+        slider = GetComponent<Slider>();
+    }
+
     public void SetMaxHealth(float hp)
     {
         slider.maxValue = hp;

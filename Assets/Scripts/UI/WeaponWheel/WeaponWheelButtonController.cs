@@ -13,9 +13,7 @@ public class WeaponWheelButtonController : MonoBehaviour
     public TextMeshProUGUI itemText;
     private bool selected = false;
 
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         anim = GetComponent<Animator>();
     }

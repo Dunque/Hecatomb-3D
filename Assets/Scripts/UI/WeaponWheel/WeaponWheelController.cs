@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class WeaponWheelController : MonoBehaviour
 {
     public PlayerController player;
+    public WeaponManager wpnManager;
     public Animator anim;
     private bool weaponWheelSelected = false;
     public static int weaponId = 0;
@@ -33,6 +34,14 @@ public class WeaponWheelController : MonoBehaviour
             player.mouseLook.SetCursorLock(true);
         }
 
-        player.ChangeGun(weaponId);
+        //_Quicki select weapon by pressin the numbers 1-3
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            weaponId = 1;
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            weaponId = 2;
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            weaponId = 3;
+
+        wpnManager.ChangeGun(weaponId);
     }
 }

@@ -68,17 +68,7 @@ public class PlayerController : MonoBehaviour
     public int currentCombo;
     public bool canAirAttack;
     public bool canAttack;
-    [Space]
-    public int maxBullets = 24;
-    public int maxShells = 16;
-    public int bullets;
-    public int shells;
-    public GameObject wpnNone;
-    public GameObject wpnShotgun;
-    public GameObject wpnRevolver;
-    public GameObject wpnGrapplingHook;
-    public GameObject[] gunList;
-    public int currentGun = 0;
+    public WeaponManager wpnManager;
 
     [Header("Aiming")]
     public Camera m_Camera;
@@ -114,10 +104,6 @@ public class PlayerController : MonoBehaviour
         groundAttackData.knockbackDir = new Vector3[] { Vector3.zero, Vector3.zero, Vector3.zero };
         groundAttackData.damage = new float[]{ 10f, 12f, 20f};
 
-        //Initialize ammo
-        bullets = maxBullets / 2;
-        shells = maxShells / 2;
-
         //initialize states
         groundedState = new GroundedState(this);
         airborneState = new AirborneState(this);
@@ -129,6 +115,7 @@ public class PlayerController : MonoBehaviour
         renderer = GetComponentInChildren<Renderer>();
         shake = GetComponentInChildren<HeadBob>();
         anim = GetComponentInChildren<Animator>();
+        wpnManager = GetComponent<WeaponManager>();
         OnValidate();
 
         trans = transform;
@@ -141,17 +128,6 @@ public class PlayerController : MonoBehaviour
         camTrans = m_Camera.transform;
         playerInputSpace = camTrans;
         mouseLook.Init(trans, camTrans);
-
-        //Adding weapons to the list
-        //TODO temporal thing, remove this
-        gunList = new GameObject[] { wpnNone, wpnShotgun, wpnRevolver, wpnGrapplingHook};
-    }
-
-    public void ChangeGun(int newGun)
-    {
-        gunList[currentGun].SetActive(false);
-        currentGun = newGun;
-        gunList[currentGun].SetActive(true);
     }
 
     public void HandleInput()

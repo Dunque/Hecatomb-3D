@@ -18,6 +18,7 @@ public abstract class Gun : MonoBehaviour
     public ShotTrails shotTrails;
 
     [Header("Animation")]
+    public Sprite gunIcon;
     [SerializeField] public string animName;
 
     // Start is called before the first frame update

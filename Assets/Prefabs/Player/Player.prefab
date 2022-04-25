@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 18281162013298141}
   - component: {fileID: 2801929161219315816}
   - component: {fileID: 2745299877650397603}
+  - component: {fileID: 2558934133032545742}
   - component: {fileID: 4992872569489938203}
   m_Layer: 9
   m_Name: Player
@@ -192,6 +193,27 @@ MonoBehaviour:
   audio_hurt2: {fileID: 1495767997}
   audio_hurt3: {fileID: 1495767996}
   audio_hurt4: {fileID: 1495767995}
+--- !u!114 &2558934133032545742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628945496043039476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a8eae5bbe04879439895f5961aa7d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  wpnDisplay: {fileID: 0}
+  wpnNone: {fileID: 6839462661469393592}
+  wpnShotgun: {fileID: 6342639958241225376}
+  wpnRevolver: {fileID: 6342639956355908138}
+  wpnGrapplingHook: {fileID: 322255871950428525}
+  gunList: []
+  currentGunIndex: 0
+  currentGun: {fileID: 0}
 --- !u!114 &4992872569489938203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,12 +268,7 @@ MonoBehaviour:
   currentCombo: 0
   canAirAttack: 0
   canAttack: 0
-  wpnNone: {fileID: 6839462661469393592}
-  wpnShotgun: {fileID: 6342639958241225376}
-  wpnRevolver: {fileID: 6342639956355908138}
-  wpnGrapplingHook: {fileID: 560389539333635554}
-  gunList: []
-  currentGun: 0
+  wpnManager: {fileID: 0}
   m_Camera: {fileID: 0}
   mouseLook:
     m_XSensitivity: 4
@@ -2444,6 +2461,7 @@ MonoBehaviour:
   maxAmmo: 20
   currentAmmo: 0
   shotTrails: {fileID: 0}
+  gunIcon: {fileID: 21300000, guid: fd82440fcc0720e47bf5030684c3a6c3, type: 3}
   animName: Shotgun
   spread: 6
   pelletsPerShell: 6
@@ -2483,6 +2501,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2855197821824867368}
     m_Modifications:
+    - target: {fileID: 1188702099274732443, guid: d1692ed0b704ba74895dd7bebef7a748,
+        type: 3}
+      propertyPath: gunIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 4c3baacc52a466048b3791af261547f1,
+        type: 3}
+    - target: {fileID: 1188702099274732443, guid: d1692ed0b704ba74895dd7bebef7a748,
+        type: 3}
+      propertyPath: hookTrails
+      value: 
+      objectReference: {fileID: 3489628768729886346}
+    - target: {fileID: 1188702099274732443, guid: d1692ed0b704ba74895dd7bebef7a748,
+        type: 3}
+      propertyPath: grapplePower
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 1188702099274732443, guid: d1692ed0b704ba74895dd7bebef7a748,
+        type: 3}
+      propertyPath: minDistanceToPlayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748606641628065750, guid: d1692ed0b704ba74895dd7bebef7a748,
+        type: 3}
+      propertyPath: m_Name
+      value: GrapplingHook
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748606641628065750, guid: d1692ed0b704ba74895dd7bebef7a748,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2016004231891372889, guid: d1692ed0b704ba74895dd7bebef7a748,
         type: 3}
       propertyPath: m_Name
@@ -2601,9 +2650,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1692ed0b704ba74895dd7bebef7a748, type: 3}
---- !u!1 &560389539333635554 stripped
+--- !u!1 &322255871950428525 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2016004231891372889, guid: d1692ed0b704ba74895dd7bebef7a748,
+  m_CorrespondingSourceObject: {fileID: 1748606641628065750, guid: d1692ed0b704ba74895dd7bebef7a748,
     type: 3}
   m_PrefabInstance: {fileID: 2034692978328647355}
   m_PrefabAsset: {fileID: 0}
@@ -2752,6 +2801,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GeneralCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5804037537755382247, guid: 22df4d727d0846c46baddbaf24e85856,
+        type: 3}
+      propertyPath: noWeapon
+      value: 
+      objectReference: {fileID: 21300000, guid: 6a335c2b192cbcf4ea422e85d2c63746,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22df4d727d0846c46baddbaf24e85856, type: 3}
 --- !u!224 &1710328607 stripped
@@ -4206,6 +4261,7 @@ MonoBehaviour:
   maxAmmo: 24
   currentAmmo: 0
   shotTrails: {fileID: 0}
+  gunIcon: {fileID: 21300000, guid: 344b1b34c83e85a48bb9c405d1a218da, type: 3}
   animName: Revolver
 --- !u!4 &7979366168969084036 stripped
 Transform:
@@ -4220,11 +4276,32 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3508108977501744330}
     m_Modifications:
+    - target: {fileID: 1538179969, guid: 86fe2ec79413e8a4fb30dbe7fbe94153, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 77.4459
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538179969, guid: 86fe2ec79413e8a4fb30dbe7fbe94153, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 45.0704
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538179969, guid: 86fe2ec79413e8a4fb30dbe7fbe94153, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -326.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538179969, guid: 86fe2ec79413e8a4fb30dbe7fbe94153, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 142.1
+      objectReference: {fileID: 0}
     - target: {fileID: 631676530044705820, guid: 86fe2ec79413e8a4fb30dbe7fbe94153,
         type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 4992872569489938203}
+    - target: {fileID: 631676530044705820, guid: 86fe2ec79413e8a4fb30dbe7fbe94153,
+        type: 3}
+      propertyPath: wpnManager
+      value: 
+      objectReference: {fileID: 2558934133032545742}
     - target: {fileID: 631676530656241331, guid: 86fe2ec79413e8a4fb30dbe7fbe94153,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4335,6 +4412,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponWheelCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5128925356694188130, guid: 86fe2ec79413e8a4fb30dbe7fbe94153,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 192.5816
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128925356694188130, guid: 86fe2ec79413e8a4fb30dbe7fbe94153,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 126.1127
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128925356694188130, guid: 86fe2ec79413e8a4fb30dbe7fbe94153,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0000038147
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128925356694188130, guid: 86fe2ec79413e8a4fb30dbe7fbe94153,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6959751789376705079, guid: 86fe2ec79413e8a4fb30dbe7fbe94153,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4c3baacc52a466048b3791af261547f1,
+        type: 3}
+    - target: {fileID: 8901258202959904017, guid: 86fe2ec79413e8a4fb30dbe7fbe94153,
+        type: 3}
+      propertyPath: icon
+      value: 
+      objectReference: {fileID: 21300000, guid: 4c3baacc52a466048b3791af261547f1,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86fe2ec79413e8a4fb30dbe7fbe94153, type: 3}
 --- !u!224 &6108284887725451648 stripped

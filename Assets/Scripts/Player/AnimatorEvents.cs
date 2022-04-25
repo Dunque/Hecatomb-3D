@@ -28,7 +28,7 @@ public class AnimatorEvents : MonoBehaviour
     // ------------------------------ Shooting
     public void Event_Shoot()
     {
-        controller.gunList[controller.currentGun].GetComponent<Gun>().Shoot();
+        controller.wpnManager.currentGun.Shoot();
     }
 
     // ------------------------------ Disable / Enable attacks
