@@ -60,17 +60,29 @@ public class PlayerStats : EntityStats
     public override void ReceiveDamage(float damage)
     {
         currentHp -= damage;
+        //Update healthbar
         hbar.SetHealth(currentHp);
 
+        //Special effects
         DamageCameraShake();
         DamageSound();
         sf.FlashScreen();
 
         if (currentHp <= 0f)
         {
-            isDead = true;
             currentHp = 0f;
+            if (!isDead)
+                Die();
+            isDead = true;
         }
+    }
+
+    public override void ReceiveHealing(float heal)
+    {
+        base.ReceiveHealing(heal);
+
+        //Update healthbar
+        hbar.SetHealth(currentHp);
     }
 
     //Physical colliders, like melee weapons or explosions

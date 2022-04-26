@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 8069121659221011462}
   - component: {fileID: 4463863647769699247}
   - component: {fileID: 498864354233932239}
-  - component: {fileID: 2785492472197615801}
   - component: {fileID: 2785492472197615802}
+  - component: {fileID: 1699414077}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9010554879279052275}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.3640957, y: 23.377523, z: -33.32527}
   m_LocalScale: {x: 1.3689051, y: 1.3689051, z: 1.3689051}
   m_ConstrainProportionsScale: 0
@@ -568,7 +568,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1037
+  m_VersionIndex: 1061
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -668,22 +668,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &2785492472197615801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9010554879279052275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a537aaafbe5aef46b961f69eab1a4dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 50
-  currentHp: 0
-  body: {fileID: 0}
-  isDead: 0
 --- !u!54 &2785492472197615802
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -692,7 +676,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9010554879279052275}
   serializedVersion: 2
-  m_Mass: 10
+  m_Mass: 15
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
@@ -700,3 +684,28 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1699414077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9010554879279052275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b22db7f34b3ad84b836a5bd55b1ab3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 20
+  currentHp: 0
+  canReceiveKnockback: 1
+  body: {fileID: 0}
+  isDead: 0
+  brokenVersion: {fileID: 2667261848362598368, guid: 583bd3e57fbce804d85d0e1f854a7383,
+    type: 3}
+  fadeDuration: 2
+  force: 20
+  drops:
+  - {fileID: 2807091727873637754, guid: 661d4d00f46bafc449f7296018b58a81, type: 3}
+  - {fileID: 4731147860169846781, guid: 6b80783512121304c8f021269d043adf, type: 3}
+  - {fileID: 5104545326760974301, guid: 6103d5dd39bd63d44b62dbfd8dc74ba7, type: 3}

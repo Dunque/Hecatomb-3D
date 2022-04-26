@@ -22,8 +22,10 @@ public class EntityStats : MonoBehaviour
         currentHp -= damage;
         if (currentHp <= 0f)
         {
-            isDead = true;
             currentHp = 0f;
+            if (!isDead)
+                Die();
+            isDead = true;
         }    
     }
 
@@ -49,8 +51,13 @@ public class EntityStats : MonoBehaviour
             //Getting the data from the damaging hitbox
             HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();
 
+            //Play hitting sound
+            hbs.PlayHitSounds();
+
+            //Now receive the damage from the hitbox data
             ReceiveDamage(hbs.damage);
 
+            //FInally check if it can receive knockback, and the direction of it
             if (canReceiveKnockback) {
                 if (hbs.knockbackDir != Vector3.zero)
                     ReceiveKnockback(hbs.knockback, hbs.knockbackDir);
@@ -60,6 +67,11 @@ public class EntityStats : MonoBehaviour
             }
             
         }
+
+    }
+
+    public virtual void Die()
+    {
 
     }
 
