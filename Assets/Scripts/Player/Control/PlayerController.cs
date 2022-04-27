@@ -17,8 +17,11 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
     public new Renderer renderer;
     public HeadBob shake;
+    public WeaponBob wpnBob;
+    public WeaponSway wpnSway;
     public Transform leftHand;
     public Transform rightHand;
+    public PlayerStats stats;
 
     [Header("Movement")]
     [SerializeField, Range(0f, 100f)] public float maxSpeed = 7f;
@@ -69,6 +72,8 @@ public class PlayerController : MonoBehaviour
     public bool canAirAttack;
     public bool canAttack;
     public WeaponManager wpnManager;
+    public WeaponWheelController wpnWheel;
+    public bool weaponWheelSelected;
 
     [Header("Aiming")]
     public Camera m_Camera;
@@ -118,9 +123,13 @@ public class PlayerController : MonoBehaviour
         body = GetComponent<Rigidbody>();
         renderer = GetComponentInChildren<Renderer>();
         shake = GetComponentInChildren<HeadBob>();
+        wpnBob = GetComponentInChildren<WeaponBob>();
+        wpnSway = GetComponentInChildren<WeaponSway>();
         anim = GetComponentInChildren<Animator>();
         wpnManager = GetComponent<WeaponManager>();
+        wpnWheel = GetComponentInChildren<WeaponWheelController>();
         playerAudioSource = GetComponent<AudioSource>();
+        stats = GetComponent<PlayerStats>();
         OnValidate();
 
         trans = transform;
@@ -137,23 +146,33 @@ public class PlayerController : MonoBehaviour
 
     public void HandleInput()
     {
-        if (Cursor.lockState == CursorLockMode.Locked)
-            State.HandleInput(this);
+        if (!stats.isDead)
+        {
+            if (Cursor.lockState == CursorLockMode.Locked)
+                State.HandleInput(this);
+
+            //Getting the move input
+            playerInput.x = Input.GetAxis("Horizontal");
+            playerInput.y = Input.GetAxis("Vertical");
+            playerInput = Vector2.ClampMagnitude(playerInput, 1f);
+
+            // Rotate the character and camera.
+            mouseLook.LookRotation(trans, camTrans);
+
+            if (Input.GetKey(KeyCode.Tab))
+                wpnWheel.weaponWheelSelected = true;
+            else
+                wpnWheel.weaponWheelSelected = false;
+        }
     }
 
     void Update()
     {
         HandleInput();
+
         State.Update(this);
+
         mouseLook.UpdateCursorLock();
-
-        // Rotate the character and camera.
-        mouseLook.LookRotation(trans, camTrans);
-
-        //Getting the move input
-        playerInput.x = Input.GetAxis("Horizontal");
-        playerInput.y = Input.GetAxis("Vertical");
-        playerInput = Vector2.ClampMagnitude(playerInput, 1f);
 
         //Moving
         playerForward = playerInputSpace.forward;
@@ -164,6 +183,7 @@ public class PlayerController : MonoBehaviour
         playerRight.Normalize();
         desiredVelocity = (playerForward * playerInput.y + playerRight * playerInput.x) * maxSpeed;
 
+        //Update the forward vector of the player in the hitbox, to properly push back enemies when hit
         groundAttackData.knockbackDir = new Vector3[] { playerForward, playerForward, playerForward };
 
         //Dodging timer

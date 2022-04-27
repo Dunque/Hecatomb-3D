@@ -8,20 +8,12 @@ public class WeaponWheelController : MonoBehaviour
     public PlayerController player;
     public WeaponManager wpnManager;
     public Animator anim;
-    private bool weaponWheelSelected = false;
+    public bool weaponWheelSelected;
     public static int weaponId = 0;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Tab))
-        {
-            weaponWheelSelected = true;
-        }
-        else
-        {
-            weaponWheelSelected = false;
-        }
 
         if (weaponWheelSelected)
         {
@@ -34,7 +26,7 @@ public class WeaponWheelController : MonoBehaviour
             player.mouseLook.SetCursorLock(true);
         }
 
-        //_Quicki select weapon by pressin the numbers 1-3
+        //Quick select weapon by pressin the numbers 1-3
         if (Input.GetKeyDown(KeyCode.Alpha1))
             weaponId = 1;
         if (Input.GetKeyDown(KeyCode.Alpha2))

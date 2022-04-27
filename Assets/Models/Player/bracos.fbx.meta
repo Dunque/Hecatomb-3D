@@ -67,6 +67,9 @@ ModelImporter:
       74: -4503157680097988521
     second: Armature|8_2_HTime
   - first:
+      74: -4174135800354919241
+    second: Armature|9_0_Death
+  - first:
       74: 5449073193131188545
     second: Armature|CubeAction
   externalObjects: {}

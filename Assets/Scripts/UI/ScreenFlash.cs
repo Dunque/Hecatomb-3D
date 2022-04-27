@@ -6,16 +6,17 @@ using UnityEngine.UI;
 public class ScreenFlash : MonoBehaviour
 {
     [SerializeField] float fadeDuration = 0.3f;
-    Image sf;
+    public Image bloodyFlash;
+    public Image deathFlash;
 
-    private void Awake()
+    public void FlashAndStay()
     {
-        sf = GetComponent<Image>();
+        deathFlash.color = new Color(1, 1, 1, 1);
     }
 
     public void FlashScreen()
     {
-        sf.color = new Color(1, 1, 1, 1);
+        bloodyFlash.color = new Color(1, 1, 1, 1);
         StartCoroutine(FadeImage());
     }
 
@@ -28,7 +29,7 @@ public class ScreenFlash : MonoBehaviour
         while (alpha > 0)
         {
             alpha -= Time.deltaTime / fadeDuration;
-            sf.color = new Color(sf.color.r, sf.color.g, sf.color.b, alpha);
+            bloodyFlash.color = new Color(bloodyFlash.color.r, bloodyFlash.color.g, bloodyFlash.color.b, alpha);
             yield return null;
         }
     }

@@ -66,6 +66,33 @@ public class PlayerStats : EntityStats
         hbar.SetHealth(currentHp);
     }
 
+    public override void Die()
+    {
+        controller.playerInput = Vector2.zero;
+        controller.m_Camera.GetComponent<HeadBob>().enabled = false;
+        controller.m_Camera.transform.Translate(Vector3.down * 1.2f, Space.World);
+        controller.wpnBob.enabled = false;
+        controller.wpnSway.enabled = false;
+        controller.anim.Play("Death");
+        sf.FlashAndStay();
+        StartCoroutine(LookAtGroundLevel());
+    }
+
+    //This coroutine is in charge of rotating the camera's x angle towards 0, in order to look like the character is
+    //lying flat in the ground.
+    IEnumerator LookAtGroundLevel()
+    {
+        while(controller.m_Camera.transform.localEulerAngles.x > 0f)
+        {
+            Quaternion finalRot = Quaternion.Euler(Mathf.LerpAngle(controller.m_Camera.transform.localEulerAngles.x, 0f, Time.deltaTime * 4), 
+                                                    controller.m_Camera.transform.localEulerAngles.y, 
+                                                    controller.m_Camera.transform.localEulerAngles.z); 
+
+            controller.m_Camera.transform.localRotation = finalRot;
+            yield return null;
+        }
+    }
+
     //Physical colliders, like melee weapons or explosions
     public override void OnTriggerEnter(Collider collider)
     {

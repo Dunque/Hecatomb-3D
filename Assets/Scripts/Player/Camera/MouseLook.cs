@@ -16,7 +16,7 @@ using UnityEngine;
         [SerializeField] private float m_SmoothTime = 5f;
         [SerializeField] private bool m_LockCursor = true;
         [SerializeField] private float tiltSmoothing = 2f;
-        [SerializeField] public float tiltAngle = 1.5f;
+        [SerializeField] public float tiltAngle = 3f;
 
         private Quaternion m_CharacterTargetRot;
         private Quaternion m_CameraTargetRot;
@@ -64,12 +64,13 @@ using UnityEngine;
             else
             {
                 //Camera tilt when strafing left or right
-                if (Input.GetKey("d")) //cambiar esto por eje horizontal de movimiento
+                if (Input.GetAxis("Horizontal") > 0)
                 {
                     Quaternion finalRot = Quaternion.Euler(-xRot, 0f, Mathf.LerpAngle(camera.localEulerAngles.z, -tiltAngle, Time.deltaTime * tiltSmoothing));
                     camera.localRotation = finalRot;
                 }
-                else if (Input.GetKey("a"))
+                //Camera tilt when strafing left or right
+                else if (Input.GetAxis("Horizontal") < 0)
                 {
                     Quaternion finalRot = Quaternion.Euler(-xRot, 0f, Mathf.LerpAngle(camera.localEulerAngles.z, tiltAngle, Time.deltaTime * tiltSmoothing));
                     camera.localRotation = finalRot;
