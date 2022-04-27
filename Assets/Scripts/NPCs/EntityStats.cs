@@ -9,7 +9,10 @@ public class EntityStats : MonoBehaviour
     [SerializeField] public float currentHp;
     [SerializeField] public bool canReceiveKnockback;
     public Rigidbody body;
+    public float iframesTime = 0.2f;
     public bool isDead;
+
+    protected bool damageable = true;
 
     public virtual void Awake()
     {
@@ -17,16 +20,34 @@ public class EntityStats : MonoBehaviour
         body = GetComponent<Rigidbody>();
     }
 
+    //Timer used to prevent being damaged a lot of times in the span of a few frames
+    IEnumerator IframesTimer()
+    {
+        damageable = false;
+        float timer = 0;
+
+        while (timer < iframesTime)
+        {
+            timer += Time.deltaTime / iframesTime;
+            yield return null;
+        }
+        damageable = true;
+    }
+
     public virtual void ReceiveDamage(float damage)
     {
-        currentHp -= damage;
-        if (currentHp <= 0f)
+        if (damageable)
         {
-            currentHp = 0f;
-            if (!isDead)
-                Die();
-            isDead = true;
-        }    
+            currentHp -= damage;
+            if (currentHp <= 0f)
+            {
+                currentHp = 0f;
+                if (!isDead)
+                    Die();
+                isDead = true;
+            }
+        }
+
     }
 
     public virtual void ReceiveHealing(float heal)
@@ -34,12 +55,13 @@ public class EntityStats : MonoBehaviour
         if (currentHp + heal >= maxHp)
             currentHp = maxHp;
         else
-            currentHp = currentHp + heal;
+            currentHp += heal;
     }
 
     public virtual void ReceiveKnockback(float magnitude, Vector3 dir)
     {
-        body.velocity += magnitude * dir;
+        if (damageable)
+            body.velocity += magnitude * dir;
     }
 
     //Physical colliders, like melee weapons or explosions

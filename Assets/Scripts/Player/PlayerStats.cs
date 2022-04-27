@@ -8,10 +8,7 @@ public class PlayerStats : EntityStats
     public PlayerController controller;
     public HeadBob shake;
     public ScreenFlash sf;
-    public AudioSource audio_hurt1;
-    public AudioSource audio_hurt2;
-    public AudioSource audio_hurt3;
-    public AudioSource audio_hurt4;
+    public AudioClip[] hurtClips;
 
     public override void Awake()
     {
@@ -24,22 +21,7 @@ public class PlayerStats : EntityStats
 
     public void DamageSound()
     {
-        int n = Random.Range(0, 3);
-        switch (n)
-        {
-            case (0):
-                audio_hurt1.Play();
-                break;
-            case (1):
-                audio_hurt2.Play();
-                break;
-            case (2):
-                audio_hurt3.Play();
-                break;
-            case (3):
-                audio_hurt4.Play();
-                break;
-        }
+        controller.playerAudioSource.PlayOneShot(hurtClips[Random.Range(0, hurtClips.Length - 1)]);
     }
 
     public void DamageCameraShake()
@@ -54,7 +36,6 @@ public class PlayerStats : EntityStats
                 controller.shake.ShakeCamera(controller.shake.DoShakeDashL);
                 break;
         }
-
     }
 
     public override void ReceiveDamage(float damage)

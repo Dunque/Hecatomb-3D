@@ -8,26 +8,11 @@ public class HitboxStats : MonoBehaviour
     [SerializeField] public Vector3 knockbackDir;
     [SerializeField] public float damage;
 
-    public AudioSource audio_hit1;
-    public AudioSource audio_hit2;
-    public AudioSource audio_hit3;
+    public AudioSource audioHit;
+    public AudioClip[] hitSounds;
     
     public void PlayHitSounds()
     {
-        int n;
-
-        n = Random.Range(0, 3);
-        switch (n)
-        {
-            case (0):
-                audio_hit1.Play();
-                break;
-            case (1):
-                audio_hit2.Play();
-                break;
-            case (2):
-                audio_hit3.Play();
-                break;
-        }
+        audioHit.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length - 1)]);
     }
 }

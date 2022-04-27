@@ -77,18 +77,22 @@ public class PlayerController : MonoBehaviour
     public Vector3 playerRight;
 
     [Header("Sound")]
-    public AudioSource audio_Shotgun1;
-    public AudioSource audio_Shotgun2;
-    public AudioSource audio_Revolver1;
-    public AudioSource audio_SV;
-    public AudioSource audio_SV2;
-    public AudioSource audio_SV3;
-    public AudioSource audio_SH;
-    public AudioSource audio_Dash1;
-    public AudioSource audio_Dash2;
-    public AudioSource audio_Stinger1;
-    public AudioSource audio_Stinger2;
-    public AudioSource audio_GrapplingHook;
+    public AudioSource playerAudioSource;
+    public AudioClip[] footstepClips;
+    public AudioClip[] shotgunClips;
+    public AudioClip[] revolverClips;
+    public AudioClip[] lightSwingClips;
+    public AudioClip[] heavySwingClips;
+    public AudioClip[] thrustClips;
+    public AudioClip[] grapplingHookClips;
+    public AudioClip[] dashClips;
+
+    [Header("Footsteps")]
+    public float footstepTimer;
+
+    public float baseStepSpeed = 0.45f;
+    public float fastStepSpeed = 0.25f;
+    public float GetCurrentStepOffset => body.velocity.magnitude > maxSpeed + 1f? fastStepSpeed : baseStepSpeed;
 
     void OnValidate()
     {
@@ -116,6 +120,7 @@ public class PlayerController : MonoBehaviour
         shake = GetComponentInChildren<HeadBob>();
         anim = GetComponentInChildren<Animator>();
         wpnManager = GetComponent<WeaponManager>();
+        playerAudioSource = GetComponent<AudioSource>();
         OnValidate();
 
         trans = transform;

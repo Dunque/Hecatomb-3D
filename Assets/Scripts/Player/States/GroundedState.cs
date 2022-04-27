@@ -34,6 +34,8 @@ public class GroundedState : PlayerState
 
     public override void Update(PlayerController character)
     {
+        if(character.playerInput.magnitude > 0)
+            HandleFootsteps();
     }
 
     public override void FixedUpdate(PlayerController character)
@@ -43,6 +45,17 @@ public class GroundedState : PlayerState
 
         if (!character.dashed)
             Dash();
+    }
+
+    private void HandleFootsteps()
+    {
+        character.footstepTimer -= Time.deltaTime;
+        if (character.footstepTimer <= 0)
+        {
+            character.playerAudioSource.PlayOneShot(character.footstepClips[Random.Range(0, character.footstepClips.Length-1)], 0.7f);
+            character.footstepTimer = character.GetCurrentStepOffset;
+        }
+
     }
 
     private void SwingGroundCombos()
@@ -89,18 +102,7 @@ public class GroundedState : PlayerState
     }
     private void SFX_Dash()
     {
-        int n;
-
-        n = Random.Range(0, 2);
-        switch (n)
-        {
-            case (0):
-                character.audio_Dash1.Play();
-                break;
-            case (1):
-                character.audio_Dash2.Play();
-                break;
-        }
+        character.playerAudioSource.PlayOneShot(character.dashClips[Random.Range(0, character.dashClips.Length - 1)]);
     }
 
     private void Dash()

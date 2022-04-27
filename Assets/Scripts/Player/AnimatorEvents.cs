@@ -132,81 +132,32 @@ public class AnimatorEvents : MonoBehaviour
     // --------------------------------- SFX
     public void Event_SFX_Swing()
     {
-        int n;
-
-        n = Random.Range(0, 3);
-        switch (n)
-        {
-            case (0):
-                controller.audio_SV.Play();
-                break;
-            case (1):
-                controller.audio_SV2.Play();
-                break;
-            case (2):
-                controller.audio_SV3.Play();
-                break;
-        }
+        controller.playerAudioSource.PlayOneShot(controller.lightSwingClips[Random.Range(0, controller.lightSwingClips.Length - 1)]);
     }
 
     public void Event_SFX_SwingH()
     {
-        controller.audio_SH.Play();
+        controller.playerAudioSource.PlayOneShot(controller.heavySwingClips[Random.Range(0, controller.heavySwingClips.Length - 1)]);
     }
 
     public void Event_SFX_Stinger()
     {
-        int n;
-
-        n = Random.Range(0, 2);
-        switch (n)
-        {
-            case (0):
-                controller.audio_Stinger1.Play();
-                break;
-            case (1):
-                controller.audio_Stinger2.Play();
-                break;
-        }
+        controller.playerAudioSource.PlayOneShot(controller.thrustClips[Random.Range(0, controller.thrustClips.Length - 1)]);
     }
 
     public void Event_SFX_Shotgun()
     {
-        int n;
-
-        n = Random.Range(0, 2);
-        switch (n)
-        {
-            case (0):
-                controller.audio_Shotgun1.Play();
-                break;
-            case (1):
-                controller.audio_Shotgun2.Play();
-                break;
-        }
-
+        controller.playerAudioSource.PlayOneShot(controller.shotgunClips[Random.Range(0, controller.shotgunClips.Length - 1)]);
     }
 
     public void Event_SFX_Revolver()
     {
-        int n;
-
-        n = Random.Range(0, 2);
-        switch (n)
-        {
-            case (0):
-                controller.audio_Revolver1.Play();
-                break;
-            case (1):
-                controller.audio_Revolver1.Play();
-                break;
-        }
-
+        controller.playerAudioSource.PlayOneShot(controller.revolverClips[Random.Range(0, controller.revolverClips.Length - 1)]);
     }
 
     public void Event_SFX_GrapplingHook()
     {
-        controller.audio_GrapplingHook.Play();
+        controller.playerAudioSource.PlayOneShot(controller.grapplingHookClips[Random.Range(0, controller.grapplingHookClips.Length - 1)]);
     }
 
     // ----------------------------------- AirDash
