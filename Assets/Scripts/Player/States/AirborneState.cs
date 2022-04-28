@@ -33,7 +33,7 @@ public class AirborneState : PlayerState
     {
         if (character.canAirAttack)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Attack1"))
             {
                 character.anim.Play("AirSwing");
                 character.anim.SetBool("holding", true);
@@ -43,11 +43,11 @@ public class AirborneState : PlayerState
             }
 
         }
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Attack2"))
         {
             character.wpnManager.ShootGun();
         }
-        if (Input.GetButtonUp("Fire2"))
+        if (Input.GetButtonUp("Attack2"))
         {
             character.wpnManager.StopShootGun();
         }

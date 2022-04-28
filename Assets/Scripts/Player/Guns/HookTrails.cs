@@ -7,18 +7,13 @@ namespace Assets.Scripts.Player.Guns
     {
         UpdateHookTrail uht;
 
-        public override void CreateTrail(Vector3 end)
-        {
-            if (uht)
-                Destroy(uht.gameObject);
-            uht = Instantiate(bulletTrail).GetComponent<UpdateHookTrail>();
-            uht.SetPositions(muzzle, end);
-        }
-
         public void CreateTrail(Transform end)
         {
-            if (uht)
-                Destroy(uht.gameObject);
+            //If there is already one hookTrail, we destroy it
+            DestroyTrail();
+
+            //We instantiate a new one and set it's position to the muzzle of the hook and the transform
+            //of the grabbed object
             uht = Instantiate(bulletTrail).GetComponent<UpdateHookTrail>();
             uht.SetPositions(muzzle, end);
         }

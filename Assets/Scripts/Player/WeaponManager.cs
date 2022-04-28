@@ -16,6 +16,8 @@ public class WeaponManager : MonoBehaviour
 
     public Gun currentGun = null;
 
+    public AudioClip changeWeaponClip;
+
     public void Awake()
     {
         controller = GetComponent<PlayerController>();
@@ -45,6 +47,8 @@ public class WeaponManager : MonoBehaviour
         else
             wpnDisplay.EmptyText();
 
+        //Play sound
+        controller.playerAudioSource.PlayOneShot(changeWeaponClip);
     }
 
     public void ShootGun()

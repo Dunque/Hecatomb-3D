@@ -6,7 +6,7 @@ using TMPro;
 
 public class WeaponWheelButtonController : MonoBehaviour
 {
-
+    public WeaponWheelController wpnWheel;
     public int ID;
     private Animator anim;
     public string itemName;
@@ -16,6 +16,7 @@ public class WeaponWheelButtonController : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<Animator>();
+        wpnWheel = GetComponentInParent<WeaponWheelController>();
     }
 
     // Update is called once per frame
@@ -32,7 +33,7 @@ public class WeaponWheelButtonController : MonoBehaviour
         anim.SetBool("Hover", true);
         itemText.text = itemName;
         selected = true;
-        WeaponWheelController.weaponId = ID;
+        wpnWheel.wpnManager.ChangeGun(ID);
     }
     public void HoverExit()
     {

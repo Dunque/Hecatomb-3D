@@ -8,32 +8,16 @@ public class WeaponWheelController : MonoBehaviour
     public PlayerController player;
     public WeaponManager wpnManager;
     public Animator anim;
-    public bool weaponWheelSelected;
-    public static int weaponId = 0;
 
-    // Update is called once per frame
-    void Update()
+    public void OpenWheel()
     {
+        anim.SetBool("OpenWeaponWheel", true);
+        player.mouseLook.SetCursorLock(false);
+    }
 
-        if (weaponWheelSelected)
-        {
-            anim.SetBool("OpenWeaponWheel", true);
-            player.mouseLook.SetCursorLock(false);
-        }
-        else
-        {
-            anim.SetBool("OpenWeaponWheel", false);
-            player.mouseLook.SetCursorLock(true);
-        }
-
-        //Quick select weapon by pressin the numbers 1-3
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            weaponId = 1;
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            weaponId = 2;
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-            weaponId = 3;
-
-        wpnManager.ChangeGun(weaponId);
+    public void CloseWheel()
+    {
+        anim.SetBool("OpenWeaponWheel", false);
+        player.mouseLook.SetCursorLock(true);
     }
 }

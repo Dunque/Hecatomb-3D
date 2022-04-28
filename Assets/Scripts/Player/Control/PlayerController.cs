@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip[] thrustClips;
     public AudioClip[] grapplingHookClips;
     public AudioClip[] dashClips;
+    public AudioClip landingClip;
 
     [Header("Footsteps")]
     public float footstepTimer;
@@ -159,10 +160,19 @@ public class PlayerController : MonoBehaviour
             // Rotate the character and camera.
             mouseLook.LookRotation(trans, camTrans);
 
-            if (Input.GetKey(KeyCode.Tab))
-                wpnWheel.weaponWheelSelected = true;
+            //Open the weaponWheel
+            if (Input.GetButton("WeaponSelect"))
+                wpnWheel.OpenWheel();
             else
-                wpnWheel.weaponWheelSelected = false;
+                wpnWheel.CloseWheel();
+
+            //Quick select weapon by pressin the numbers 1-3
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                wpnManager.ChangeGun(1);
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                wpnManager.ChangeGun(2);
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+                wpnManager.ChangeGun(3);
         }
     }
 
@@ -240,7 +250,7 @@ public class PlayerController : MonoBehaviour
     void SwingRelease()
     {
         //Stop charging attacks upon button release
-        if (!Input.GetButton("Fire1"))
+        if (!Input.GetButton("Attack1"))
         {
             anim.SetBool("holding", false);
         }

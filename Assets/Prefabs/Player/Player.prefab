@@ -327,6 +327,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cde67e8032fc1d14faa5bbfbb84d9282, type: 3}
   - {fileID: 8300000, guid: fbced56b27616ef43bf7cf31df211bf8, type: 3}
   - {fileID: 8300000, guid: 2d6a3e4f5fa72114888b6a873f263110, type: 3}
+  deathClip: {fileID: 8300000, guid: d8154280f8405b94ba9cc687ccdcf4f7, type: 3}
 --- !u!114 &2558934133032545742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,6 +349,7 @@ MonoBehaviour:
   gunList: []
   currentGunIndex: 0
   currentGun: {fileID: 0}
+  changeWeaponClip: {fileID: 8300000, guid: d9c1475b88d19754ab10f83e622581cd, type: 3}
 --- !u!114 &4992872569489938203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +370,7 @@ MonoBehaviour:
   renderer: {fileID: 0}
   shake: {fileID: 0}
   wpnBob: {fileID: 0}
+  wpnSway: {fileID: 0}
   leftHand: {fileID: 2855197821824867368}
   rightHand: {fileID: 6129710902655123115}
   stats: {fileID: 2745299877650397603}
@@ -405,6 +408,8 @@ MonoBehaviour:
   canAirAttack: 0
   canAttack: 0
   wpnManager: {fileID: 0}
+  wpnWheel: {fileID: 0}
+  weaponWheelSelected: 0
   m_Camera: {fileID: 0}
   mouseLook:
     m_XSensitivity: 4
@@ -446,6 +451,7 @@ MonoBehaviour:
   dashClips:
   - {fileID: 8300000, guid: a70f5afb5b9cb2c46b1eb15e14137d12, type: 3}
   - {fileID: 8300000, guid: 064a571fd867b784d8f1585cfa5109ca, type: 3}
+  landingClip: {fileID: 8300000, guid: f17566e4bc00d1a4496cea0bc915a34e, type: 3}
   footstepTimer: 0
   baseStepSpeed: 0.45
   fastStepSpeed: 0.25

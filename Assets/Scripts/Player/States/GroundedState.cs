@@ -14,7 +14,10 @@ public class GroundedState : PlayerState
     public override void OnEnterState(PlayerController character)
     {
         Debug.Log("Entered Grounded State");
+        //Reload air attack
         character.canAirAttack = true;
+        //Play the landing sound
+        character.playerAudioSource.PlayOneShot(character.landingClip);
     }
 
     public override void HandleInput(PlayerController character)
@@ -22,7 +25,7 @@ public class GroundedState : PlayerState
 
         SwingGroundCombos();
 
-        if (Input.GetButtonDown("Fire3") && ((character.playerInput.x != 0f) || (character.playerInput.y != 0f)) && character.canDodge)
+        if (Input.GetButtonDown("Dash") && ((character.playerInput.x != 0f) || (character.playerInput.y != 0f)) && character.canDodge)
         {
             character.dashed = false;
         }
@@ -62,7 +65,7 @@ public class GroundedState : PlayerState
     {
         if (character.canAttack)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Attack1"))
             {
                 character.anim.Play(character.groundAttackData.animName[character.currentCombo]);
                 character.anim.SetBool("holding", true);
@@ -70,18 +73,18 @@ public class GroundedState : PlayerState
                 character.weaponHitbox.knockbackDir = character.groundAttackData.knockbackDir[character.currentCombo];
                 character.weaponHitbox.damage = character.groundAttackData.damage[character.currentCombo];
             }
-            else if (Input.GetKeyDown(KeyCode.Q))
+            else if (Input.GetButtonDown("Defend"))
             {
                 character.anim.Play("Parry");
             }
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetButtonDown("Attack3"))
             {
                 character.anim.Play("Stinger");
                 character.weaponHitbox.knockback = 8f;
                 character.weaponHitbox.knockbackDir = character.playerForward;
                 character.weaponHitbox.damage = 10f;
             }
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetButtonDown("Attack4"))
             {
                 character.anim.Play("HTime");
                 character.weaponHitbox.knockback = 12f;
@@ -89,11 +92,11 @@ public class GroundedState : PlayerState
                 character.weaponHitbox.damage = 10f;
             }
 
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Attack2"))
             {
                 character.wpnManager.ShootGun();
             }
-            if (Input.GetButtonUp("Fire2"))
+            if (Input.GetButtonUp("Attack2"))
             {
                 character.wpnManager.StopShootGun();
             }

@@ -108,11 +108,11 @@ using UnityEngine;
 
         private void InternalLockUpdate()
         {
-            if (Input.GetKeyUp(KeyCode.Escape))
+            if (Input.GetButtonUp("Cancel"))
             {
                 m_cursorIsLocked = false;
             }
-            else if (Input.GetMouseButtonUp(0))
+            else if (Input.GetButtonUp("Attack1"))
             {
                 m_cursorIsLocked = true;
             }

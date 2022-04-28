@@ -9,6 +9,7 @@ public class PlayerStats : EntityStats
     public HeadBob shake;
     public ScreenFlash sf;
     public AudioClip[] hurtClips;
+    public AudioClip deathClip;
 
     public override void Awake()
     {
@@ -68,13 +69,21 @@ public class PlayerStats : EntityStats
 
     public override void Die()
     {
+        //Remove player movement input
         controller.playerInput = Vector2.zero;
+        //Disable head bobbing
         controller.m_Camera.GetComponent<HeadBob>().enabled = false;
-        controller.m_Camera.transform.Translate(Vector3.down * 1.2f, Space.World);
+        //Disable weapon bobbing
         controller.wpnBob.enabled = false;
+        //Disable arms sway with mouse movement
         controller.wpnSway.enabled = false;
+        //play death animation and sound
         controller.anim.Play("Death");
+        controller.playerAudioSource.PlayOneShot(deathClip);
+        //Flash screen with blood
         sf.FlashAndStay();
+        //Move and rotate the camera down, to resemble that the player is lying on the ground
+        controller.m_Camera.transform.Translate(Vector3.down * 1.2f, Space.World);
         StartCoroutine(LookAtGroundLevel());
     }
 
@@ -87,7 +96,6 @@ public class PlayerStats : EntityStats
             Quaternion finalRot = Quaternion.Euler(Mathf.LerpAngle(controller.m_Camera.transform.localEulerAngles.x, 0f, Time.deltaTime * 4), 
                                                     controller.m_Camera.transform.localEulerAngles.y, 
                                                     controller.m_Camera.transform.localEulerAngles.z); 
-
             controller.m_Camera.transform.localRotation = finalRot;
             yield return null;
         }
