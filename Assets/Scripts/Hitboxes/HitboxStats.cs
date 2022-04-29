@@ -13,6 +13,8 @@ public class HitboxStats : MonoBehaviour
     
     public void PlayHitSounds()
     {
-        audioHit.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length - 1)]);
+        //Check if there are audio clips to play
+        if (hitSounds.Length > 0)
+            audioHit.PlayOneShot(hitSounds[Random.Range(0, hitSounds.Length - 1)]);
     }
 }

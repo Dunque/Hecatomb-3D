@@ -41,22 +41,26 @@ public class PlayerStats : EntityStats
 
     public override void ReceiveDamage(float damage)
     {
-        currentHp -= damage;
-        //Update healthbar
-        hbar.SetHealth(currentHp);
-
-        //Special effects
-        DamageCameraShake();
-        DamageSound();
-        sf.FlashScreen();
-
-        if (currentHp <= 0f)
+        if (damageable)
         {
-            currentHp = 0f;
-            if (!isDead)
-                Die();
-            isDead = true;
+            currentHp -= damage;
+            //Update healthbar
+            hbar.SetHealth(currentHp);
+
+            //Special effects
+            DamageCameraShake();
+            DamageSound();
+            sf.FlashScreen();
+
+            if (currentHp <= 0f)
+            {
+                currentHp = 0f;
+                if (!isDead)
+                    Die();
+                isDead = true;
+            }
         }
+        StartCoroutine(IframesTimer(iframesTime));
     }
 
     public override void ReceiveHealing(float heal)
@@ -110,8 +114,6 @@ public class PlayerStats : EntityStats
             //Getting the data from the damaging hitbox
             HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();
 
-            ReceiveDamage(hbs.damage);
-
             if (canReceiveKnockback)
             {
                 if (hbs.knockbackDir != Vector3.zero)
@@ -121,6 +123,8 @@ public class PlayerStats : EntityStats
                     ReceiveKnockback(hbs.knockback, transform.position - collider.transform.position);
                 }
             }
+
+            ReceiveDamage(hbs.damage);
         }
     }
 }

@@ -11,7 +11,6 @@ public class AnimatorEvents : MonoBehaviour
     public float defaultSpeed;
     public float halfSpeed;
     public Collider hitbox;
-    public Collider hitboxStinger;
     public ParticleSystem swordTrail;
 
     void Awake()
@@ -118,17 +117,6 @@ public class AnimatorEvents : MonoBehaviour
         swordTrail.Stop();
     }
 
-    public void Event_EnableHitboxStinger()
-    {
-        hitboxStinger.enabled = true;
-        swordTrail.Play();
-    }
-    public void Event_DisableHitboxStinger()
-    {
-        hitboxStinger.enabled = false;
-        swordTrail.Stop();
-    }
-
     // --------------------------------- SFX
     public void Event_SFX_Swing()
     {
@@ -147,17 +135,17 @@ public class AnimatorEvents : MonoBehaviour
 
     public void Event_SFX_Shotgun()
     {
-        controller.playerAudioSource.PlayOneShot(controller.shotgunClips[Random.Range(0, controller.shotgunClips.Length - 1)]);
+        controller.playerAudioSource.PlayOneShot(controller.wpnManager.shotgunClips[Random.Range(0, controller.wpnManager.shotgunClips.Length - 1)]);
     }
 
     public void Event_SFX_Revolver()
     {
-        controller.playerAudioSource.PlayOneShot(controller.revolverClips[Random.Range(0, controller.revolverClips.Length - 1)]);
+        controller.playerAudioSource.PlayOneShot(controller.wpnManager.revolverClips[Random.Range(0, controller.wpnManager.revolverClips.Length - 1)]);
     }
 
     public void Event_SFX_GrapplingHook()
     {
-        controller.playerAudioSource.PlayOneShot(controller.grapplingHookClips[Random.Range(0, controller.grapplingHookClips.Length - 1)]);
+        controller.playerAudioSource.PlayOneShot(controller.wpnManager.grapplingHookClips[Random.Range(0, controller.wpnManager.grapplingHookClips.Length - 1)]);
     }
 
     // ----------------------------------- AirDash

@@ -12,7 +12,7 @@ public class Shotgun : Gun
     {
         range = 50f;
         damage = 10f;
-        knockback = 10f;
+        knockback = 5f;
         maxAmmo = 20;
         animName = "Shotgun";
         base.Awake();
@@ -33,8 +33,8 @@ public class Shotgun : Gun
                 EntityStats entStats;
                 if ((entStats = hit.collider.GetComponent<EntityStats>()) != null)
                 {
-                    entStats.ReceiveDamage(damage);
                     entStats.ReceiveKnockback(knockback, shootingDir);
+                    entStats.ReceiveDamage(damage);
                 }
                 shotTrails.CreateTrail(hit.point);
             }

@@ -8,18 +8,18 @@ public abstract class Gun : MonoBehaviour
     public Transform cam;
 
     [Header("Weapon Stats")]
-    [SerializeField] public float range;
-    [SerializeField] public float damage;
-    [SerializeField] public float knockback;
+    public float range;
+    public float damage;
+    public float knockback;
 
-    [SerializeField] public int maxAmmo;
+    public int maxAmmo;
     public int currentAmmo;
 
     public ShotTrails shotTrails;
 
     [Header("Animation")]
     public Sprite gunIcon;
-    [SerializeField] public string animName;
+    public string animName;
 
     // Start is called before the first frame update
     public virtual void Awake()

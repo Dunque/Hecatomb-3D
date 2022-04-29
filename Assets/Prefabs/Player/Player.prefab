@@ -312,11 +312,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 579fa7d6d10c8f749b5a7518d81f63d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 18281162013298141}
   maxHp: 100
   currentHp: 0
   canReceiveKnockback: 1
-  body: {fileID: 18281162013298141}
-  iframesTime: 0.2
+  iframesTime: 0.5
+  damageable: 1
   isDead: 0
   hbar: {fileID: 0}
   controller: {fileID: 0}
@@ -350,6 +351,13 @@ MonoBehaviour:
   currentGunIndex: 0
   currentGun: {fileID: 0}
   changeWeaponClip: {fileID: 8300000, guid: d9c1475b88d19754ab10f83e622581cd, type: 3}
+  shotgunClips:
+  - {fileID: 8300000, guid: 88a58894a601cd2408ab38f564adb80f, type: 3}
+  - {fileID: 8300000, guid: 1cd73daa694a93a4fa14cd6f896deec4, type: 3}
+  revolverClips:
+  - {fileID: 8300000, guid: 93296a87a310276419ac78b613bdee62, type: 3}
+  grapplingHookClips:
+  - {fileID: 8300000, guid: ece0d0279903a6143b7ee46fd2badabd, type: 3}
 --- !u!114 &4992872569489938203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,6 +382,8 @@ MonoBehaviour:
   leftHand: {fileID: 2855197821824867368}
   rightHand: {fileID: 6129710902655123115}
   stats: {fileID: 2745299877650397603}
+  wpnManager: {fileID: 0}
+  wpnWheel: {fileID: 0}
   maxSpeed: 7
   maxAcceleration: 50
   maxAirAcceleration: 15
@@ -383,6 +393,8 @@ MonoBehaviour:
   connectionVelocity: {x: 0, y: 0, z: 0}
   jumpHeight: 4
   jump: 0
+  coyoteTime: 0.15
+  coyoteTimer: 0
   maxGroundAngle: 40
   maxStairsAngle: 50
   maxSnapSpeed: 100
@@ -407,9 +419,6 @@ MonoBehaviour:
   currentCombo: 0
   canAirAttack: 0
   canAttack: 0
-  wpnManager: {fileID: 0}
-  wpnWheel: {fileID: 0}
-  weaponWheelSelected: 0
   m_Camera: {fileID: 0}
   mouseLook:
     m_XSensitivity: 4
@@ -432,11 +441,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0da2e59f5a5aa2f40933f17c1752c529, type: 3}
   - {fileID: 8300000, guid: 2178fd8a8dd1406439b1df8efa95c161, type: 3}
   - {fileID: 8300000, guid: a93b8e90a688c9e4cb0b637282eda023, type: 3}
-  shotgunClips:
-  - {fileID: 8300000, guid: 88a58894a601cd2408ab38f564adb80f, type: 3}
-  - {fileID: 8300000, guid: 1cd73daa694a93a4fa14cd6f896deec4, type: 3}
-  revolverClips:
-  - {fileID: 8300000, guid: 93296a87a310276419ac78b613bdee62, type: 3}
+  landingClip: {fileID: 8300000, guid: f17566e4bc00d1a4496cea0bc915a34e, type: 3}
   lightSwingClips:
   - {fileID: 8300000, guid: d3cbac37c63ab3b48b7d1b59a882eded, type: 3}
   - {fileID: 8300000, guid: eea38fb77d1ddb44897fd48fc14c1743, type: 3}
@@ -446,15 +451,9 @@ MonoBehaviour:
   thrustClips:
   - {fileID: 8300000, guid: 3a1999309117b49439a3e5138bd480ec, type: 3}
   - {fileID: 8300000, guid: 3446b9ebe2f56204fbc94bbc2b3bd2f9, type: 3}
-  grapplingHookClips:
-  - {fileID: 8300000, guid: ece0d0279903a6143b7ee46fd2badabd, type: 3}
   dashClips:
   - {fileID: 8300000, guid: a70f5afb5b9cb2c46b1eb15e14137d12, type: 3}
   - {fileID: 8300000, guid: 064a571fd867b784d8f1585cfa5109ca, type: 3}
-  landingClip: {fileID: 8300000, guid: f17566e4bc00d1a4496cea0bc915a34e, type: 3}
-  footstepTimer: 0
-  baseStepSpeed: 0.45
-  fastStepSpeed: 0.25
 --- !u!82 &2002724047
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2592,7 +2591,6 @@ MonoBehaviour:
   defaultSpeed: 0
   halfSpeed: 0
   hitbox: {fileID: 86226241952697006}
-  hitboxStinger: {fileID: 0}
   swordTrail: {fileID: 5176129213373996403}
 --- !u!1001 &6108284888657412593
 PrefabInstance:

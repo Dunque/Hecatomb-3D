@@ -28,8 +28,8 @@ public class Revolver : Gun
             EntityStats entStats;
             if ((entStats = hit.collider.GetComponent<EntityStats>()) != null)
             {
-                entStats.ReceiveDamage(damage);
                 entStats.ReceiveKnockback(knockback, shootingDir);
+                entStats.ReceiveDamage(damage);
             }
             shotTrails.CreateTrail(hit.point);
         }

@@ -18,35 +18,42 @@ public class BaseEnemyStats : EntityStats
 
     public override void ReceiveDamage(float damage)
     {
-        currentHp -= damage;
-        if (animator != null)
+        if (damageable)
         {
-            animator.Play($"Hit{Random.Range(0, 2)}");
-
-            if (currentHp <= 0f)
+            currentHp -= damage;
+            if (animator != null)
             {
-                isDead = true;
-                currentHp = 0f;
-                if (animator != null)
-                {
-                    animator.SetLayerWeight(1, 0);
-                    animator.SetInteger("DeadNumAnim", Random.Range(0, 2));
-                    animator.SetBool("Dead", true);
-                }
+                animator.Play($"Hit{Random.Range(0, 2)}");
 
+                if (currentHp <= 0f)
+                {
+                    isDead = true;
+                    currentHp = 0f;
+                    if (animator != null)
+                    {
+                        animator.SetLayerWeight(1, 0);
+                        animator.SetInteger("DeadNumAnim", Random.Range(0, 2));
+                        animator.SetBool("Dead", true);
+                    }
+
+                }
             }
+            StartCoroutine(IframesTimer(iframesTime));
         }
     }
 
     public override void ReceiveKnockback(float magnitude, Vector3 dir)
     {
-        if (isDead)
-            if (ragdollBody != null)
-                foreach (Rigidbody rb in ragdollBody)
-                    rb.velocity += magnitude * dir;
+        if (damageable)
+        {
+            if (isDead)
+                if (ragdollBody != null)
+                    foreach (Rigidbody rb in ragdollBody)
+                        rb.velocity += magnitude * dir;
+                else
+                    body.velocity += magnitude * dir;
             else
                 body.velocity += magnitude * dir;
-        else
-            body.velocity += magnitude * dir;
+        }
     }
 }

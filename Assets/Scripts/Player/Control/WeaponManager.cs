@@ -6,25 +6,27 @@ public class WeaponManager : MonoBehaviour
 {
     public PlayerController controller;
     public WeaponDisplay wpnDisplay;
-
+    [Space]
     public GameObject wpnNone;
     public GameObject wpnShotgun;
     public GameObject wpnRevolver;
     public GameObject wpnGrapplingHook;
     public GameObject[] gunList;
     public int currentGunIndex = 0;
-
+    [Space]
     public Gun currentGun = null;
-
+    [Header("Sounds")]
     public AudioClip changeWeaponClip;
+    public AudioClip[] shotgunClips;
+    public AudioClip[] revolverClips;
+    public AudioClip[] grapplingHookClips;
 
     public void Awake()
     {
         controller = GetComponent<PlayerController>();
         wpnDisplay = GetComponentInChildren<WeaponDisplay>();
 
-        //Adding weapons to the list
-        //TODO temporal thing, remove this
+        //Initialising the weapon list
         gunList = new GameObject[] { wpnNone, wpnShotgun, wpnRevolver, wpnGrapplingHook };
     }
 
@@ -56,6 +58,7 @@ public class WeaponManager : MonoBehaviour
         //currentGun == null means that the player has no equipped weapon.
         if (currentGun != null)
         {
+            //If the weapon has enough ammo
             if (currentGun.CanShoot())
             {
                 controller.anim.Play(currentGun.animName);

@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     public Transform leftHand;
     public Transform rightHand;
     public PlayerStats stats;
+    public WeaponManager wpnManager;
+    public WeaponWheelController wpnWheel;
 
     [Header("Movement")]
     [SerializeField, Range(0f, 100f)] public float maxSpeed = 7f;
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     [SerializeField, Range(0f, 10f)] public float jumpHeight = 5f;
     public bool jump = false;
+    public float coyoteTime = 0.15f;
+    public float coyoteTimer = 0f;
 
     [Header("Ground Checks")]
     [SerializeField, Range(0, 90)] public float maxGroundAngle = 40f, maxStairsAngle = 50f;
@@ -71,9 +75,6 @@ public class PlayerController : MonoBehaviour
     public int currentCombo;
     public bool canAirAttack;
     public bool canAttack;
-    public WeaponManager wpnManager;
-    public WeaponWheelController wpnWheel;
-    public bool weaponWheelSelected;
 
     [Header("Aiming")]
     public Camera m_Camera;
@@ -84,21 +85,11 @@ public class PlayerController : MonoBehaviour
     [Header("Sound")]
     public AudioSource playerAudioSource;
     public AudioClip[] footstepClips;
-    public AudioClip[] shotgunClips;
-    public AudioClip[] revolverClips;
+    public AudioClip landingClip;
     public AudioClip[] lightSwingClips;
     public AudioClip[] heavySwingClips;
     public AudioClip[] thrustClips;
-    public AudioClip[] grapplingHookClips;
     public AudioClip[] dashClips;
-    public AudioClip landingClip;
-
-    [Header("Footsteps")]
-    public float footstepTimer;
-
-    public float baseStepSpeed = 0.45f;
-    public float fastStepSpeed = 0.25f;
-    public float GetCurrentStepOffset => body.velocity.magnitude > maxSpeed + 1f? fastStepSpeed : baseStepSpeed;
 
     void OnValidate()
     {
@@ -238,12 +229,26 @@ public class PlayerController : MonoBehaviour
 
         if (isDashingTimer > 0) 
         {
+            //Player is invulnerable while dashing, to evade damage
+            StartCoroutine(stats.IframesTimer(0.5f));
             isDashingTimer -= Time.deltaTime;
         }
         else
         {
             isDashing = false;
             isDashingTimer = 0;
+        }
+    }
+
+    private void CoyoteCooldown()
+    {
+        if (coyoteTimer > 0)
+        {
+            coyoteTimer -= Time.deltaTime;
+        }
+        else
+        {
+            coyoteTimer = 0;
         }
     }
 
@@ -310,13 +315,15 @@ public class PlayerController : MonoBehaviour
 
         if (OnGround || SnapToGround() || CheckSteepContacts())
         {
+            coyoteTimer = coyoteTime;
             if (State == airborneState)
                 State.ToState(this, groundedState);
             stepsSinceLastGrounded = 0;
         }
-        else 
+        else
         {
-            if (State == groundedState)
+            CoyoteCooldown();
+            if (State == groundedState && coyoteTimer == 0)
                 State.ToState(this, airborneState);
         }
 

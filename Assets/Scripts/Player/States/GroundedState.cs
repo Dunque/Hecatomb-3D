@@ -6,6 +6,13 @@ public class GroundedState : PlayerState
 {
     PlayerController character;
 
+    [Header("Footsteps")]
+    public float footstepTimer;
+
+    public float baseStepSpeed = 0.45f;
+    public float fastStepSpeed = 0.25f;
+    public float GetCurrentStepOffset => character.body.velocity.magnitude > character.maxSpeed + 1f ? fastStepSpeed : baseStepSpeed;
+
     public GroundedState(PlayerController character)
     {
         this.character = character;
@@ -16,6 +23,8 @@ public class GroundedState : PlayerState
         Debug.Log("Entered Grounded State");
         //Reload air attack
         character.canAirAttack = true;
+        //Reload coyote time
+        character.coyoteTimer = 0;
         //Play the landing sound
         character.playerAudioSource.PlayOneShot(character.landingClip);
     }
@@ -52,11 +61,11 @@ public class GroundedState : PlayerState
 
     private void HandleFootsteps()
     {
-        character.footstepTimer -= Time.deltaTime;
-        if (character.footstepTimer <= 0)
+        footstepTimer -= Time.deltaTime;
+        if (footstepTimer <= 0)
         {
             character.playerAudioSource.PlayOneShot(character.footstepClips[Random.Range(0, character.footstepClips.Length-1)], 0.7f);
-            character.footstepTimer = character.GetCurrentStepOffset;
+            footstepTimer = GetCurrentStepOffset;
         }
 
     }

@@ -5,14 +5,13 @@ using UnityEngine;
 public class EntityStats : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] public float maxHp = 50f;
-    [SerializeField] public float currentHp;
-    [SerializeField] public bool canReceiveKnockback;
     public Rigidbody body;
+    public float maxHp = 50f;
+    public float currentHp;
+    public bool canReceiveKnockback;
     public float iframesTime = 0.2f;
+    public bool damageable = true;
     public bool isDead;
-
-    protected bool damageable = true;
 
     public virtual void Awake()
     {
@@ -21,14 +20,14 @@ public class EntityStats : MonoBehaviour
     }
 
     //Timer used to prevent being damaged a lot of times in the span of a few frames
-    IEnumerator IframesTimer()
+    public IEnumerator IframesTimer(float time)
     {
         damageable = false;
         float timer = 0;
 
-        while (timer < iframesTime)
+        while (timer < time)
         {
-            timer += Time.deltaTime / iframesTime;
+            timer += Time.deltaTime / time;
             yield return null;
         }
         damageable = true;
@@ -46,6 +45,7 @@ public class EntityStats : MonoBehaviour
                     Die();
                 isDead = true;
             }
+            StartCoroutine(IframesTimer(iframesTime));
         }
 
     }
@@ -76,20 +76,20 @@ public class EntityStats : MonoBehaviour
             //Play hitting sound
             hbs.PlayHitSounds();
 
-            //Now receive the damage from the hitbox data
-            ReceiveDamage(hbs.damage);
-
-            //FInally check if it can receive knockback, and the direction of it
-            if (canReceiveKnockback) {
+            //Check if it can receive knockback, and the direction of it
+            if (canReceiveKnockback)
+            {
                 if (hbs.knockbackDir != Vector3.zero)
                     ReceiveKnockback(hbs.knockback, hbs.knockbackDir);
-                else {
+                else
+                {
                     ReceiveKnockback(hbs.knockback, transform.position - collider.transform.position);
                 }
             }
-            
-        }
 
+            //Now receive the damage from the hitbox data
+            ReceiveDamage(hbs.damage);
+        }
     }
 
     public virtual void Die()
