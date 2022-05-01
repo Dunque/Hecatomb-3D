@@ -21,7 +21,6 @@ public abstract class Gun : MonoBehaviour
     public Sprite gunIcon;
     public string animName;
 
-    // Start is called before the first frame update
     public virtual void Awake()
     {
         Camera camera = GetComponentInParent<Camera>();

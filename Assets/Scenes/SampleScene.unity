@@ -43385,7 +43385,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-39090
+  m_Name: pb_Mesh-34656
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -50979,7 +50979,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24468
+  m_Name: pb_Mesh55374
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -51376,6 +51376,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea8573e02cbbf014b88c07c6bbec77e8, type: 3}
+--- !u!4 &1582484968 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3038157063109730727, guid: 85b1ccfbcaaaaf947a354d884676a6d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2034073313}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1603937933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61928,7 +61934,7 @@ PrefabInstance:
     - target: {fileID: 3038157063449851398, guid: 85b1ccfbcaaaaf947a354d884676a6d3,
         type: 3}
       propertyPath: target.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3038157063449851398, guid: 85b1ccfbcaaaaf947a354d884676a6d3,
         type: 3}
@@ -61944,7 +61950,7 @@ PrefabInstance:
         type: 3}
       propertyPath: target.Array.data[2]
       value: 
-      objectReference: {fileID: 1323601179}
+      objectReference: {fileID: 1582484968}
     - target: {fileID: 3038157063449851416, guid: 85b1ccfbcaaaaf947a354d884676a6d3,
         type: 3}
       propertyPath: m_Mesh
@@ -67334,6 +67340,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 524056653, guid: bd93b63f20c2cd44492d17829afe8a11, type: 3}
+      propertyPath: damage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 524056653, guid: bd93b63f20c2cd44492d17829afe8a11, type: 3}
+      propertyPath: knockback
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 1042822515, guid: bd93b63f20c2cd44492d17829afe8a11, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

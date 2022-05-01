@@ -45,7 +45,7 @@ public class WeaponManager : MonoBehaviour
 
         //Update ammo counter
         if (currentGun != null)
-            wpnDisplay.UpdateAmmoCount(currentGun.currentAmmo, currentGun.maxAmmo);
+            UpdateAmmoCount();
         else
             wpnDisplay.EmptyText();
 
@@ -62,7 +62,6 @@ public class WeaponManager : MonoBehaviour
             if (currentGun.CanShoot())
             {
                 controller.anim.Play(currentGun.animName);
-                wpnDisplay.UpdateAmmoCount(currentGun.currentAmmo, currentGun.maxAmmo);
             }
         }
     }
@@ -72,6 +71,12 @@ public class WeaponManager : MonoBehaviour
         //currentGun == null means that the player has no equipped weapon.
         if (currentGun != null)
             currentGun.StopShoot();
+
+    }
+
+    public void UpdateAmmoCount()
+    {
+        wpnDisplay.UpdateAmmoCount(currentGun.currentAmmo, currentGun.maxAmmo);
     }
 
 }

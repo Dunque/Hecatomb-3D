@@ -6,6 +6,9 @@ public class GroundedState : PlayerState
 {
     PlayerController character;
 
+    [Header("Variables")]
+    public bool jump;
+
     [Header("Footsteps")]
     public float footstepTimer;
 
@@ -40,7 +43,7 @@ public class GroundedState : PlayerState
         }
         if (Input.GetButtonDown("Jump"))
         {
-            character.jump = true;
+            jump = true;
         }
     }
 
@@ -52,7 +55,7 @@ public class GroundedState : PlayerState
 
     public override void FixedUpdate(PlayerController character)
     {
-        if (character.jump)
+        if (jump)
             Jump();
 
         if (!character.dashed)
@@ -70,6 +73,9 @@ public class GroundedState : PlayerState
 
     }
 
+    //This funciton is in charge of playing the right animation depending on the attack input of the player. It
+    //also sets the damage, knockback direction and magnitude of the weapon hitbox, according to what attack was
+    //performed.
     private void SwingGroundCombos()
     {
         if (character.canAttack)
@@ -112,21 +118,28 @@ public class GroundedState : PlayerState
 
         }
     }
+
+    //the sound effect of both the dodges and the jump
     private void SFX_Dash()
     {
         character.playerAudioSource.PlayOneShot(character.dashClips[Random.Range(0, character.dashClips.Length - 1)]);
     }
 
+
     private void Dash()
     {
+        //Get the desired direction according to the player input
         var wishdir = new Vector3(character.playerInput.x, 0, character.playerInput.y);
         wishdir = character.trans.TransformDirection(wishdir);
         wishdir.Normalize();
 
+        //Perform the camera shake to the left or right according to which
+        //direction the player is dashing
         if (character.playerInput.x < 0f)
             character.shake.ShakeCamera(character.shake.DoShakeDashL);
         else if (character.playerInput.x > 0f)
             character.shake.ShakeCamera(character.shake.DoShakeDashR);
+
 
         character.velocity += wishdir * character.dodgeAmount;
         character.canDodge = false;
@@ -143,7 +156,7 @@ public class GroundedState : PlayerState
         if (character.anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             character.anim.Play("Jumping");
         
-        character.jump = false;
+        jump = false;
 
         Vector3 jumpDirection = Vector3.up;
 

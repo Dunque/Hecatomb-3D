@@ -23,9 +23,14 @@ namespace Assets.Scripts.Pickups
                         {
                             //When picked up, it adds the ammo and then gets destroyed
                             gun.AddAmmo(amount);
+                            //Update ammo counter
+                            wpn.UpdateAmmoCount();
+                            //play sound effect
                             audio_pickup.Play();
+                            //Deactivate visuals
                             visuals.SetActive(false);
                             pickedUp = true;
+                            //Destroy it
                             Destroy(gameObject, 0.5f);
                         }
                     }

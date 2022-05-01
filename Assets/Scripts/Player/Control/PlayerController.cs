@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jump")]
     [SerializeField, Range(0f, 10f)] public float jumpHeight = 5f;
-    public bool jump = false;
     public float coyoteTime = 0.15f;
     public float coyoteTimer = 0f;
 
@@ -187,7 +186,8 @@ public class PlayerController : MonoBehaviour
         //Update the forward vector of the player in the hitbox, to properly push back enemies when hit
         groundAttackData.knockbackDir = new Vector3[] { playerForward, playerForward, playerForward };
 
-        //Dodging timer
+        //The dodging timer is activated independently if the player is grounded or in the air,
+        //even thought the player may only dash in the ground.
         if (!canDodge || isDashing)
         {
             DodgeCooldown();
@@ -201,6 +201,8 @@ public class PlayerController : MonoBehaviour
         "_BaseColor", OnGround ? Color.black : Color.white);
     }
 
+    //In the fixed update we perform the ground checks and we apply the players movement, due to it
+    //being based on forces and a rigidbody.
     void FixedUpdate()
     {
         UpdateGroundCheck();
@@ -240,18 +242,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //the coyote time is used to transition from grounded state to air state a bit later, in order
+    //to let the player jump when they are falling a bit from a platform, without noticing it
     private void CoyoteCooldown()
     {
         if (coyoteTimer > 0)
-        {
             coyoteTimer -= Time.deltaTime;
-        }
         else
-        {
             coyoteTimer = 0;
-        }
     }
 
+    //This function is in charge of releasing the charged attacks of the player, and it's run independently of
+    //the player state
     void SwingRelease()
     {
         //Stop charging attacks upon button release
@@ -355,11 +357,14 @@ public class PlayerController : MonoBehaviour
         {
             return false;
         }
+
         float speed = velocity.magnitude;
+
         if (speed > maxSnapSpeed)
         {
             return false;
         }
+
         if (!Physics.Raycast(
             body.position, Vector3.down, out RaycastHit hit,
             probeDistance, probeMask))

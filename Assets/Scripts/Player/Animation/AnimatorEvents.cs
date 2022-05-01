@@ -6,6 +6,7 @@ public class AnimatorEvents : MonoBehaviour
 {
     public Animator anim;
     public PlayerController controller;
+    public WeaponManager wpnManager;
     public WeaponSway wpnswy;
     public HeadBob shake;
     public float defaultSpeed;
@@ -19,6 +20,7 @@ public class AnimatorEvents : MonoBehaviour
         hitbox = GetComponentInChildren<BoxCollider>();
         anim = GetComponentInChildren<Animator>();
         controller = GetComponentInParent<PlayerController>();
+        wpnManager = GetComponentInParent<WeaponManager>();
         defaultSpeed = controller.maxSpeed;
         halfSpeed = defaultSpeed * 0.9f;
         shake = GetComponentInParent<HeadBob>();
@@ -27,7 +29,8 @@ public class AnimatorEvents : MonoBehaviour
     // ------------------------------ Shooting
     public void Event_Shoot()
     {
-        controller.wpnManager.currentGun.Shoot();
+        wpnManager.currentGun.Shoot();
+        wpnManager.UpdateAmmoCount();
     }
 
     // ------------------------------ Disable / Enable attacks
