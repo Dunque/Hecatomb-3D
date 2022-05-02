@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 2785492472197615802}
   - component: {fileID: 1699414077}
   - component: {fileID: 1349273373}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -697,11 +697,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b22db7f34b3ad84b836a5bd55b1ab3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 0}
   maxHp: 20
   currentHp: 0
   canReceiveKnockback: 1
-  body: {fileID: 0}
   iframesTime: 0.2
+  damageable: 1
   isDead: 0
   brokenVersion: {fileID: 2667261848362598368, guid: 583bd3e57fbce804d85d0e1f854a7383,
     type: 3}
