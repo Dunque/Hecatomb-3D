@@ -4008,7 +4008,7 @@ PrefabInstance:
     - target: {fileID: 628945496043039373, guid: bd93b63f20c2cd44492d17829afe8a11,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 62.134857
+      value: 133.5
       objectReference: {fileID: 0}
     - target: {fileID: 628945496043039373, guid: bd93b63f20c2cd44492d17829afe8a11,
         type: 3}
@@ -4018,7 +4018,7 @@ PrefabInstance:
     - target: {fileID: 628945496043039373, guid: bd93b63f20c2cd44492d17829afe8a11,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15.067078
+      value: 111.6
       objectReference: {fileID: 0}
     - target: {fileID: 628945496043039373, guid: bd93b63f20c2cd44492d17829afe8a11,
         type: 3}
@@ -15355,6 +15355,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8301ea8c6c341e44c9cd35fb6f2e1428, type: 3}
+--- !u!1 &616067463 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100002, guid: 08f2afcbabf60c440a0b5785d59e06c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1881351033}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &616067467
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616067463}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: 752540f04d42c864c82cf92823ad6fd1, type: 3}
 --- !u!4 &619622981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000013554313012, guid: 75e99e987b1c5aa48b7b9e465f768fa3,
@@ -20282,6 +20302,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300004, guid: 272cb988dc8f53541a70afd07ace6ee6, type: 3}
+--- !u!114 &974155348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974155339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3875da22450c565478abb84b7e023998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockback: 2.5
+  knockbackDir: {x: 10, y: 50, z: 30}
+  damage: 50
+  audioHit: {fileID: 0}
+  hitSounds: []
 --- !u!1001 &974800582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23850,9 +23887,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1211705113}
     m_Modifications:
+    - target: {fileID: 100032, guid: 272cb988dc8f53541a70afd07ace6ee6, type: 3}
+      propertyPath: m_TagString
+      value: EnemyHitbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 100048, guid: 272cb988dc8f53541a70afd07ace6ee6, type: 3}
+      propertyPath: m_TagString
+      value: EnemyHitbox
+      objectReference: {fileID: 0}
     - target: {fileID: 100050, guid: 272cb988dc8f53541a70afd07ace6ee6, type: 3}
       propertyPath: m_Name
       value: Train
+      objectReference: {fileID: 0}
+    - target: {fileID: 100050, guid: 272cb988dc8f53541a70afd07ace6ee6, type: 3}
+      propertyPath: m_TagString
+      value: EnemyHitbox
       objectReference: {fileID: 0}
     - target: {fileID: 400050, guid: 272cb988dc8f53541a70afd07ace6ee6, type: 3}
       propertyPath: m_RootOrder
@@ -26119,7 +26168,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340789080}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -66.14, y: 0, z: 0}
+  m_LocalPosition: {x: -366.8368, y: 0, z: -342.1}
   m_LocalScale: {x: 1.4837018, y: 1.4837018, z: 1.4837018}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34927,7 +34976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1673543138}
   m_Layer: 0
-  m_Name: Punto 1 (1)
+  m_Name: to 1 (1)(1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34941,7 +34990,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673543137}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -66.14, y: 0, z: 683}
+  m_LocalPosition: {x: -366.8368, y: 0, z: 133}
   m_LocalScale: {x: 1.4837018, y: 1.4837018, z: 1.4837018}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -36142,8 +36191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456f8ee0179675f44b3723bcfc6c8d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1340789081}
-  origin: {fileID: 1673543138}
+  target: {fileID: 1673543138}
+  origin: {fileID: 1340789081}
   TrainSpeed: 50
   timeToNext: 20
 --- !u!4 &1762651645 stripped
@@ -37375,12 +37424,24 @@ PrefabInstance:
       value: storage_building-1 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 08f2afcbabf60c440a0b5785d59e06c6, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 08f2afcbabf60c440a0b5785d59e06c6, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 08f2afcbabf60c440a0b5785d59e06c6, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 08f2afcbabf60c440a0b5785d59e06c6, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 08f2afcbabf60c440a0b5785d59e06c6, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 08f2afcbabf60c440a0b5785d59e06c6, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -38145,6 +38206,23 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300006, guid: 272cb988dc8f53541a70afd07ace6ee6, type: 3}
+--- !u!114 &1936126879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936126869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3875da22450c565478abb84b7e023998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockback: 2.5
+  knockbackDir: {x: 10, y: 50, z: 30}
+  damage: 50
+  audioHit: {fileID: 0}
+  hitSounds: []
 --- !u!1 &1939206854 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1000012281593870, guid: d885e290456a887418a2fd556c1b1517,
