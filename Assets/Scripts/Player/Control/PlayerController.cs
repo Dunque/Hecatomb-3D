@@ -40,13 +40,13 @@ public class PlayerController : MonoBehaviour
     public float coyoteTimer = 0f;
 
     [Header("Ground Checks")]
-    [SerializeField, Range(0, 90)] public float maxGroundAngle = 40f, maxStairsAngle = 50f;
+    [SerializeField, Range(0, 90)] public float maxGroundAngle = 45f;
     [SerializeField, Range(0f, 100f)] public float maxSnapSpeed = 100f;
     [SerializeField, Min(0f)] public float probeDistance = 1.5f;
     public LayerMask probeMask = -1, stairsMask = -1;
     int groundContactCount, steepContactCount;
     public bool OnGround => groundContactCount > 0;
-    float minGroundDotProduct, minStairsDotProduct;
+    float minGroundDotProduct;
     public int stepsSinceLastGrounded, stepsSinceLastJump;
     Vector3 connectionWorldPosition, connectionLocalPosition;
 
@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
     public float isDashingTimer = 0f;
     public bool dashed = false;
 
+    //Struct used to set up the damage, knockback direction and amount of
+    //the basic combo attacks.
     public struct GroundAttackData
     {
         public string[] animName;
@@ -90,12 +92,6 @@ public class PlayerController : MonoBehaviour
     public AudioClip[] thrustClips;
     public AudioClip[] dashClips;
 
-    void OnValidate()
-    {
-        minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
-        minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
-    }
-
     void Awake()
     {
         //initialize attack data
@@ -111,6 +107,7 @@ public class PlayerController : MonoBehaviour
         State = groundedState;
         State.ToState(this, groundedState);
 
+        //Setting up the components, in case we don't want to add them manually through the inspector
         body = GetComponent<Rigidbody>();
         renderer = GetComponentInChildren<Renderer>();
         shake = GetComponentInChildren<HeadBob>();
@@ -121,7 +118,6 @@ public class PlayerController : MonoBehaviour
         wpnWheel = GetComponentInChildren<WeaponWheelController>();
         playerAudioSource = GetComponent<AudioSource>();
         stats = GetComponent<PlayerStats>();
-        OnValidate();
 
         trans = transform;
 
@@ -133,10 +129,15 @@ public class PlayerController : MonoBehaviour
         camTrans = m_Camera.transform;
         playerInputSpace = camTrans;
         mouseLook.Init(trans, camTrans);
+
+        //Establish the minGroundDotProduct for later ground collision detections
+        minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
     }
 
+    //This function is in charge of handling the input of the player
     public void HandleInput()
     {
+        //If the player is dead, there is no need to handle the input
         if (!stats.isDead)
         {
             if (Cursor.lockState == CursorLockMode.Locked)
@@ -195,10 +196,6 @@ public class PlayerController : MonoBehaviour
 
         //Button release.
         SwingRelease();
-
-        //Change color
-        renderer.material.SetColor(
-        "_BaseColor", OnGround ? Color.black : Color.white);
     }
 
     //In the fixed update we perform the ground checks and we apply the players movement, due to it
@@ -219,6 +216,7 @@ public class PlayerController : MonoBehaviour
 
     private void DodgeCooldown()
     {
+        //Dodging timer, that controls when the player can input the next dodge
         if (dodgeTimer > 0)
         {
             dodgeTimer -= Time.deltaTime;
@@ -229,6 +227,7 @@ public class PlayerController : MonoBehaviour
             dodgeTimer = 0;
         }
 
+        //Dashing timer, that controls the time the dash boost is applied to the player
         if (isDashingTimer > 0) 
         {
             //Player is invulnerable while dashing, to evade damage
@@ -265,28 +264,36 @@ public class PlayerController : MonoBehaviour
 
     //------------------------------------------------------------------------------------------------
 
+    //This function is called whenever the attached rigidbody colides with a collider
     void OnCollisionEnter(Collision collision)
     {
         EvaluateCollision(collision);
     }
 
+    //This function is called whenever the attached rigidbody is already colliding with a collider
     void OnCollisionStay(Collision collision)
     {
         EvaluateCollision(collision);
     }
 
+    //Function responsible to check if the player is grounded or not, also it sets up the connectedBody rigigbody,
+    //used to keep the player attached to moving platforms
     void EvaluateCollision(Collision collision)
     {
-        float minDot = GetMinDot(collision.gameObject.layer);
+        //We check each collision
         for (int i = 0; i < collision.contactCount; i++)
         {
             Vector3 normal = collision.GetContact(i).normal;
-            if (normal.y >= minDot)
+            //We compare the normal vector of the contact collision with the one we calculated
+            //as a maximum for the player
+            if (normal.y >= minGroundDotProduct)
             {
+                //We count it as being touching ground
                 groundContactCount += 1;
                 contactNormal += normal;
                 connectedBody = collision.rigidbody;
             }
+            //This is the case of a steep contact, but we use -0.01 to give a bit of leniency
             else if (normal.y > -0.01f)
             {
                 steepContactCount += 1;
@@ -309,12 +316,16 @@ public class PlayerController : MonoBehaviour
         connectedBody = null;
     }
 
+    //this function is in charge of changing the state of the player based on being on the ground or airborne.
+    //To transition to airborne state, first the function starts the Coyote time and when it finishes, it changes
+    //the player's state. This allows to jump slightly off platform, to provide a wider timeframe for the jumps.
     void UpdateGroundCheck()
     {
         stepsSinceLastGrounded += 1;
         stepsSinceLastJump += 1;
         velocity = body.velocity;
 
+        //Grounded, transition to ground state
         if (OnGround || SnapToGround() || CheckSteepContacts())
         {
             coyoteTimer = coyoteTime;
@@ -322,6 +333,7 @@ public class PlayerController : MonoBehaviour
                 State.ToState(this, groundedState);
             stepsSinceLastGrounded = 0;
         }
+        //Airborne, call the coyote cooldown and then transition to airborne state
         else
         {
             CoyoteCooldown();
@@ -340,6 +352,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //This function is used to properly get a reference to the rigidbody that the player is mounting (for example, a moving platform)
+    //in order to then apply the movement of said rigidbody to the player.
     void UpdateConnectionState()
     {
         if (connectedBody == previousConnectedBody)
@@ -351,6 +365,8 @@ public class PlayerController : MonoBehaviour
         connectionLocalPosition = connectedBody.transform.InverseTransformPoint(connectionWorldPosition);
     }
 
+    //This function checks if the player should be brought down to the ground. It's main use is to mitigate
+    //the effect of the player going off a slope when they realisticaly should be sticking to the ground.
     bool SnapToGround()
     {
         if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2)
@@ -371,7 +387,7 @@ public class PlayerController : MonoBehaviour
         {
             return false;
         }
-        if (hit.normal.y < GetMinDot(hit.collider.gameObject.layer))
+        if (hit.normal.y < minGroundDotProduct)
         {
             return false;
         }
@@ -387,6 +403,9 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
+    //This function is in charge of checking if the player is stuck in a small crevase on the ground, 
+    //and we use it to be like another grounded check. If we are stuck in a crevase, we count it as being
+    //grounded. Otherwise we would have the character stuck there.
     bool CheckSteepContacts()
     {
         if (steepContactCount > 1)
@@ -403,6 +422,8 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    //This function is in charge of changing the speed of the player accodring to the slope they are
+    //standing in
     void AdjustVelocity()
     {
         Vector3 xAxis = ProjectOnContactPlane(Vector3.right).normalized;
@@ -424,16 +445,11 @@ public class PlayerController : MonoBehaviour
         velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
     }
 
+    //This auxiliary function projects a vector in the contact normal plane
     Vector3 ProjectOnContactPlane(Vector3 vector)
     {
         return vector - contactNormal * Vector3.Dot(vector, contactNormal);
     }
 
     //-----------------------------------------------------------------------------------------------------------------
-
-    public float GetMinDot(int layer)
-    {
-        return (stairsMask & (1 << layer)) == 0 ?
-            minGroundDotProduct : minStairsDotProduct;
-    }
 }

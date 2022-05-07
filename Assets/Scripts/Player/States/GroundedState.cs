@@ -140,7 +140,6 @@ public class GroundedState : PlayerState
         else if (character.playerInput.x > 0f)
             character.shake.ShakeCamera(character.shake.DoShakeDashR);
 
-
         character.velocity += wishdir * character.dodgeAmount;
         character.canDodge = false;
         character.isDashing = true;
