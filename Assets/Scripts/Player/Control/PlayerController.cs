@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
     public Transform rightHand;
     public PlayerStats stats;
     public WeaponManager wpnManager;
-    public WeaponWheelController wpnWheel;
 
     [Header("Movement")]
     [SerializeField, Range(0f, 100f)] public float maxSpeed = 7f;
@@ -115,7 +114,6 @@ public class PlayerController : MonoBehaviour
         wpnSway = GetComponentInChildren<WeaponSway>();
         anim = GetComponentInChildren<Animator>();
         wpnManager = GetComponent<WeaponManager>();
-        wpnWheel = GetComponentInChildren<WeaponWheelController>();
         playerAudioSource = GetComponent<AudioSource>();
         stats = GetComponent<PlayerStats>();
 
@@ -153,9 +151,9 @@ public class PlayerController : MonoBehaviour
 
             //Open the weaponWheel
             if (Input.GetButton("WeaponSelect"))
-                wpnWheel.OpenWheel();
+                wpnManager.OpenWeaponWheel();
             else
-                wpnWheel.CloseWheel();
+                wpnManager.CloseWeaponWheel();
 
             //Quick select weapon by pressin the numbers 1-3
             if (Input.GetKeyDown(KeyCode.Alpha1))

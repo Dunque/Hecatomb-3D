@@ -6,6 +6,7 @@ public class WeaponManager : MonoBehaviour
 {
     public PlayerController controller;
     public WeaponDisplay wpnDisplay;
+    public WeaponWheelController wpnWheel;
     [Space]
     public GameObject wpnNone;
     public GameObject wpnShotgun;
@@ -25,6 +26,7 @@ public class WeaponManager : MonoBehaviour
     {
         controller = GetComponent<PlayerController>();
         wpnDisplay = GetComponentInChildren<WeaponDisplay>();
+        wpnWheel = GetComponentInChildren<WeaponWheelController>();
 
         //Initialising the weapon list
         gunList = new GameObject[] { wpnNone, wpnShotgun, wpnRevolver, wpnGrapplingHook };
@@ -79,4 +81,13 @@ public class WeaponManager : MonoBehaviour
         wpnDisplay.UpdateAmmoCount(currentGun.currentAmmo, currentGun.maxAmmo);
     }
 
+    public void OpenWeaponWheel()
+    {
+        wpnWheel.OpenWheel();
+    }
+
+    public void CloseWeaponWheel()
+    {
+        wpnWheel.CloseWheel();
+    }
 }
