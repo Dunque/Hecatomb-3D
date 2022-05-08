@@ -94,6 +94,8 @@ public class PlayerController : MonoBehaviour
     public float fastStepSpeed = 0.25f;
     public float GetCurrentStepOffset => body.velocity.magnitude > maxSpeed + 1f? fastStepSpeed : baseStepSpeed;
 
+    AnimatorHandler animatorHandler;
+
     void OnValidate()
     {
         minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
@@ -122,6 +124,8 @@ public class PlayerController : MonoBehaviour
         wpnManager = GetComponent<WeaponManager>();
         playerAudioSource = GetComponent<AudioSource>();
         OnValidate();
+
+        animatorHandler = GetComponentInChildren<AnimatorHandler>();
 
         trans = transform;
 

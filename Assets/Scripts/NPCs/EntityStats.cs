@@ -72,7 +72,6 @@ public class EntityStats : MonoBehaviour
         {
             //Getting the data from the damaging hitbox
             HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();
-
             //Play hitting sound
             hbs.PlayHitSounds();
 

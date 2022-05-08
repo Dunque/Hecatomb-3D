@@ -5,33 +5,22 @@ using UnityEngine;
 public class EnemyLocomotionManager : MonoBehaviour {
 
     EnemyManager enemyManager;
-    public EntityStats currentTarget;
+    EnemyAnimatorManager enemyAnimatorManager;
+
+    public CapsuleCollider characterCollider;
+    public CapsuleCollider characterCollisionBlockerCollider;
+
     public LayerMask detectionLayer;
+
+
+    public bool attackPlayer;
 
     private void Awake() {
         enemyManager = GetComponent<EnemyManager>();
+        enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
     }
 
-    public void HandleDetection(){
-        Collider[] colliders = Physics.OverlapSphere(transform.position, enemyManager.detectionRadius, detectionLayer);
-        //Debug.Log(colliders);
-
-        for (int i = 0; i < colliders.Length; i++) {
-            EntityStats entityStats = colliders[i].transform.GetComponent<EntityStats>();
-            if (entityStats != null) {
-                Vector3 targetDirection = entityStats.transform.position - transform.position;
-                float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
-
-                if (viewableAngle > enemyManager.minimumDetectionAngle && viewableAngle < enemyManager.maximumDetectionAngle) {
-                    currentTarget = entityStats;
-                }
-            }
-        }
-    }
-
-    void OnDrawGizmosSelected() {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, enemyManager.detectionRadius);
+    private void Start() {
+        Physics.IgnoreCollision(characterCollider, characterCollisionBlockerCollider, true);
     }
 }

@@ -10,6 +10,14 @@ public class PlayerStats : EntityStats
     public ScreenFlash sf;
     public AudioClip[] hurtClips;
 
+    public CapsuleCollider characterCollider;
+    public CapsuleCollider characterCollisionBlockerCollider;
+
+    public Collider enemyWeaponCollision;
+    public float damageCooldown = 1;
+    float timerCooldown = 0;
+    bool weaponDamage = false;
+
     public override void Awake()
     {
         base.Awake();
@@ -17,6 +25,11 @@ public class PlayerStats : EntityStats
         hbar = GetComponentInChildren<HealthBar>();
         sf = GetComponentInChildren<ScreenFlash>();
         hbar.SetMaxHealth(maxHp);
+        enemyWeaponCollision = null;
+    }
+
+    private void Start() {
+        Physics.IgnoreCollision(characterCollider, characterCollisionBlockerCollider, true);
     }
 
     public void DamageSound()
@@ -70,11 +83,12 @@ public class PlayerStats : EntityStats
     public override void OnTriggerEnter(Collider collider)
     {
         //only damaged by enemy hitboxes, in order to not collide with self hitboxes
-        if (collider.tag == "EnemyHitbox")
+        if (collider.tag == "EnemyHitbox" && weaponDamage == false)
         {
+            timerCooldown = 0;
+            weaponDamage = true;
             //Getting the data from the damaging hitbox
             HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();
-
             ReceiveDamage(hbs.damage);
 
             if (canReceiveKnockback)
@@ -85,6 +99,16 @@ public class PlayerStats : EntityStats
                 {
                     ReceiveKnockback(hbs.knockback, transform.position - collider.transform.position);
                 }
+            }
+        }
+    }
+
+    public void Update() {
+        if (weaponDamage) {
+            timerCooldown += Time.deltaTime;
+            if (timerCooldown >= damageCooldown) {
+                weaponDamage = false;
+                timerCooldown = 0;
             }
         }
     }

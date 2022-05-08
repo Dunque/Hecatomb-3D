@@ -29,7 +29,6 @@ public class BaseEnemyStats : EntityStats
                 currentHp = 0f;
                 if (animator != null)
                 {
-                    animator.SetLayerWeight(1, 0);
                     animator.SetInteger("DeadNumAnim", Random.Range(0, 2));
                     animator.SetBool("Dead", true);
                 }
