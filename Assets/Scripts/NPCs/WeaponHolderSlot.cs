@@ -19,7 +19,7 @@ public class WeaponHolderSlot : MonoBehaviour
             currentWeaponModel.SetActive(false);
         }
     }
-
+    
     public void UnloadWeaponAndDestroy() {
         if(currentWeaponModel != null) {
             Destroy(currentWeaponModel);

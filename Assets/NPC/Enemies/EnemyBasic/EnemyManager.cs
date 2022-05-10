@@ -46,14 +46,18 @@ public class EnemyManager : MonoBehaviour
 
     private void Update() {
         HandleRecoveryTimer();
-    }
-
-    private void FixedUpdate() {
         HandleStateMachine();
     }
 
+    private void LateUpdate() {
+        navmeshAgent.transform.localPosition = Vector3.zero;
+        navmeshAgent.transform.localRotation = Quaternion.identity;
+    }
+
     private void HandleStateMachine() {
-        if (currentState != null) {
+        if (enemyStats.isDead) {
+            currentState = null;
+        }else if (currentState != null) {
             State nextState = currentState.Tick(this, enemyStats, enemyAnimatorManager);
 
             if (nextState != null) {

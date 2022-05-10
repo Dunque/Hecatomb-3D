@@ -30,7 +30,7 @@ public class EnemyWeaponSlotManager : MonoBehaviour
         LoadWeaponsOnBothHands();
     }
 
-
+    
     public void LoadWeaponOnSlot(WeaponItem weapon, bool isLeft) {
         if (isLeft) {
             leftHandSlot.currentWeapon = weapon;
@@ -61,18 +61,27 @@ public class EnemyWeaponSlotManager : MonoBehaviour
     }
 
     public void OpenLeftDamageCollider() {
-        leftHandDamageCollider.EnableDamageCollider();
+        if(leftHandDamageCollider != null)
+            leftHandDamageCollider.EnableDamageCollider();
     }
 
     public void CloseLeftDamageCollider() {
-        leftHandDamageCollider.DisableDamageCollider();
+        if (leftHandDamageCollider != null)
+            leftHandDamageCollider.DisableDamageCollider();
     }
 
     public void OpenRightDamageCollider() {
-        rightHandDamageCollider.EnableDamageCollider();
+        if (rightHandDamageCollider != null)
+            rightHandDamageCollider.EnableDamageCollider();
     }
 
     public void CloseRightDamageCollider() {
-        rightHandDamageCollider.DisableDamageCollider();
+        if (rightHandDamageCollider != null)
+            rightHandDamageCollider.DisableDamageCollider();
+    }
+
+    public void CloseColliders() {
+        CloseLeftDamageCollider();
+        CloseRightDamageCollider();
     }
 }

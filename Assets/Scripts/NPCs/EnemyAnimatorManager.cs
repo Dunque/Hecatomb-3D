@@ -10,11 +10,18 @@ public class EnemyAnimatorManager : AnimatorManager
     Collider leftWeaponCollider;
     Collider rightWeaponCollider;
 
+
     private void Awake() {
         anim = GetComponent<Animator>();
         enemyManager = GetComponentInParent<EnemyManager>();
         weaponSlotManager = GetComponent<EnemyWeaponSlotManager>();
     }
+
+    /*private void Start() {
+        if (weaponSlotManager.rightHandWeapon != null && weaponSlotManager.rightHandWeapon.modelPrefab.GetComponentInChildren<Gun>() != null) {
+            anim.SetLayerWeight(1, 1);
+        }
+    }*/
 
     private void OnAnimatorMove() {
         float delta = Time.deltaTime;

@@ -21,13 +21,17 @@ public abstract class Gun : MonoBehaviour
     public Sprite gunIcon;
     [SerializeField] public string animName;
 
+    public LayerMask ignoreLayers;
+
     // Start is called before the first frame update
     public virtual void Awake()
     {
         Camera camera = GetComponentInParent<Camera>();
         shotTrails = GetComponentInParent<ShotTrails>();
-        cam = camera.transform;
+        if(camera!=null)
+            cam = camera.transform;
         currentAmmo = maxAmmo;
+        ignoreLayers = LayerMask.GetMask("CharacterCollisionBlocker");
     }
 
     public virtual void Shoot()

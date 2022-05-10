@@ -17,14 +17,11 @@ public class BasicEnemy : MonoBehaviour {
         entityStats = GetComponent<EntityStats>();
         animatorHandler = GetComponentInChildren<AnimatorHandler>();
     }
-    
-    // Update is called once per frame
-    public virtual void Update() {
 
-        if (entityStats.isDead) {
-            hitbox.isTrigger = true;
-            body.constraints = RigidbodyConstraints.FreezePosition;
-        }
+
+    public virtual void Die() {
+        hitbox.isTrigger = true;
+        body.constraints = RigidbodyConstraints.FreezePosition;
     }
 
 }

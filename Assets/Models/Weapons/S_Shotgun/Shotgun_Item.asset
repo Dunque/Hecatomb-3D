@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649ee30bbf32c974597f9f46af338a57, type: 3}
+  m_Name: Shotgun_Item
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 0}
+  itemName: Shotgun
+  modelPrefab: {fileID: 2901281701790645093, guid: 240fa9be5cd5bdf4ab2f59bf9f1327e5,
+    type: 3}
+  isUnarmed: 0
+  right_hand_idle: 
+  left_hand_idle: 
+  th_hand_idle: 
+  oh_light_attack_01: 
+  oh_light_attack_02: 
+  th_light_attack_01: 
+  th_light_attack_02: 
+  baseStamina: 0
+  lightAttackMultiplier: 0
+  heavyAttackMultiplier: 0
