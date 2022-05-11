@@ -14,5 +14,10 @@ public abstract class Pickable : MonoBehaviour
         audio_pickup = GetComponent<AudioSource>();
     }
 
+    public void Start()
+    {
+        Destroy(gameObject, 30f);
+    }
+
     public abstract void OnTriggerEnter(Collider collider);
 }
