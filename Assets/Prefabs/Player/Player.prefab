@@ -343,6 +343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
   wpnDisplay: {fileID: 0}
+  wpnWheel: {fileID: 0}
   wpnNone: {fileID: 6839462661469393592}
   wpnShotgun: {fileID: 6342639958241225376}
   wpnRevolver: {fileID: 6342639956355908138}
@@ -383,7 +384,6 @@ MonoBehaviour:
   rightHand: {fileID: 6129710902655123115}
   stats: {fileID: 2745299877650397603}
   wpnManager: {fileID: 0}
-  wpnWheel: {fileID: 0}
   maxSpeed: 7
   maxAcceleration: 50
   maxAirAcceleration: 15
@@ -392,11 +392,9 @@ MonoBehaviour:
   desiredVelocity: {x: 0, y: 0, z: 0}
   connectionVelocity: {x: 0, y: 0, z: 0}
   jumpHeight: 4
-  jump: 0
   coyoteTime: 0.15
   coyoteTimer: 0
   maxGroundAngle: 40
-  maxStairsAngle: 50
   maxSnapSpeed: 100
   probeDistance: 1.5
   probeMask:
@@ -949,7 +947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8472142709498655861
 Transform:
   m_ObjectHideFlags: 0
@@ -1127,8 +1125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   range: 50
-  damage: 10
-  knockback: 10
+  damage: 25
+  knockback: 25
   maxAmmo: 20
   currentAmmo: 0
   shotTrails: {fileID: 0}
@@ -2586,6 +2584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 2855197822269365191}
   controller: {fileID: 0}
+  wpnManager: {fileID: 0}
   wpnswy: {fileID: 0}
   shake: {fileID: 0}
   defaultSpeed: 0
