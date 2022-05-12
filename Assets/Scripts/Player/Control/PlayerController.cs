@@ -162,6 +162,44 @@ public class PlayerController : MonoBehaviour
                 wpnManager.ChangeGun(2);
             if (Input.GetKeyDown(KeyCode.Alpha3))
                 wpnManager.ChangeGun(3);
+
+            // Pause screen by pressin 'Esc' key
+            if (Input.GetButtonDown("Cancel"))
+            {
+                Debug.Log("Opening pause menu...");
+                Director.OpenPauseMenu();
+            }
+
+
+
+            // Shorcut to kill player (mainly for debugging)
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                Debug.Log("Killing player...");
+                stats.ReceiveDamage(1000);
+            }
+
+            // Shortcuts to switch between scenes (mainly for debugging)
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                Debug.Log("Going to Level0...");
+                Director.ChangeScene(Director.Scene.Level0);
+            }
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                Debug.Log("Going to Level1...");
+                Director.ChangeScene(Director.Scene.Level1);
+            }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                Debug.Log("Going to Level2...");
+                Director.ChangeScene(Director.Scene.Level2);
+            }
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Debug.Log("Going to main menu...");
+                Director.ChangeScene(Director.Scene.Menu);
+            }
         }
     }
 

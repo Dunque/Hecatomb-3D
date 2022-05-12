@@ -89,6 +89,10 @@ public class PlayerStats : EntityStats
         //Move and rotate the camera down, to resemble that the player is lying on the ground
         controller.m_Camera.transform.Translate(Vector3.down * 1.2f, Space.World);
         StartCoroutine(LookAtGroundLevel());
+
+        // Open losing menu
+        Debug.Log("Opening losing menu...");
+        Director.OpenLosingMenu();
     }
 
     //This coroutine is in charge of rotating the camera's x angle towards 0, in order to look like the character is
