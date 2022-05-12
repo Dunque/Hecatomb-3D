@@ -9,7 +9,7 @@ public class ExitBox : MonoBehaviour
         if (collider.tag == "Player")
         {
             //turn screen to black
-            collider.GetComponentInChildren<Fade>().FadeToBlack();
+            collider.GetComponentInParent<PlayerStats>().fade.FadeToBlack();
             //TODO añadir Director.nextScene o lo que sea
 
         }

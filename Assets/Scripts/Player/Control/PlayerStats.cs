@@ -8,6 +8,7 @@ public class PlayerStats : EntityStats
     public PlayerController controller;
     public HeadBob shake;
     public ScreenFlash sf;
+    public Fade fade;
     public AudioClip[] hurtClips;
     public AudioClip deathClip;
 
@@ -17,6 +18,7 @@ public class PlayerStats : EntityStats
         controller = GetComponent<PlayerController>();
         hbar = GetComponentInChildren<HealthBar>();
         sf = GetComponentInChildren<ScreenFlash>();
+        fade = GetComponentInChildren<Fade>();
         hbar.SetMaxHealth(maxHp);
     }
 

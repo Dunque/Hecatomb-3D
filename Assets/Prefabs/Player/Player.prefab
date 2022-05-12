@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 273084963}
   - component: {fileID: 273084962}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BlackFade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -414,6 +414,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   shake: {fileID: 0}
   sf: {fileID: 0}
+  fade: {fileID: 0}
   hurtClips:
   - {fileID: 8300000, guid: 17ea4e6cf32bded4784b0c5ee3880b4f, type: 3}
   - {fileID: 8300000, guid: cde67e8032fc1d14faa5bbfbb84d9282, type: 3}
@@ -553,11 +554,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: 8c81d4ef9c6bb8b4b8a175380b279b6f, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
