@@ -14,7 +14,6 @@ public class IdleState : State
         for (int i = 0; i < colliders.Length; i++) {
             EntityStats entityStats = colliders[i].transform.GetComponent<EntityStats>();
             if (entityStats != null) {
-                //CHECK TEAM ID
                 Vector3 targetDirection = entityStats.transform.position - transform.position;
                 float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
 

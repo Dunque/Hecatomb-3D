@@ -20,6 +20,7 @@ public class EnemyManager : MonoBehaviour
     
     public float rotationSpeed = 15f;
     public float maximumAttackRange = 2f;
+    public float minimumAttackRange = 2f;
 
     [Header("AI Settings")]
     public float detectionRadius = 6;

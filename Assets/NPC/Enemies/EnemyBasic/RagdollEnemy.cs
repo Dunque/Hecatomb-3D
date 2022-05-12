@@ -9,7 +9,7 @@ public class RagdollEnemy : BasicEnemy
     public List<Rigidbody> ragdollRigidbodies = new List<Rigidbody>();
     public Animator anim;
 
-    NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     public GameObject combatCollider;
 
     public override void Awake()

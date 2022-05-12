@@ -53,22 +53,27 @@ public class PlayerStats : EntityStats
 
     public override void ReceiveDamage(float damage)
     {
-        currentHp -= damage;
-        //Update healthbar
-        hbar.SetHealth(currentHp);
+        if (weaponDamage == false) {
+            timerCooldown = 0;
+            weaponDamage = true;
 
-        //Special effects
-        DamageCameraShake();
-        DamageSound();
-        sf.FlashScreen();
+            currentHp -= damage;
+            //Update healthbar
+            hbar.SetHealth(currentHp);
 
-        if (currentHp <= 0f)
-        {
-            currentHp = 0f;
-            if (!isDead)
-                Die();
-            isDead = true;
+            //Special effects
+            DamageCameraShake();
+            DamageSound();
+            sf.FlashScreen();
+
+            if (currentHp <= 0f) {
+                currentHp = 0f;
+                if (!isDead)
+                    Die();
+                isDead = true;
+            }
         }
+        
     }
 
     public override void ReceiveHealing(float heal)
@@ -83,10 +88,8 @@ public class PlayerStats : EntityStats
     public override void OnTriggerEnter(Collider collider)
     {
         //only damaged by enemy hitboxes, in order to not collide with self hitboxes
-        if (collider.tag == "EnemyHitbox" && weaponDamage == false)
+        if (collider.tag == "EnemyHitbox")
         {
-            timerCooldown = 0;
-            weaponDamage = true;
             //Getting the data from the damaging hitbox
             HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();
             ReceiveDamage(hbs.damage);

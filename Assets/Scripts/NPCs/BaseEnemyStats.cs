@@ -18,7 +18,15 @@ public class BaseEnemyStats : EntityStats
     public float blinkDuration = 0.6f;
     float blinkTimer;
 
+    public int timeToDestroy = 10;
+
+    WeaponIK weaponIK;
+
     public int numHitAnims = 1;
+    public int knockbackInitialForce = 100;
+
+    float[] boneWeights = { 0, 0, 0 };
+    public bool isHurt = false;
     
     public override void Awake()
     {
@@ -28,6 +36,7 @@ public class BaseEnemyStats : EntityStats
         animator = GetComponentInChildren<Animator>();
         weaponSlotManager = GetComponentInChildren<EnemyWeaponSlotManager>();
         ragdollEnemy = GetComponent<RagdollEnemy>();
+        weaponIK = GetComponentInChildren<WeaponIK>();
     }
 
     private void Update() {
@@ -53,13 +62,28 @@ public class BaseEnemyStats : EntityStats
         if (animator != null)
         {
             animator.CrossFade($"Hit{Random.Range(0, numHitAnims)}",0.2f);
-
+            
             if (currentHp <= 0f)
             {
                 isDead = true;
                 currentHp = 0f;
                 Die();
             }
+        }
+    }
+
+    public void SaveBoneWeights() {
+        isHurt = true;
+        for (int i = 0; i < weaponIK.humanBones.Length; i++) {
+            boneWeights[i] = weaponIK.humanBones[i].weight;
+            weaponIK.humanBones[i].weight = 0;
+        }
+    }
+
+    public void RestoreBoneWeights() {
+        isHurt = false;
+        for (int i = 0; i < weaponIK.humanBones.Length; i++) {
+            weaponIK.humanBones[i].weight = boneWeights[i];
         }
     }
 
@@ -70,9 +94,17 @@ public class BaseEnemyStats : EntityStats
                 foreach (Rigidbody rb in ragdollBody)
                     rb.velocity += magnitude * dir;
             else
-                body.velocity += magnitude * dir;
+                StartCoroutine(ApplyKnockbackForce(magnitude, dir));
         else
-            body.velocity += magnitude * dir;
+            StartCoroutine(ApplyKnockbackForce(magnitude, dir));
+            
+    }
+
+    IEnumerator ApplyKnockbackForce(float magnitude, Vector3 dir) {
+        for (int i = 0; i < 20; i++) {
+            body.AddForce(magnitude * dir * (knockbackInitialForce-i*5), ForceMode.Impulse);
+            yield return new WaitForSeconds(.025f);
+        }
     }
 
     public override void Die() {
@@ -82,5 +114,6 @@ public class BaseEnemyStats : EntityStats
         if(ragdollEnemy != null) {
             ragdollEnemy.Die();
         }
+        Destroy(gameObject, timeToDestroy);
     }
 }

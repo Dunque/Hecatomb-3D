@@ -12,8 +12,6 @@ public class WeaponHolderSlot : MonoBehaviour
 
     public GameObject currentWeaponModel;
 
-    //Collider collider;
-
     public void UnloadWeapon() {
         if (currentWeaponModel != null) {
             currentWeaponModel.SetActive(false);

@@ -21,7 +21,7 @@ public class PursueTargetState : State
         }
 
         HandleRotateTowardsTarget(enemyManager);
-
+        
         if (distanceFromTarget <= enemyManager.maximumAttackRange) {
             return combatStanceState;
         } else {
@@ -29,7 +29,7 @@ public class PursueTargetState : State
         }
     }
 
-    private void HandleRotateTowardsTarget(EnemyManager enemyManager) {
+    public void HandleRotateTowardsTarget(EnemyManager enemyManager) {
         //Rotate manually
         if (enemyManager.isPerformingAction) {
             Vector3 direction = enemyManager.currentTarget.transform.position - transform.position;
@@ -48,6 +48,7 @@ public class PursueTargetState : State
 
             enemyManager.navmeshAgent.enabled = true;
             enemyManager.navmeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
+            //enemyManager.navmeshAgent.destination = enemyManager.currentTarget.transform.position;
             enemyManager.enemyRigidBody.velocity = targetVelocity;
             enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navmeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
         }

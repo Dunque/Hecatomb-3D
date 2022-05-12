@@ -10,13 +10,14 @@ public class AttackState : State
     public EnemyAttackAction currentAttack;
 
     public override State Tick(EnemyManager enemyManager, BaseEnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager) {
-        Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
-        float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
-        float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
-
         if (enemyManager.isPerformingAttack)
             return combatStanceState;
-        
+
+        Vector3 targetDirection = enemyManager.currentTarget.transform.position - transform.position;
+        float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
+        float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
+
+
         if (currentAttack != null) {
             if (distanceFromTarget < currentAttack.minimumDistanceNeededToAttack) {
                 return this;

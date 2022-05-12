@@ -10,18 +10,16 @@ public class EnemyAnimatorManager : AnimatorManager
     Collider leftWeaponCollider;
     Collider rightWeaponCollider;
 
+    BaseEnemyStats baseEnemyStats;
+
 
     private void Awake() {
         anim = GetComponent<Animator>();
         enemyManager = GetComponentInParent<EnemyManager>();
         weaponSlotManager = GetComponent<EnemyWeaponSlotManager>();
+        baseEnemyStats = GetComponentInParent<BaseEnemyStats>();
     }
-
-    /*private void Start() {
-        if (weaponSlotManager.rightHandWeapon != null && weaponSlotManager.rightHandWeapon.modelPrefab.GetComponentInChildren<Gun>() != null) {
-            anim.SetLayerWeight(1, 1);
-        }
-    }*/
+   
 
     private void OnAnimatorMove() {
         float delta = Time.deltaTime;
@@ -41,5 +39,13 @@ public class EnemyAnimatorManager : AnimatorManager
             rightWeaponCollider = weaponSlotManager.rightHandWeapon.modelPrefab.GetComponent<BoxCollider>();
             rightWeaponCollider.enabled = true;
         }
+    }
+
+    public void StartDamageAnim() {
+        baseEnemyStats.SaveBoneWeights();
+    }
+
+    public void EndDamageAnim() {
+        baseEnemyStats.RestoreBoneWeights();
     }
 }
