@@ -20,9 +20,7 @@ public class ScreenFlash : MonoBehaviour
         StartCoroutine(FadeImage());
     }
 
-    //This function reduces the opacity of the line renderer, until it's invisible.
-    //Then, it destroys it. For that purpose, we need to pass the object reference,
-    //not only the line renderer.
+    //This function reduces the opacity of the image, until it's invisible.
     IEnumerator FadeImage()
     {
         float alpha = 1;

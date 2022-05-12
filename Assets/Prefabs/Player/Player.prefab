@@ -1,5 +1,96 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &273084960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 273084961}
+  - component: {fileID: 273084964}
+  - component: {fileID: 273084963}
+  - component: {fileID: 273084962}
+  m_Layer: 5
+  m_Name: BlackFade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &273084961
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273084960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1710328607}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.014095}
+  m_SizeDelta: {x: 800, y: 449.81}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &273084964
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273084960}
+  m_CullTransparentMesh: 1
+--- !u!114 &273084963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273084960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &273084962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 273084960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 714dc0e395e80cb448e28744aec7c5cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeDuration: 1.5
+  img: {fileID: 0}
 --- !u!1 &1654927115
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,6 +414,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   shake: {fileID: 0}
   sf: {fileID: 0}
+  fade: {fileID: 0}
   hurtClips:
   - {fileID: 8300000, guid: 17ea4e6cf32bded4784b0c5ee3880b4f, type: 3}
   - {fileID: 8300000, guid: cde67e8032fc1d14faa5bbfbb84d9282, type: 3}
@@ -343,6 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
   wpnDisplay: {fileID: 0}
+  wpnWheel: {fileID: 0}
   wpnNone: {fileID: 6839462661469393592}
   wpnShotgun: {fileID: 6342639958241225376}
   wpnRevolver: {fileID: 6342639956355908138}
@@ -383,7 +476,6 @@ MonoBehaviour:
   rightHand: {fileID: 6129710902655123115}
   stats: {fileID: 2745299877650397603}
   wpnManager: {fileID: 0}
-  wpnWheel: {fileID: 0}
   maxSpeed: 7
   maxAcceleration: 50
   maxAirAcceleration: 15
@@ -392,11 +484,9 @@ MonoBehaviour:
   desiredVelocity: {x: 0, y: 0, z: 0}
   connectionVelocity: {x: 0, y: 0, z: 0}
   jumpHeight: 4
-  jump: 0
   coyoteTime: 0.15
   coyoteTimer: 0
   maxGroundAngle: 40
-  maxStairsAngle: 50
   maxSnapSpeed: 100
   probeDistance: 1.5
   probeMask:
@@ -464,11 +554,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
+  m_audioClip: {fileID: 8300000, guid: 8c81d4ef9c6bb8b4b8a175380b279b6f, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -949,7 +1039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8472142709498655861
 Transform:
   m_ObjectHideFlags: 0
@@ -1127,8 +1217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   range: 50
-  damage: 10
-  knockback: 10
+  damage: 25
+  knockback: 25
   maxAmmo: 20
   currentAmmo: 0
   shotTrails: {fileID: 0}
@@ -2586,6 +2676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 2855197822269365191}
   controller: {fileID: 0}
+  wpnManager: {fileID: 0}
   wpnswy: {fileID: 0}
   shake: {fileID: 0}
   defaultSpeed: 0
