@@ -16,8 +16,20 @@ public static class Director
     // Change to specified scene, load that scene
     public static void ChangeScene(Scene scene)
     {
-        Cursor.visible = true;
         SceneManager.LoadScene(scene.ToString());
+    }
+
+    // Change to the next scene
+    public static void NextScene()
+    {
+        int sceneIndex = (SceneManager.GetActiveScene().buildIndex + 1) % 4;
+
+        if (sceneIndex == 0)
+        {
+            Cursor.visible = true;
+        }
+
+        SceneManager.LoadScene(sceneIndex);
     }
 
     // Close the game

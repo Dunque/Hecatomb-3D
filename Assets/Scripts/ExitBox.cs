@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 public class ExitBox : MonoBehaviour
 {
@@ -8,9 +9,10 @@ public class ExitBox : MonoBehaviour
     {
         if (collider.tag == "Player")
         {
-            //turn screen to black
+            // Turn screen to black
             collider.GetComponentInParent<PlayerStats>().fade.FadeToBlack();
-            //TODO añadir Director.nextScene o lo que sea
+            // Go to next scene
+            Director.NextScene();
 
         }
     }

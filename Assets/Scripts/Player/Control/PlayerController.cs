@@ -172,34 +172,20 @@ public class PlayerController : MonoBehaviour
 
 
 
-            // Shorcut to kill player (mainly for debugging)
+            // Shortcut to kill player (mainly for debugging)
             if (Input.GetKeyDown(KeyCode.K))
             {
                 Debug.Log("Killing player...");
                 stats.ReceiveDamage(1000);
             }
 
-            // Shortcuts to switch between scenes (mainly for debugging)
-            if (Input.GetKeyDown(KeyCode.U))
+            // Shortcuts to go to next scene (mainly for debugging)
+            if (Input.GetKeyDown(KeyCode.N))
             {
-                Debug.Log("Going to Level0...");
-                Director.ChangeScene(Director.Scene.Level0);
+                Debug.Log("Going to next scene...");
+                Director.NextScene();
             }
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                Debug.Log("Going to Level1...");
-                Director.ChangeScene(Director.Scene.Level1);
-            }
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                Debug.Log("Going to Level2...");
-                Director.ChangeScene(Director.Scene.Level2);
-            }
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                Debug.Log("Going to main menu...");
-                Director.ChangeScene(Director.Scene.Menu);
-            }
+            
         }
     }
 
