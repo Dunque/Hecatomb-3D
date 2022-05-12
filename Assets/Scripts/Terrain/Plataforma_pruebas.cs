@@ -25,7 +25,7 @@ public class Plataforma_pruebas : MonoBehaviour
             curPos = nextPos;
             nextPos++;
         }
-        if (nextPos > target.Length - 1) {
+        if (nextPos > target.Length-1) {
             nextPos = 0;
             
         }
