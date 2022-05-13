@@ -27,7 +27,14 @@ public class BaseEnemyStats : EntityStats
 
     float[] boneWeights = { 0, 0, 0 };
     public bool isHurt = false;
-    
+
+    EnemyManager enemyManager;
+
+    public bool canBeDestroyed = true;
+
+    public ParticleSystem spawnSmoke;
+
+
     public override void Awake()
     {
         base.Awake();
@@ -37,6 +44,7 @@ public class BaseEnemyStats : EntityStats
         weaponSlotManager = GetComponentInChildren<EnemyWeaponSlotManager>();
         ragdollEnemy = GetComponent<RagdollEnemy>();
         weaponIK = GetComponentInChildren<WeaponIK>();
+        enemyManager = GetComponent<EnemyManager>();
     }
 
     private void Update() {
@@ -59,17 +67,17 @@ public class BaseEnemyStats : EntityStats
         currentHp -= damage;
 
         blinkTimer = blinkDuration;
-        if (animator != null)
-        {
-            animator.CrossFade($"Hit{Random.Range(0, numHitAnims)}",0.2f);
-            
-            if (currentHp <= 0f)
-            {
-                isDead = true;
-                currentHp = 0f;
-                Die();
-            }
+        if (animator != null && numHitAnims > 0) {
+            animator.CrossFade($"Hit{Random.Range(0, numHitAnims)}", 0.2f);
         }
+            
+        if (currentHp <= 0f)
+        {
+            isDead = true;
+            currentHp = 0f;
+            Die();
+        }
+
     }
 
     public void SaveBoneWeights() {
@@ -114,6 +122,11 @@ public class BaseEnemyStats : EntityStats
         if(ragdollEnemy != null) {
             ragdollEnemy.Die();
         }
-        Destroy(gameObject, timeToDestroy);
+        if(canBeDestroyed)
+            Destroy(gameObject, timeToDestroy);
+        if (spawnSmoke != null)
+            spawnSmoke.Play();
     }
+
+    
 }

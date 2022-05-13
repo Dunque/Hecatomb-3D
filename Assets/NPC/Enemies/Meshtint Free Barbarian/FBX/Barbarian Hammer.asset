@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649ee30bbf32c974597f9f46af338a57, type: 3}
+  m_Name: Barbarian Hammer
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 0}
+  itemName: Hammer
+  modelPrefab: {fileID: 3013245298710283751, guid: 647f03ea538db364790333785335ac84,
+    type: 3}
+  isUnarmed: 0
+  right_hand_idle: Idle
+  left_hand_idle: Idle
+  th_hand_idle: Idle
+  oh_light_attack_01: SwordAttack01
+  oh_light_attack_02: SwordAttack01
+  th_light_attack_01: SwordAttack01
+  th_light_attack_02: SwordAttack01
+  baseStamina: 20
+  lightAttackMultiplier: 1
+  heavyAttackMultiplier: 2

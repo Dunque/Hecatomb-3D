@@ -16,7 +16,7 @@ public class IdleState : State
             if (entityStats != null) {
                 Vector3 targetDirection = entityStats.transform.position - transform.position;
                 float viewableAngle = Vector3.Angle(targetDirection, transform.forward);
-
+                
                 if (viewableAngle > enemyManager.minimumDetectionAngle && viewableAngle < enemyManager.maximumDetectionAngle) {
                     enemyManager.currentTarget = entityStats;
                 }

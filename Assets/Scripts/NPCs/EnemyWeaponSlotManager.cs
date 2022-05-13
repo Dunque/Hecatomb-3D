@@ -10,8 +10,8 @@ public class EnemyWeaponSlotManager : MonoBehaviour
     WeaponHolderSlot rightHandSlot;
     WeaponHolderSlot leftHandSlot;
 
-    DamageCollider leftHandDamageCollider;
-    DamageCollider rightHandDamageCollider;
+    public DamageCollider leftHandDamageCollider;
+    public DamageCollider rightHandDamageCollider;
 
     public PlayerStats playerStats;
 

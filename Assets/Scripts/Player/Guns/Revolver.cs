@@ -25,8 +25,14 @@ public class Revolver : Gun
         if (Physics.SphereCast(cam.position, 0.1f, shootingDir, out hit, range, ~ignoreLayers))
         {
             EntityStats entStats;
-            if ((entStats = hit.collider.GetComponent<EntityStats>()) != null)
-            {
+            entStats = hit.transform.GetComponent<EntityStats>();
+            if (entStats == null) {
+                entStats = hit.transform.GetComponentInParent<EntityStats>();
+            }
+            if (entStats == null) {
+                entStats = hit.transform.GetComponentInChildren<EntityStats>();
+            }
+            if (entStats != null) {
                 entStats.ReceiveDamage(damage);
                 entStats.ReceiveKnockback(knockback, shootingDir);
             }

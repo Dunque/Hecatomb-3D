@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionAnimation: SwordAttack01
   attackScore: 3
-  recoveryTime: 2
+  recoveryTime: 1.5
   maximumAttackAngle: 70
   minimumAttackAngle: -70
   minimumDistanceNeededToAttack: 0

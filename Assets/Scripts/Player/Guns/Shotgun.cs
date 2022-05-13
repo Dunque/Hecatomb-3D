@@ -38,7 +38,15 @@ public class Shotgun : Gun {
             
             if (Physics.SphereCast(startPosition, 0.1f, shootingDir, out hit, range, ~ignoreLayers)) {
                 EntityStats entStats;
-                if ((entStats = hit.transform.GetComponent<EntityStats>()) != null) {
+                entStats = hit.transform.GetComponent<EntityStats>();
+                if (entStats == null) {
+                    entStats = hit.transform.GetComponentInParent<EntityStats>();
+                }
+                if (entStats == null) {
+                    entStats = hit.transform.GetComponentInChildren<EntityStats>();
+                }
+                if (entStats != null) {
+                    Debug.Log(damage);
                     entStats.ReceiveDamage(damage);
                     if (entStats.canReceiveKnockback) {
                         entStats.ReceiveKnockback(knockback, shootingDir);

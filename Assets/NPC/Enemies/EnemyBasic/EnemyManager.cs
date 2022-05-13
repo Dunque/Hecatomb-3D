@@ -38,11 +38,13 @@ public class EnemyManager : MonoBehaviour
         enemyStats = GetComponent<BaseEnemyStats>();
         enemyRigidBody = GetComponent<Rigidbody>();
         navmeshAgent = GetComponentInChildren<NavMeshAgent>();
-        navmeshAgent.enabled = false;
+        if(navmeshAgent)
+            navmeshAgent.enabled = false;
     }
 
     private void Start() {
-        enemyRigidBody.isKinematic = false;
+        if(enemyRigidBody)
+            enemyRigidBody.isKinematic = false;
     }
 
     private void Update() {
@@ -51,8 +53,10 @@ public class EnemyManager : MonoBehaviour
     }
 
     private void LateUpdate() {
-        navmeshAgent.transform.localPosition = Vector3.zero;
-        navmeshAgent.transform.localRotation = Quaternion.identity;
+        if (navmeshAgent) {
+            navmeshAgent.transform.localPosition = Vector3.zero;
+            navmeshAgent.transform.localRotation = Quaternion.identity;
+        }
     }
 
     private void HandleStateMachine() {

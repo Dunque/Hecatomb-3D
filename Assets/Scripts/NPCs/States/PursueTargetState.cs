@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Mathematics;
 
 public class PursueTargetState : State
 {
@@ -46,9 +47,10 @@ public class PursueTargetState : State
             Vector3 relativeDirection = transform.InverseTransformDirection(enemyManager.navmeshAgent.desiredVelocity);
             Vector3 targetVelocity = enemyManager.enemyRigidBody.velocity;
 
+
             enemyManager.navmeshAgent.enabled = true;
             enemyManager.navmeshAgent.SetDestination(enemyManager.currentTarget.transform.position);
-            //enemyManager.navmeshAgent.destination = enemyManager.currentTarget.transform.position;
+
             enemyManager.enemyRigidBody.velocity = targetVelocity;
             enemyManager.transform.rotation = Quaternion.Slerp(enemyManager.transform.rotation, enemyManager.navmeshAgent.transform.rotation, enemyManager.rotationSpeed / Time.deltaTime);
         }

@@ -8,7 +8,7 @@ public class CombatShootState : CombatStanceState
         float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
         Vector3 targetDirection = enemyManager.currentTarget.transform.position - enemyManager.transform.position;
         float viewableAngle = Vector3.Angle(targetDirection, enemyManager.transform.forward);
-
+        
         enemyAnimatorManager.anim.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
 
         if (enemyManager.currentRecoveryTime <= 0 && distanceFromTarget <= enemyManager.maximumAttackRange && distanceFromTarget > enemyManager.minimumAttackRange && viewableAngle > enemyManager.minimumDetectionAngle && viewableAngle < enemyManager.maximumDetectionAngle) {
