@@ -94,7 +94,8 @@ public class PlayerStats : EntityStats
 
         // Open losing menu
         Debug.Log("Opening losing menu...");
-        //Director.OpenLosingMenu();
+        LosingMenu.aux = true;
+        //LosingMenu.Losing();
     }
 
     //This coroutine is in charge of rotating the camera's x angle towards 0, in order to look like the character is
