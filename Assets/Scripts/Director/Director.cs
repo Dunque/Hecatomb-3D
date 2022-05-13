@@ -32,6 +32,7 @@ public static class Director
         SceneManager.LoadScene(sceneIndex);
     }
 
+    // Reset the actal scene, reload that scene
     public static void ResetScene()
     {
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -43,20 +44,5 @@ public static class Director
     {
         Debug.Log("Quitting game...");
         Application.Quit();
-    }
-
-
-    // In a level, open pause menu
-    public static void OpenPauseMenu()
-    {
-        //Cursor.visible = true;
-        // TODO
-    }
-
-    // In a level, open losing menu
-    public static void OpenLosingMenu()
-    {
-        //Cursor.visible = true;
-        // TODO
     }
 }

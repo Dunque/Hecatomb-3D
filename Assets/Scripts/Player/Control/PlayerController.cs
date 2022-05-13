@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Cancel"))
             {
                 Debug.Log("Opening pause menu...");
-                Director.OpenPauseMenu();
+                //Director.OpenPauseMenu();
             }
 
 
