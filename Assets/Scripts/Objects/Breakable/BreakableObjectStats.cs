@@ -45,5 +45,9 @@ namespace Assets.Scripts.NPCs
                 Destroy(broken, 5f);
             }
         }
+
+        public override void ReceiveDamage(float damage) {
+            return;
+        }
     }
 }

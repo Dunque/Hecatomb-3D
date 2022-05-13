@@ -17,26 +17,53 @@ public abstract class Gun : MonoBehaviour
 
     public ShotTrails shotTrails;
 
+    public Light muzzle;
+    public AudioSource sound;
+
     [Header("Animation")]
     public Sprite gunIcon;
     public string animName;
+    
+    public LayerMask ignoreLayers;
 
+    public bool isPlayer;
+
+    // Start is called before the first frame update
     public virtual void Awake()
     {
         Camera camera = GetComponentInParent<Camera>();
         shotTrails = GetComponentInParent<ShotTrails>();
-        cam = camera.transform;
+        if(camera!=null)
+            cam = camera.transform;
         currentAmmo = maxAmmo;
+        ignoreLayers = LayerMask.GetMask("CharacterCollisionBlocker");
     }
 
     public virtual void Shoot()
     {
         shotTrails.MuzzleExplosion();
+        if(muzzle != null && !isPlayer) {
+            muzzle.enabled = true;
+            StartCoroutine(TurnDownMuzzle());
+        }
+        if (sound != null) {
+            sound.Play();
+        }
     }
 
-    public virtual void StopShoot()
-    {
+    IEnumerator TurnDownMuzzle() {
+        for (int i = 1; i < 5; i++) {
+            muzzle.intensity = i * 2;
+            yield return new WaitForSeconds(0.05f);
+        }
+        for (int i = 5; i > 1; i--) {
+            muzzle.intensity = i * 2;
+            yield return new WaitForSeconds(0.05f);
+        }
+        muzzle.enabled = false;
+    }
 
+    public virtual void StopShoot() {
     }
 
     public void AddAmmo(int amount)

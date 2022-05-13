@@ -8,6 +8,7 @@ TagManager:
   - Control
   - Roca
   - EnemyHitbox
+  - Hittable
   layers:
   - Default
   - TransparentFX
@@ -19,9 +20,9 @@ TagManager:
   - 
   - TestShader
   - Character
-  - GrapplingHook
-  - 
-  - 
+  - CharacterCollisionBlocker
+  - Player
+  - Suelo
   - 
   - 
   - 

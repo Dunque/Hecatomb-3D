@@ -91,6 +91,22 @@ public class PlayerController : MonoBehaviour
     public AudioClip[] thrustClips;
     public AudioClip[] dashClips;
 
+
+    [Header("Footsteps")]
+    public float footstepTimer;
+
+    public float baseStepSpeed = 0.45f;
+    public float fastStepSpeed = 0.25f;
+    public float GetCurrentStepOffset => body.velocity.magnitude > maxSpeed + 1f? fastStepSpeed : baseStepSpeed;
+
+    AnimatorHandler animatorHandler;
+
+    void OnValidate()
+    {
+        minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
+        minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
+    }
+    
     void Awake()
     {
         //initialize attack data
@@ -116,6 +132,8 @@ public class PlayerController : MonoBehaviour
         wpnManager = GetComponent<WeaponManager>();
         playerAudioSource = GetComponent<AudioSource>();
         stats = GetComponent<PlayerStats>();
+
+        animatorHandler = GetComponentInChildren<AnimatorHandler>();
 
         trans = transform;
 

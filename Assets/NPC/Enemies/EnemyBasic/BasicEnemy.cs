@@ -8,20 +8,20 @@ public class BasicEnemy : MonoBehaviour {
     public Collider hitbox;
     public EntityStats entityStats;
 
+    AnimatorHandler animatorHandler;
+
     // Start is called before the first frame update
     public virtual void Awake() {
         hitbox = GetComponent<CapsuleCollider>();
         body = GetComponent<Rigidbody>();
         entityStats = GetComponent<EntityStats>();
+        animatorHandler = GetComponentInChildren<AnimatorHandler>();
     }
 
-    // Update is called once per frame
-    public virtual void Update() {
 
-        if (entityStats.isDead) {
-            hitbox.isTrigger = true;
-            body.constraints = RigidbodyConstraints.FreezePosition;
-        }
+    public virtual void Die() {
+        hitbox.isTrigger = true;
+        body.constraints = RigidbodyConstraints.FreezePosition;
     }
 
 }

@@ -12,11 +12,16 @@ public class EntityStats : MonoBehaviour
     public float iframesTime = 0.2f;
     public bool damageable = true;
     public bool isDead;
+    
+    protected bool damageable = true;
 
+    PlayerController playerController;
+    
     public virtual void Awake()
     {
         currentHp = maxHp;
         body = GetComponent<Rigidbody>();
+        playerController = GetComponent<PlayerController>();
     }
 
     //Timer used to prevent being damaged a lot of times in the span of a few frames
@@ -35,6 +40,9 @@ public class EntityStats : MonoBehaviour
 
     public virtual void ReceiveDamage(float damage)
     {
+        if (playerController.isDashing) {
+            return;
+        }
         if (damageable)
         {
             currentHp -= damage;
@@ -72,13 +80,14 @@ public class EntityStats : MonoBehaviour
         {
             //Getting the data from the damaging hitbox
             HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();
-
             //Play hitting sound
             hbs.PlayHitSounds();
+            
+            //Now receive the damage from the hitbox data
+            ReceiveDamage(hbs.damage);
 
-            //Check if it can receive knockback, and the direction of it
-            if (canReceiveKnockback)
-            {
+            //FInally check if it can receive knockback, and the direction of it
+            if (canReceiveKnockback) {
                 if (hbs.knockbackDir != Vector3.zero)
                     ReceiveKnockback(hbs.knockback, hbs.knockbackDir);
                 else

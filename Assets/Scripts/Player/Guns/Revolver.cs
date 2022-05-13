@@ -22,12 +22,18 @@ public class Revolver : Gun
 
         RaycastHit hit;
         Vector3 shootingDir = GetShootingDir();
-
-        if (Physics.SphereCast(cam.position, 0.1f, shootingDir, out hit, range))
+        if (Physics.SphereCast(cam.position, 0.1f, shootingDir, out hit, range, ~ignoreLayers))
         {
             EntityStats entStats;
-            if ((entStats = hit.collider.GetComponent<EntityStats>()) != null)
-            {
+            entStats = hit.transform.GetComponent<EntityStats>();
+            if (entStats == null) {
+                entStats = hit.transform.GetComponentInParent<EntityStats>();
+            }
+            if (entStats == null) {
+                entStats = hit.transform.GetComponentInChildren<EntityStats>();
+            }
+            if (entStats != null) {
+                entStats.ReceiveDamage(damage);
                 entStats.ReceiveKnockback(knockback, shootingDir);
                 entStats.ReceiveDamage(damage);
             }
@@ -37,7 +43,7 @@ public class Revolver : Gun
         {
             shotTrails.CreateTrail(cam.position + shootingDir * range);
         }
-        
+
     }
 
     public override Vector3 GetShootingDir()
