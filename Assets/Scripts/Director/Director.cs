@@ -32,6 +32,12 @@ public static class Director
         SceneManager.LoadScene(sceneIndex);
     }
 
+    public static void ResetScene()
+    {
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(sceneIndex);
+    }
+
     // Close the game
     public static void ExitProgram()
     {
@@ -43,14 +49,14 @@ public static class Director
     // In a level, open pause menu
     public static void OpenPauseMenu()
     {
-        Cursor.visible = true;
+        //Cursor.visible = true;
         // TODO
     }
 
     // In a level, open losing menu
     public static void OpenLosingMenu()
     {
-        Cursor.visible = true;
+        //Cursor.visible = true;
         // TODO
     }
 }
