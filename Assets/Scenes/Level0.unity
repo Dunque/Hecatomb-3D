@@ -4650,7 +4650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a6aaa58f8fedf3428c4f93ba2b3e103, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 000dd2c29ab3a8f409fc3389a04cab0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4804,7 +4804,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a6aaa58f8fedf3428c4f93ba2b3e103, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 000dd2c29ab3a8f409fc3389a04cab0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6561,7 +6561,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-171728
+  m_Name: pb_Mesh-383204
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7102,7 +7102,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-166998
+  m_Name: pb_Mesh-378474
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12738,7 +12738,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-166676
+  m_Name: pb_Mesh-378152
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13012,7 +13012,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a6aaa58f8fedf3428c4f93ba2b3e103, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 000dd2c29ab3a8f409fc3389a04cab0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13158,7 +13158,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a6aaa58f8fedf3428c4f93ba2b3e103, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 000dd2c29ab3a8f409fc3389a04cab0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13356,7 +13356,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-167018
+  m_Name: pb_Mesh-378494
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14203,7 +14203,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a6aaa58f8fedf3428c4f93ba2b3e103, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 000dd2c29ab3a8f409fc3389a04cab0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14814,7 +14814,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-165814
+  m_Name: pb_Mesh-377290
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15527,7 +15527,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-167038
+  m_Name: pb_Mesh-378514
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15957,7 +15957,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-165854
+  m_Name: pb_Mesh-377330
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -17331,7 +17331,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-166656
+  m_Name: pb_Mesh-378132
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -18777,7 +18777,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-171802
+  m_Name: pb_Mesh-383278
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -21166,7 +21166,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a6aaa58f8fedf3428c4f93ba2b3e103, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 000dd2c29ab3a8f409fc3389a04cab0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21850,7 +21850,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-167330
+  m_Name: pb_Mesh-378806
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22333,7 +22333,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-165834
+  m_Name: pb_Mesh-377310
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22948,7 +22948,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-171688
+  m_Name: pb_Mesh-383164
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23987,7 +23987,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 160}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1828439222
 MonoBehaviour:
@@ -25000,7 +25000,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7a6aaa58f8fedf3428c4f93ba2b3e103, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 000dd2c29ab3a8f409fc3389a04cab0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25024,7 +25024,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-166696
+  m_Name: pb_Mesh-378172
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -34472,7 +34472,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 25.372498, y: 147.9296}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2028484177
 MonoBehaviour:
@@ -34494,7 +34494,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PAUSA
+  m_text: OPCIONES
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -35151,7 +35151,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-171708
+  m_Name: pb_Mesh-383184
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
