@@ -11,9 +11,18 @@ public class ExitBox : MonoBehaviour
         {
             // Turn screen to black
             collider.GetComponentInParent<PlayerStats>().fade.FadeToBlack();
-            // Go to next scene
-            Director.NextScene();
-
+            // Go to next scene after the screen fades
+            StartCoroutine(DelayNext(1.7f));
         }
     }
+
+    IEnumerator DelayNext(float delayTime)
+    {
+        //Wait for the specified delay time before continuing.
+        yield return new WaitForSeconds(delayTime);
+
+        //Do the action after the delay time has finished.
+        Director.NextScene();
+    }
+
 }

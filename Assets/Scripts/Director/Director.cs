@@ -26,11 +26,13 @@ public static class Director
 
         if (sceneIndex == 0)
         {
+            Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
 
         SceneManager.LoadScene(sceneIndex);
     }
+
 
     // Reset the actal scene, reload that scene
     public static void ResetScene()
