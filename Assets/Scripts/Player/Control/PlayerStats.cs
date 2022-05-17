@@ -12,6 +12,14 @@ public class PlayerStats : EntityStats
     public AudioClip[] hurtClips;
     public AudioClip deathClip;
 
+    public CapsuleCollider characterCollider;
+    public CapsuleCollider characterCollisionBlockerCollider;
+
+    public Collider enemyWeaponCollision;
+    public float damageCooldown = 1;
+    float timerCooldown = 0;
+    bool weaponDamage = false;
+
     public override void Awake()
     {
         base.Awake();
@@ -20,6 +28,10 @@ public class PlayerStats : EntityStats
         sf = GetComponentInChildren<ScreenFlash>();
         fade = GetComponentInChildren<Fade>();
         hbar.SetMaxHealth(maxHp);
+    }
+
+    private void Start() {
+        Physics.IgnoreCollision(characterCollider, characterCollisionBlockerCollider, true);
     }
 
     public void DamageSound()
@@ -132,6 +144,16 @@ public class PlayerStats : EntityStats
             }
 
             ReceiveDamage(hbs.damage);
+        }
+    }
+
+    public void Update() {
+        if (weaponDamage) {
+            timerCooldown += Time.deltaTime;
+            if (timerCooldown >= damageCooldown) {
+                weaponDamage = false;
+                timerCooldown = 0;
+            }
         }
     }
 }

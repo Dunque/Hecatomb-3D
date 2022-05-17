@@ -23,12 +23,12 @@ public class DamageCollider : MonoBehaviour
         damageCollider.enabled = false;
     }
 
-    private void OnTriggerEnter(Collider collision) {
+    /*private void OnTriggerEnter(Collider collision) {
         if (collision.tag == "Hittable") {
             EntityStats entStats = collision.GetComponent<PlayerStats>();
             if(entStats != null) {
                 entStats.ReceiveDamage(currentWeaponDamage);
             }
         }
-    }
+    }*/
 }

@@ -40,12 +40,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ground Checks")]
     [SerializeField, Range(0, 90)] public float maxGroundAngle = 45f;
+    [SerializeField, Range(0, 90)] public float maxStairsAngle = 45f;
     [SerializeField, Range(0f, 100f)] public float maxSnapSpeed = 100f;
     [SerializeField, Min(0f)] public float probeDistance = 1.5f;
     public LayerMask probeMask = -1, stairsMask = -1;
     int groundContactCount, steepContactCount;
     public bool OnGround => groundContactCount > 0;
     float minGroundDotProduct;
+    float minStairsDotProduct;
     public int stepsSinceLastGrounded, stepsSinceLastJump;
     Vector3 connectionWorldPosition, connectionLocalPosition;
 

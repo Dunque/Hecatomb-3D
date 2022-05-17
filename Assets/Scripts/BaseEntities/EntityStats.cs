@@ -13,7 +13,6 @@ public class EntityStats : MonoBehaviour
     public bool damageable = true;
     public bool isDead;
     
-    protected bool damageable = true;
 
     PlayerController playerController;
     
@@ -76,7 +75,7 @@ public class EntityStats : MonoBehaviour
     public virtual void OnTriggerEnter(Collider collider)
     {
         //These two tags represent that this entity may be damaged by both player or enemy hitboxes
-        if (collider.tag == "hitbox" || collider.tag == "EnemyHitbox")
+        if (collider.tag == "hitbox" )
         {
             //Getting the data from the damaging hitbox
             HitboxStats hbs = collider.gameObject.GetComponent<HitboxStats>();
@@ -95,9 +94,7 @@ public class EntityStats : MonoBehaviour
                     ReceiveKnockback(hbs.knockback, transform.position - collider.transform.position);
                 }
             }
-
-            //Now receive the damage from the hitbox data
-            ReceiveDamage(hbs.damage);
+           
         }
     }
 

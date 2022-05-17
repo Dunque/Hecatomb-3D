@@ -3,11 +3,11 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Reflection;
 
+#if UNITY_EDITOR
 public class AnimationEventCopier : EditorWindow
 {
     private AnimationClip sourceObject;
     private AnimationClip targetObject;
-    [MenuItem("Window/Animation Event Copier")]
     static void Init()
     {
         GetWindow(typeof(AnimationEventCopier));
@@ -44,3 +44,4 @@ public class AnimationEventCopier : EditorWindow
         }
     }
 }
+#endif
