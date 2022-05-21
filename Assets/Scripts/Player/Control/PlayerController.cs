@@ -40,14 +40,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ground Checks")]
     [SerializeField, Range(0, 90)] public float maxGroundAngle = 45f;
-    [SerializeField, Range(0, 90)] public float maxStairsAngle = 45f;
     [SerializeField, Range(0f, 100f)] public float maxSnapSpeed = 100f;
     [SerializeField, Min(0f)] public float probeDistance = 1.5f;
     public LayerMask probeMask = -1, stairsMask = -1;
     int groundContactCount, steepContactCount;
     public bool OnGround => groundContactCount > 0;
     float minGroundDotProduct;
-    float minStairsDotProduct;
     public int stepsSinceLastGrounded, stepsSinceLastJump;
     Vector3 connectionWorldPosition, connectionLocalPosition;
 
@@ -100,14 +98,6 @@ public class PlayerController : MonoBehaviour
     public float baseStepSpeed = 0.45f;
     public float fastStepSpeed = 0.25f;
     public float GetCurrentStepOffset => body.velocity.magnitude > maxSpeed + 1f? fastStepSpeed : baseStepSpeed;
-
-    AnimatorHandler animatorHandler;
-
-    void OnValidate()
-    {
-        minGroundDotProduct = Mathf.Cos(maxGroundAngle * Mathf.Deg2Rad);
-        minStairsDotProduct = Mathf.Cos(maxStairsAngle * Mathf.Deg2Rad);
-    }
     
     void Awake()
     {
@@ -134,8 +124,6 @@ public class PlayerController : MonoBehaviour
         wpnManager = GetComponent<WeaponManager>();
         playerAudioSource = GetComponent<AudioSource>();
         stats = GetComponent<PlayerStats>();
-
-        animatorHandler = GetComponentInChildren<AnimatorHandler>();
 
         trans = transform;
 
@@ -189,8 +177,6 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Opening pause menu...");
                 //Director.OpenPauseMenu();
             }
-
-
 
             // Shortcut to kill player (mainly for debugging)
             if (Input.GetKeyDown(KeyCode.K))

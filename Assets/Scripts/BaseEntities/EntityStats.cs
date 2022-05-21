@@ -13,14 +13,10 @@ public class EntityStats : MonoBehaviour
     public bool damageable = true;
     public bool isDead;
     
-
-    PlayerController playerController;
-    
     public virtual void Awake()
     {
         currentHp = maxHp;
         body = GetComponent<Rigidbody>();
-        playerController = GetComponent<PlayerController>();
     }
 
     //Timer used to prevent being damaged a lot of times in the span of a few frames
@@ -39,9 +35,6 @@ public class EntityStats : MonoBehaviour
 
     public virtual void ReceiveDamage(float damage)
     {
-        if (playerController.isDashing) {
-            return;
-        }
         if (damageable)
         {
             currentHp -= damage;
@@ -54,7 +47,6 @@ public class EntityStats : MonoBehaviour
             }
             StartCoroutine(IframesTimer(iframesTime));
         }
-
     }
 
     public virtual void ReceiveHealing(float heal)
